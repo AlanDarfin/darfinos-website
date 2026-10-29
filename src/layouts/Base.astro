@@ -1,0 +1,9 @@
+---
+import '../styles/global.css';
+import { siteConfig, githubUrl } from '../lib/config';
+const { title = 'DarfinOS', description = siteConfig.description } = Astro.props;
+---
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><meta name="theme-color" content="#101114"/><title>{title}</title></head><body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="sticky top-0 z-50 bg-coal/90 backdrop-blur border-b border-white/10"><nav class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4"><a href="/" class="text-xl font-extrabold tracking-tight"><span class="text-electric">ϟ</span> DarfinOS</a><div class="flex items-center gap-4 md:gap-7 text-sm text-gray-300"><a href="/#recursos" class="hover:text-electric hidden sm:inline">Recursos</a><a href="/#galeria" class="hover:text-electric hidden sm:inline">Galeria</a><a href="/#downloads" class="hover:text-electric">Começar</a><a href="/docs/" class="hover:text-electric">Documentação</a>{githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="hover:text-electric">GitHub ↗</a>}</div></nav></header>
+<main id="conteudo"><slot /></main><footer class="border-t border-white/10 py-10 mt-12"><div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-gray-400"><p><span class="text-electric">ϟ</span> DarfinOS — projeto independente de personalização do Arch Linux.</p><p>Não afiliado oficialmente ao Arch Linux ou aos projetos relacionados.</p></div></footer>
+</body></html>
