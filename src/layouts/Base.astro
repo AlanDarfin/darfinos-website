@@ -1,9 +1,48 @@
 ---
 import '../styles/global.css';
-import { siteConfig, githubUrl } from '../lib/config';
-const { title = 'DarfinOS', description = siteConfig.description } = Astro.props;
+import { siteConfig, githubUrl, releaseUrl } from '../lib/config';
+const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig.description } = Astro.props;
 ---
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><meta name="theme-color" content="#101114"/><title>{title}</title></head><body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="sticky top-0 z-50 bg-coal/90 backdrop-blur border-b border-white/10"><nav class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4"><a href="/" class="text-xl font-extrabold tracking-tight"><span class="text-electric">ϟ</span> DarfinOS</a><div class="flex items-center gap-4 md:gap-7 text-sm text-gray-300"><a href="/#recursos" class="hover:text-electric hidden sm:inline">Recursos</a><a href="/#galeria" class="hover:text-electric hidden sm:inline">Galeria</a><a href="/#downloads" class="hover:text-electric">Começar</a><a href="/docs/" class="hover:text-electric">Documentação</a>{githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="hover:text-electric">GitHub ↗</a>}</div></nav></header>
-<main id="conteudo"><slot /></main><footer class="border-t border-white/10 py-10 mt-12"><div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-gray-400"><p><span class="text-electric">ϟ</span> DarfinOS — projeto independente de personalização do Arch Linux.</p><p>Não afiliado oficialmente ao Arch Linux ou aos projetos relacionados.</p></div></footer>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#101114" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header">
+  <nav class="max-w-6xl mx-auto px-5 site-nav" aria-label="Navegação principal">
+    <a href="/" class="brand"><span class="brand-symbol" aria-hidden="true">ϟ</span> Darfin<span class="text-electric">OS</span></a>
+    <div class="desktop-links">
+      <a href="/#recursos">Recursos</a><a href="/#galeria">Galeria</a>
+      <a href="/ferramentas/">Ferramentas</a><a href="/docs/">Documentação</a>
+      <a href={releaseUrl} target="_blank" rel="noopener noreferrer">Releases ↗</a>
+    </div>
+    <details class="mobile-menu">
+      <summary aria-label="Abrir o menu">Menu ☰</summary>
+      <div class="mobile-links">
+        <a href="/#recursos">Recursos</a><a href="/#galeria">Galeria</a>
+        <a href="/ferramentas/">Ferramentas</a><a href="/docs/">Documentação</a>
+        <a href={releaseUrl} target="_blank" rel="noopener noreferrer">Releases ↗</a>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+    </details>
+  </nav>
+</header>
+<main id="conteudo"><slot /></main>
+<footer class="site-footer">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-7">
+    <div><p class="font-bold text-white"><span class="text-electric">ϟ</span> DarfinOS</p><p class="mt-2">Projeto independente de personalização do Arch Linux.</p><p class="mt-2 text-xs">Não afiliado oficialmente ao Arch Linux ou aos projetos citados.</p></div>
+    <div class="flex flex-wrap items-start gap-5"><a href="/docs/">Documentação</a><a href="/ferramentas/">Ferramentas</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">Código ↗</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">Suporte ↗</a></div>
+  </div>
+</footer>
 </body></html>
