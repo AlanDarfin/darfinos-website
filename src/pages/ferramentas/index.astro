@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { siteConfig } from '../../lib/config';
+const groups = [
+  { title: 'Sistema e ambiente', names: ['Arch Linux', 'SonicDE', 'XLibre', 'CachyOS'], desc: 'Componentes do ecossistema Linux usados ou oferecidos como integração opcional.' },
+  { title: 'Inspiração e experimentação', names: ['Bedrock Linux', 'LinuxToys'], desc: 'Projetos independentes que ampliam o universo do Linux e inspiram o DarfinOS.' }
+];
+---
+<Base title="Ferramentas e créditos · DarfinOS" description="Projetos independentes, integrações e inspirações do DarfinOS.">
+<section class="max-w-6xl mx-auto px-5 py-20">
+  <p class="section-kicker mb-4">// ECOSSISTEMA E CRÉDITOS</p>
+  <h1 class="section-heading mb-5">Nada se constrói <span class="text-electric">sozinho.</span></h1>
+  <p class="section-lead">O DarfinOS organiza ferramentas de terceiros, mas não substitui ou representa oficialmente seus desenvolvedores. Os links abaixo levam diretamente às equipes e documentações originais.</p>
+  {groups.map((group) => <section class="mt-14">
+    <h2 class="text-3xl font-bold mb-2">{group.title}</h2><p class="text-gray-400 mb-6">{group.desc}</p>
+    <div class="grid md:grid-cols-2 gap-5">{group.names.map(name => {
+      const item = siteConfig.links.find(link => link.name === name);
+      return item ? <article class="card flex flex-col justify-between gap-6">
+        <div><p class="section-kicker">PROJETO INDEPENDENTE</p><h3 class="text-xl font-bold mt-3">{item.name}</h3><p class="text-gray-400 mt-3">Consulte o site oficial para versões, suporte e documentação específicos.</p></div>
+        <a class="text-electric font-bold text-sm" href={item.url} target="_blank" rel="noopener noreferrer">Abrir site oficial ↗</a>
+      </article> : null;
+    })}</div>
+  </section>)}
+  <div class="security-note mt-12">As imagens, marcas e projetos pertencem aos seus respectivos autores. Nenhuma afiliação ou endosso é presumido.</div>
+  <div class="flex flex-wrap gap-3 mt-10"><a href="/#galeria" class="btn btn-primary">Ver galeria ↗</a><a href="/docs/" class="btn btn-outline">Guia de instalação ↗</a></div>
+</section></Base>
