@@ -18,7 +18,7 @@
 
 ## ✦ Sobre
 
-Este repositório reúne o **site do DarfinOS**, um projeto opinativo de **personalização e pós-instalação do Arch Linux**. O site apresenta a proposta, capturas de tela, ferramentas utilizadas, links para downloads e recursos da comunidade.
+Este repositório reúne o **site do DarfinOS**, um projeto opinativo de **personalização e pós-instalação do Arch Linux**. O site apresenta a proposta, galeria filtrável, ferramentas independentes, downloads, documentação e comandos de diagnóstico para quem usa o projeto.
 
 O DarfinOS **não é uma distribuição Linux independente**: é uma experiência de configuração do Arch Linux, com escolhas próprias e automação.
 
@@ -52,3 +52,27 @@ Sugestões, melhorias visuais e correções são bem-vindas por meio de issues e
 **Feito para quem gosta de deixar o Arch com personalidade. ⚡**
 
 </div>
+
+
+## 🧭 Páginas e funcionalidades
+
+- **/** — apresentação, 34 etapas, quatro presets, guia em três passos e galeria interativa.
+- **/docs/** — instalação segura, Doctor, plano de execução, logs e FAQ com comandos copiáveis.
+- **/ferramentas/** — créditos e links oficiais das tecnologias e inspirações.
+
+A interface estática usa **Astro + Tailwind**; galeria e botões de copiar são aprimoramentos progressivos em JavaScript. Nenhum backend é necessário.
+
+## 🛠 Desenvolver localmente
+
+```bash
+npm ci
+npm run dev
+npm run build
+npm run preview
+```
+
+A branch principal é o código mais recente, mas **não necessariamente uma release versionada**. O site oferece links separados para ZIP do código e página de releases.
+
+O build é verificado em pull requests por [GitHub Actions](.github/workflows/site.yml).
+
+**Site:** https://darfinos.vercel.app/ · **Instalador:** https://github.com/AlanDarfin/DarfinOS

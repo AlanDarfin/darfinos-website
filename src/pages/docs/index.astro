@@ -1,7 +1,45 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { githubUrl, releaseUrl } from '../../lib/config';
+import { githubUrl, releaseUrl, sourceZipUrl } from '../../lib/config';
+const clone = 'git clone https://github.com/AlanDarfin/DarfinOS.git\ncd DarfinOS';
+const doctor = 'python3 DarfinOSInstallScript-TUI.py --doctor\npython3 DarfinOSInstallScript-TUI.py --plan --preset minimal';
+const openTui = 'python3 DarfinOSInstallScript-TUI.py --local';
 ---
-<Base title="Documentação | DarfinOS"><div class="max-w-4xl mx-auto px-5 py-20"><p class="text-electric mono text-sm mb-4">// DOCUMENTAÇÃO</p><h1 class="text-4xl md:text-6xl font-extrabold mb-5">Comece pelo básico.</h1><p class="text-gray-400 text-lg mb-12">Guia inicial do DarfinOS. As instruções específicas devem ser revisadas conforme o script evolui.</p><div class="space-y-6"><section class="card"><h2 class="text-2xl font-bold mb-3">01. Pré-requisitos</h2><p class="text-gray-300">Uma instalação funcional do Arch Linux, conexão com a internet e acesso administrativo. Leia o código e faça backup dos arquivos importantes antes de aplicar mudanças.</p></section><section class="card"><h2 class="text-2xl font-bold mb-3">02. Obter o instalador</h2><pre class="overflow-x-auto text-sm text-electric my-5"><code>git clone https://github.com/AlanDarfin/DarfinOS.git
-cd DarfinOS
-python3 DarfinOSInstallScript-TUI.py --local</code></pre><p class="text-gray-300">Baixe o script pelo repositório oficial do projeto e revise suas opções. Não execute scripts remotos diretamente sem inspecioná-los.</p>{releaseUrl && <p class="mt-4"><a href={releaseUrl} class="text-electric underline">Baixar código atual (ZIP) ↗</a></p>}{githubUrl && <p class="mt-2"><a href={githubUrl} class="text-electric underline">Abrir repositório ↗</a></p>}</section><section class="card"><h2 class="text-2xl font-bold mb-3">03. Escolher os componentes</h2><p class="text-gray-300">Selecione os aplicativos, clientes, ferramentas de terminal e configurações que deseja instalar. Algumas etapas podem exigir privilégios de administrador.</p></section><section class="card"><h2 class="text-2xl font-bold mb-3">04. Solução de problemas</h2><p class="text-gray-300">Guarde o log da instalação para identificar falhas e relatar problemas no repositório. Confira também conflitos de pacotes e repositórios de terceiros.</p></section><section class="card"><h2 class="text-2xl font-bold mb-4">Perguntas frequentes</h2><details class="py-4 border-b border-white/10"><summary class="cursor-pointer text-electric">O DarfinOS é uma distribuição?</summary><p class="mt-3 text-gray-300">É um projeto de personalização e pós-instalação para uma base Arch Linux existente. O site não oferece uma ISO própria.</p></details><details class="py-4 border-b border-white/10"><summary class="cursor-pointer text-electric">Onde estão os downloads?</summary><p class="mt-3 text-gray-300">O código atual está disponível no GitHub e no download ZIP. Ainda não há uma release publicada; o ZIP acompanha a branch main.</p></details><details class="py-4"><summary class="cursor-pointer text-electric">Onde encontro os logs?</summary><p class="mt-3 text-gray-300">O Bash salva logs em ~/.local/state/postinstall/. A TUI usa ~/.local/state/darfinos-tui/logs/ e mantém diários em ~/.local/state/darfinos-tui/runs/.</p></details></section><section class="card"><h2 class="text-2xl font-bold mb-3">Documentação completa</h2><a class="text-electric underline" href="https://github.com/AlanDarfin/DarfinOS#readme">README, etapas, presets e créditos ↗</a><p class="mt-4"><a class="text-electric underline" href="https://github.com/AlanDarfin/DarfinOS/issues">Relatar um problema ↗</a></p></section></div></div></Base>
+<Base title="Documentação · DarfinOS" description="Guia seguro para instalar e personalizar o Arch Linux com o DarfinOS.">
+  <div class="max-w-4xl mx-auto px-5 py-16 md:py-20">
+    <p class="section-kicker mb-4">// DOCUMENTAÇÃO · PRIMEIROS PASSOS</p>
+    <h1 class="section-heading mb-6">O controle vem <span class="text-electric">antes da instalação.</span></h1>
+    <p class="section-lead mb-10">O DarfinOS é um projeto de pós-instalação para Arch Linux. Escolha o que instalar, revise os riscos e mantenha seu sistema sob controle.</p>
+    <nav aria-label="Seções do guia" class="flex flex-wrap gap-3 mb-12 text-sm"><a class="btn btn-outline" href="#requisitos">Requisitos</a><a class="btn btn-outline" href="#obter">Código</a><a class="btn btn-outline" href="#diagnostico">Doctor</a><a class="btn btn-outline" href="#faq">FAQ</a></nav>
+    <div class="space-y-6">
+      <section id="requisitos" class="card doc-card"><p class="section-kicker">01 / PREPARAR</p><h2>Pré-requisitos</h2><p>Arch Linux ou derivado compatível com <code>pacman</code>, conexão com a internet, Git, Python 3 com <code>curses</code> e acesso a <code>sudo</code> por um usuário comum.</p><p>Faça backup dos dados importantes. Mudanças no SonicDE ou XLibre devem ser avaliadas com um meio de recuperação preparado.</p></section>
+      <section id="obter" class="card doc-card"><p class="section-kicker">02 / OBTER</p><h2>Clone o repositório</h2><p>Baixe e inspecione os scripts antes de executá-los. Evite executar scripts remotos diretamente sem revisar o conteúdo.</p><div class="code-panel"><pre><code>{clone}</code></pre><button type="button" data-copy={clone}>Copiar</button></div><p>Alternativas: <a href={sourceZipUrl}>código atual da main (ZIP) ↗</a> ou <a href={releaseUrl}>página de releases ↗</a>.</p></section>
+      <section id="diagnostico" class="card doc-card"><p class="section-kicker">03 / VERIFICAR</p><h2>Doctor e plano de execução</h2><p>O <code>--doctor</code> confere sintaxe Bash, funções e dependências das <strong>34 etapas</strong> sem instalar nada nem solicitar sudo. <code>--plan</code> mostra um preset sem executar. Há também <code>--doctor-json</code> para relatórios.</p><div class="code-panel"><pre><code>{doctor}</code></pre><button type="button" data-copy={doctor}>Copiar</button></div><p>O preset inicial é <code>minimal</code>. O preset <code>full</code> precisa ser selecionado explicitamente e inclui opções avançadas como Bedrock.</p></section>
+      <section class="card doc-card"><p class="section-kicker">04 / PERSONALIZAR</p><h2>Abra a TUI</h2><p>Escolha etapas, pesquise por nome ou descrição, revise dependências e confirme manualmente a execução.</p><div class="code-panel"><pre><code>{openTui}</code></pre><button type="button" data-copy={openTui}>Copiar</button></div><p>Atalhos: <code>/</code> busca, <code>O</code> presets, <code>B</code> prévia de pacotes, <code>Z</code> recuperação, <code>R</code> revisão. Para rodar o Bash sem TUI, consulte <code>--list</code> e <code>--only</code>.</p></section>
+      <section class="card doc-card"><p class="section-kicker">05 / ACOMPANHAR</p><h2>Logs e recuperação</h2><p>O Bash salva logs em <code>~/.local/state/postinstall/</code>. A TUI usa <code>~/.local/state/darfinos-tui/logs/</code> e diários em <code>~/.local/state/darfinos-tui/runs/</code>.</p><p>Use <code>--runs</code> para listar execuções e <code>--resume</code> para selecionar etapas não concluídas. Retomar não desfaz mudanças anteriores.</p></section>
+      <section id="faq" class="card doc-card"><p class="section-kicker">/ PERGUNTAS FREQUENTES</p><h2>Dúvidas comuns</h2><div class="faq">
+        <details><summary>DarfinOS é uma distribuição?</summary><p>Não. É um projeto de personalização do Arch Linux, sem ISO própria.</p></details>
+        <details><summary>Sou obrigado a instalar tudo?</summary><p>Não. A seleção modular permite executar apenas etapas específicas. O preset full não é o padrão.</p></details>
+        <details><summary>Doctor modifica meu sistema?</summary><p>Não. O diagnóstico é somente leitura.</p></details>
+        <details><summary>Onde posso pedir ajuda?</summary><p>Abra uma issue no repositório. Remova senhas, tokens e dados pessoais antes de anexar logs.</p></details>
+      </div></section>
+    </div>
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+    <div class="flex flex-wrap gap-3 mt-9"><a class="btn btn-primary" href={githubUrl + '/tree/main/docs'}>Documentação completa ↗</a><a class="btn btn-outline" href={githubUrl + '/issues'}>Suporte ↗</a></div>
+  </div>
+  <script>
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+      const value = button.dataset.copy;
+      if (!value) return;
+      const status = document.getElementById('copy-status');
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = 'Copiado!';
+        if (status) status.textContent = 'Comandos copiados.';
+      } catch {
+        button.textContent = 'Selecione o texto';
+        if (status) status.textContent = 'Cópia não disponível. Selecione o texto manualmente.';
+      }
+    }));
+  </script>
+</Base>
