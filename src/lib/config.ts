@@ -1,6 +1,6 @@
 export const siteConfig = {
  name: 'DarfinOS', tagline: 'Seu Arch, minhas regras.',
- description: 'Personalização e pós-instalação do Arch Linux, do seu jeito.',
+ description: 'Meu jeito de personalizar uma instalação Arch: ferramentas modulares, desktop e experimentos.',
  githubRepo: 'AlanDarfin/DarfinOS', supportUrl: 'https://github.com/AlanDarfin/DarfinOS/issues',
  links: [
   {
