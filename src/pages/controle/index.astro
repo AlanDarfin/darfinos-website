@@ -12,7 +12,7 @@ const commands = [
 
 const features = [
   {number:'01',title:'Diagnóstico e prevenção',desc:'Doctor, preflight e estado local antes de instalar. O Bash exige seleção explícita: uma chamada sem argumentos não instala o sistema inteiro.', tag:'Somente leitura'},
-  {number:'02',title:'TUI modular',desc:'34 etapas e quatro presets, com inspeção, dependências, histórico de execução, logs, retomada e barra de progresso por etapa.', tag:'Execução com revisão'},
+  {number:'02',title:'TUI modular',desc:'39 etapas e cinco presets, com inspeção, dependências, histórico de execução, logs, retomada e barra de progresso por etapa.', tag:'Execução com revisão'},
   {number:'03',title:'Auditoria de pacotes',desc:'A tecla V e o comando --audit ajudam a identificar o que está presente e o que não foi detectado, sem prometer uma verificação completa.', tag:'Prévia parcial'},
   {number:'04',title:'Perfis portáteis',desc:'Exportar, importar e comparar perfis JSON. A importação desativa automaticamente o modo de confirmação reduzida (-y).', tag:'Sem instalações'},
   {number:'05',title:'Backup de configurações',desc:'Cópias ZIP de um conjunto permitido de arquivos no HOME, verificadas com SHA-256. A restauração apresenta uma prévia e exige confirmação explícita.', tag:'Recuperação limitada'},
@@ -35,6 +35,7 @@ const backupCommands = [
       <div class="flex flex-wrap gap-3 mt-8">
         <a class="btn btn-primary" href="#comandos">Ver comandos</a>
         <a class="btn btn-outline" href="/docs/">Guia de instalação</a>
+        <a class="btn btn-outline" href="/labs/">Explorar DarfinOS Labs</a>
         <a class="btn btn-outline" href={githubUrl + '/pull/4'} target="_blank" rel="noopener noreferrer">Acompanhar desenvolvimento ↗</a>
       </div>
       <p class="text-sm text-gray-400 mt-7">Em desenvolvimento. O código passou por testes automatizados; a instalação gráfica completa em máquina virtual ainda requer validação. Não existe release estável publicada.</p>
