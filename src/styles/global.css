@@ -53,3 +53,9 @@ section[id]{scroll-margin-top:90px}.gallery-image{aspect-ratio:16/9;object-fit:c
 .code-panel pre{min-width:0;white-space:pre;max-width:100%}
 .code-panel code{overflow-wrap:normal}
 @media(max-width:390px){.feature-label{white-space:normal}.card{padding:1.1rem}.code-panel{padding:12px}.section-heading{font-size:2rem}}
+
+/* DarfinOS Labs: grade responsiva, sem cartões com linhas quebradas por letra */
+.lab-project{min-width:0;overflow-wrap:break-word}
+.lab-project[hidden]{display:none!important}
+.lab-project code{overflow-wrap:anywhere}
+@media(max-width:420px){.lab-project{padding:1.1rem}.filter-bar{gap:6px}.filter-btn{padding:8px 10px;font-size:.8rem}}
