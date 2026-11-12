@@ -4,9 +4,9 @@ import { githubUrl, releaseUrl, sourceZipUrl } from '../../lib/config';
 const clone = 'git clone https://github.com/AlanDarfin/DarfinOS.git\ncd DarfinOS';
 const doctor = 'python3 DarfinOSInstallScript-TUI.py --doctor\npython3 DarfinOSInstallScript-TUI.py --plan --preset minimal';
 const preflight = 'bash DarfinOSInstallScript.sh --preflight';
-const status = 'python3 darfinos_control.py status --json\\npython3 darfinos_control.py maintenance --json';
-const audit = 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming';
-const backup = 'python3 darfinos_control.py backup ~/darfinos-config.zip\\npython3 darfinos_control.py restore ~/darfinos-config.zip';
+const status = 'python3 darfinos_control.py status --json\npython3 darfinos_control.py maintenance --json';
+const audit = 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming';
+const backup = 'python3 darfinos_control.py backup ~/darfinos-config.zip\npython3 darfinos_control.py restore ~/darfinos-config.zip';
 const openTui = 'python3 DarfinOSInstallScript-TUI.py --local';
 ---
 <Base title="Documentação · DarfinOS" description="Guia seguro para instalar e personalizar o Arch Linux com o DarfinOS.">
