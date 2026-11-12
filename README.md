@@ -30,16 +30,18 @@ O DarfinOS **não é uma distribuição Linux independente**: é uma experiênci
 
 ## 🔗 Projetos e inspirações
 
-| Projeto | Papel | Link |
+| Projeto | O que é e qual seu papel | Link |
 | --- | --- | --- |
-| **DarfinOS** | Scripts, TUI e documentação | [Repositório principal](https://github.com/AlanDarfin/DarfinOS) |
-| **Arch Linux** | Sistema base | [archlinux.org](https://archlinux.org/) |
-| **SonicDE** | Ambiente gráfico | [sonicde.org](https://sonicde.org/) |
-| **XLibre** | Servidor gráfico | [xlibre.org](https://xlibre.org/) |
-| **LinuxToys** | Inspiração do projeto | [GitHub](https://github.com/psygreg/linux_toys) |
+| **DarfinOS** | Ferramentas de pós-instalação, scripts e TUI que permitem escolher e revisar personalizações para um Arch Linux já instalado. | [Repositório principal](https://github.com/AlanDarfin/DarfinOS) |
+| **Arch Linux** | Distribuição Linux independente, minimalista e de atualização contínua que constitui a base do DarfinOS. | [Site oficial](https://archlinux.org/) |
+| **SonicDE** | Ambiente de desktop derivado de componentes do KDE, com foco em preservar e aprimorar a experiência Plasma sobre X11. | [Site oficial](https://sonicde.org/) |
+| **XLibre** | Servidor gráfico comunitário derivado do X.Org Server, que mantém e evolui o protocolo X11. | [Site oficial](https://xlibre.net/) |
+| **CachyOS** | Distribuição baseada no Arch conhecida por otimizações; seu ecossistema de repositórios pode ser integrado opcionalmente. | [Documentação oficial](https://wiki.cachyos.org/) |
+| **Bedrock Linux** | Metadistribuição para combinar componentes de diferentes sistemas Linux, apresentada como opção experimental avançada. | [Site oficial](https://bedrocklinux.org/) |
+| **LinuxToys** | Plataforma independente para descoberta e instalação de software, manutenção e configurações repetíveis de sistemas Linux. Uma grande inspiração para o DarfinOS. | [Site oficial](https://linux.toys) · [Código](https://github.com/psygreg/linuxtoys) |
 
 > [!NOTE]
-> O site é a vitrine do projeto. Para instalar, consultar opções e entender os riscos das modificações do sistema, leia o [README principal do DarfinOS](https://github.com/AlanDarfin/DarfinOS#readme).
+> A página [Ferramentas e créditos](https://darfinos.vercel.app/ferramentas/) reúne descrições mais completas, as atribuições e os destinos oficiais de cada projeto. Para instalar, consultar opções e entender os riscos das modificações do sistema, leia o [README principal do DarfinOS](https://github.com/AlanDarfin/DarfinOS#readme).
 
 ## 🤝 Contribuições
 
