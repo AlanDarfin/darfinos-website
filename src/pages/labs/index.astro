@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import BrandMark from '../../components/BrandMark.astro';
+import { githubUrl } from '../../lib/config';
+import { labProjects, labGroups } from '../../lib/labs';
+
+const groups: Record<string, string> = {
+  'wm-desktop':'Desktop / WM',
+  'portatil':'Ambientes portáteis',
+  'declarativo':'Gestão declarativa',
+  'laboratorio':'Laboratório gráfico e boot'
+};
+const tier: Record<string,string> = {
+  'opcional':'Opcional',
+  'avancado':'Avançado',
+  'critico':'Experimento crítico'
+};
+const showCommands = 'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --labs';
+const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
+---
+<Base title="DarfinOS Labs · Projetos alternativos" description="Conheça i3, yserver, NsCDE, Conty, Decman, Metapac e outros projetos independentes que inspiram as integrações experimentais do DarfinOS.">
+  <section class="grid-bg border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
+      <p class="section-kicker brand-kicker mb-5"><BrandMark class="w-5 h-5" /> // DARFINOS LABS</p>
+      <h1 class="section-heading max-w-4xl">Meu Arch. Minhas ideias.<br/><span class="text-electric">Meus experimentos.</span></h1>
+      <p class="section-lead mt-6 max-w-3xl">Uma seleção de projetos que desafiam as escolhas convencionais do Linux. De gerenciadores de janelas a sistemas gráficos reinventados, todos com acesso ao projeto original. Eles são independentes e não pertencem ao DarfinOS.</p>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a class="btn btn-primary" href="#catalogo">Explorar os projetos</a>
+        <a class="btn btn-outline" href="/controle/">Ver Control Center</a>
+        <a class="btn btn-outline" href="/docs/">Guia de instalação</a>
+      </div>
+      <p class="mt-7 text-gray-400 text-sm">A integração é gradual: alguns projetos têm etapas opcionais; outros são guias para testes manuais. Nada é executado apenas por abrir esta página.</p>
+    </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalogo">
+    <p class="section-kicker mb-3">// 12 PROJETOS · LINKS ORIGINAIS</p>
+    <h2 class="section-heading mb-5">O laboratório não tem medo de ser diferente.</h2>
+    <p class="section-lead mb-8">Cada cartão diferencia instalação assistida de documentação. Projetos avançados continuam fora dos presets normais até serem testados.</p>
+    <div class="filter-bar mb-7" role="group" aria-label="Filtrar projetos Labs">
+      {labGroups.map((group, i) => <button type="button" data-labs-filter={group.id} aria-pressed={i===0?'true':'false'} class:list={['filter-btn', {'is-active':i===0}]}>{group.name}</button>)}
+    </div>
+    <p class="mono text-gray-400 text-xs mb-4" id="labs-count" role="status" aria-live="polite">12 projetos exibidos</p>
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5" id="lab-grid">
+      {labProjects.map((project, i) => <article class="card lab-project flex flex-col gap-4" data-labs-card data-category={project.category}>
+        <div class="flex justify-between items-start gap-3">
+          <span class="mono text-electric text-sm">{String(i+1).padStart(2,'0')} / LABS</span>
+          <span class="feature-label">{tier[project.risk]}</span>
+        </div>
+        <div>
+          <p class="section-kicker text-xs">{groups[project.category]}</p>
+          <h3 class="font-bold text-xl mt-2">{project.name}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3">{project.description}</p>
+        </div>
+        <div class="pt-4 border-t border-white/10 mt-auto">
+          <p class="text-sm text-gray-300 leading-relaxed">{project.integration}</p>
+          {project.step ? <p class="mt-3 mono text-xs text-electric">Etapa: <code>{project.step}</code></p> : <p class="mt-3 mono text-xs text-gray-400">Documentação manual · sem instalação automática</p>}
+        </div>
+        <a class="inline-flex items-center gap-2 text-electric font-semibold text-sm underline mt-1" href={project.originalUrl} target="_blank" rel="noopener noreferrer" aria-label={'Abrir o projeto original ' + project.name}>Projeto original ↗</a>
+      </article>)}
+    </div>
+    <div class="security-note mt-9">
+      <strong>Compatibilidade e segurança:</strong> não são projetos oficiais do Arch Linux. Pacotes AUR exigem auditoria do PKGBUILD. Experimentos gráficos podem conflitar com a sessão existente; projetos de boot exigem snapshots reais. O DarfinOS não executa scripts remotos, não modifica o bootloader e não ativa uma sessão alternativa automaticamente.
+    </div>
+  </section>
+  <section class="bg-[#15171b] border-y border-white/10">
+    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20 grid lg:grid-cols-2 gap-7">
+      <div>
+        <p class="section-kicker mb-3">// INSTALADOR E TUI</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-5">Labs direto no terminal.</h2>
+        <p class="text-gray-400 leading-relaxed">No Bash, <code>--labs</code> mostra o catálogo sem sudo. Na TUI, pressione <strong class="text-electric">L</strong> para navegar e usar Espaço para selecionar apenas as etapas disponíveis. O instalador pede confirmação especial para pacotes AUR Labs, mesmo quando <code>-y</code> estiver ativo.</p>
+        <div class="code-panel"><pre><code>{showCommands}</code></pre><button data-copy={showCommands} type="button">Copiar</button></div>
+      </div>
+      <div>
+        <p class="section-kicker mb-3">// BÔNUS · I3</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-5">Uma sessão X11 sem excessos.</h2>
+        <p class="text-gray-400 leading-relaxed">O i3 está nos repositórios oficiais do Arch e ganhou etapa própria e preset <code>i3</code> com XLibre, separado de SonicDE. O plano é consultado antes de qualquer execução.</p>
+        <div class="code-panel"><pre><code>{i3Command}</code></pre><button data-copy={i3Command} type="button">Copiar</button></div>
+        <a href="https://i3wm.org/" target="_blank" rel="noopener noreferrer" class="text-electric text-sm underline inline-block mt-4">Conhecer o i3 original ↗</a>
+      </div>
+    </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-5 py-14">
+    <h2 class="font-bold text-xl mb-3">Em desenvolvimento, com limites claros.</h2>
+    <p class="text-gray-400 max-w-3xl">O código do catálogo e das etapas está sendo validado antes da publicação. Testes de instalação real em VM, especialmente para XLibre e ambientes gráficos, continuam essenciais. O DarfinOS é um projeto pessoal de personalização do Arch, não uma nova distribuição.</p>
+    <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline mt-6">Acompanhar código no GitHub ↗</a>
+  </section>
+  <script>
+    const controls = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-labs-filter]'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-labs-card]'));
+    const count = document.getElementById('labs-count');
+    controls.forEach(control => control.addEventListener('click', () => {
+      const filter = control.dataset.labsFilter || 'todos';
+      let total = 0;
+      controls.forEach(button => {
+        const active = button === control;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+      cards.forEach(card => {
+        const show = filter === 'todos' || card.dataset.category === filter;
+        card.hidden = !show;
+        if (show) total++;
+      });
+      if (count) count.textContent = String(total) + (total === 1 ? ' projeto exibido' : ' projetos exibidos');
+    }));
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+      const value = button.dataset.copy;
+      if (!value) return;
+      try { await navigator.clipboard.writeText(value); button.textContent = 'Copiado!'; }
+      catch { button.textContent = 'Selecione o texto'; }
+    }));
+  </script>
+</Base>
