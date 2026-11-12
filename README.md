@@ -1,6 +1,8 @@
 <div align="center">
 
-# ⚡ DarfinOS — Website
+<img src="public/darfinos-mark.svg" alt="Logotipo DarfinOS: dois raios geométricos" width="104" />
+
+# DarfinOS — Website
 
 ### Uma distro Linux com opiniões que não são as suas.
 
@@ -25,6 +27,7 @@ O DarfinOS **não é uma distribuição Linux independente**: é uma experiênci
 ## ⚡ Identidade
 
 - **Visual:** escuro, elétrico e amarelo.
+- **Símbolo:** raio duplo geométrico, derivado do conceito 02, disponível em `public/darfinos-mark.svg` e aplicado no favicon, cabeçalho, rodapé e página inicial.
 - **Slogan:** *Seu Arch, minhas regras.*
 - **Filosofia:** *Uma distro Linux com opiniões que não são as suas.*
 

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import BrandMark from '../components/BrandMark.astro';
 import { siteConfig, githubUrl, releaseUrl } from '../lib/config';
 const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig.description } = Astro.props;
 ---
@@ -14,14 +15,14 @@ const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta name="twitter:card" content="summary" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
   <title>{title}</title>
 </head>
 <body>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <header class="site-header">
   <nav class="max-w-6xl mx-auto px-5 site-nav" aria-label="Navegação principal">
-    <a href="/" class="brand"><span class="brand-symbol" aria-hidden="true">ϟ</span> Darfin<span class="text-electric">OS</span></a>
+    <a href="/" class="brand" aria-label="DarfinOS, página inicial"><span class="brand-symbol"><BrandMark class="brand-mark" /></span><span>Darfin<span class="text-electric">OS</span></span></a>
     <div class="desktop-links">
       <a href="/#recursos">Recursos</a><a href="/#galeria">Galeria</a>
       <a href="/ferramentas/">Ferramentas</a><a href="/docs/">Documentação</a>
@@ -41,7 +42,7 @@ const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig
 <main id="conteudo"><slot /></main>
 <footer class="site-footer">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-7">
-    <div><p class="font-bold text-white"><span class="text-electric">ϟ</span> DarfinOS</p><p class="mt-2">Projeto independente de personalização do Arch Linux.</p><p class="mt-2 text-xs">Não afiliado oficialmente ao Arch Linux ou aos projetos citados.</p></div>
+    <div><p class="font-bold text-white"><span class="inline-flex items-center gap-2"><BrandMark class="h-5 w-5 text-electric" />DarfinOS</span></p><p class="mt-2">Projeto independente de personalização do Arch Linux.</p><p class="mt-2 text-xs">Não afiliado oficialmente ao Arch Linux ou aos projetos citados.</p></div>
     <div class="flex flex-wrap items-start gap-5"><a href="/docs/">Documentação</a><a href="/ferramentas/">Ferramentas</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">Código ↗</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">Suporte ↗</a></div>
   </div>
 </footer>

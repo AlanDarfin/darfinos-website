@@ -14,7 +14,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .site-header{position:sticky;top:0;z-index:50;background:#101114ee;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff18}
 .site-nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
 .brand{display:flex;align-items:center;font-size:1.32rem;font-weight:900;letter-spacing:-.055em;white-space:nowrap}
-.brand-symbol{width:34px;height:34px;display:grid;place-items:center;margin-right:10px;border-radius:5px;border:1px solid #ffd22f66;background:#ffd22f10;color:var(--electric);font-size:1.6rem}
+.brand-symbol{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;margin-right:10px;border-radius:5px;border:1px solid #ffd22f66;background:#ffd22f10;color:var(--electric)}
+.brand-mark{width:25px;height:25px;display:block}
+.brand-kicker{display:flex;align-items:center;gap:8px}
 .desktop-links{display:flex;align-items:center;gap:24px;font-size:.88rem;color:#d5d6dc}.desktop-links a:hover,.mobile-links a:hover,.site-footer a:hover{color:var(--electric)}
 .mobile-menu{display:none;position:relative}.mobile-menu summary{cursor:pointer;list-style:none;border:1px solid #696970;padding:8px 12px;border-radius:5px}.mobile-menu summary::-webkit-details-marker{display:none}
 .mobile-links{position:absolute;top:45px;right:0;display:grid;padding:8px;background:#202228;border:1px solid #54565c;border-radius:6px;width:min(290px,calc(100vw - 40px));box-shadow:0 22px 50px #0009}.mobile-links a{padding:12px 10px;border-bottom:1px solid #ffffff15}.mobile-links a:last-child{border:0}
