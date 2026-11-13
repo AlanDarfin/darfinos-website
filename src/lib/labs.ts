@@ -17,6 +17,12 @@ export const labProjects: LabProject[] = [
     integration: 'Pacotes oficiais Arch (i3-wm, i3status, i3lock e dmenu). Preset próprio i3 + XLibre.'
   },
   {
+    id: 'chicago95', name: 'Chicago95 + Xfce', category: 'wm-desktop', risk: 'avancado',
+    originalUrl: 'https://github.com/grassmunk/Chicago95', step: 'lab_chicago95',
+    description: 'Um visual inspirado no Windows 95 para Xfce, com temas GTK, ícones, decoração XFWM, cursores e extras opcionais.',
+    integration: 'Preset Retro: instala Xfce oficial e, após confirmação, copia tema e ícones Chicago95 para o HOME. Não executa o instalador upstream nem altera a sessão ativa. Consulte o guia original para escolher o tema manualmente.'
+  },
+  {
     id: 'nscde', name: 'NsCDE', category: 'wm-desktop', risk: 'avancado',
     originalUrl: 'https://github.com/NsCDE/NsCDE', step: 'lab_nscde',
     description: 'Ambiente inspirado nas estações de trabalho UNIX, construído com ferramentas modernas e FVWM.',
