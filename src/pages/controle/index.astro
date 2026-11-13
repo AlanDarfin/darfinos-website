@@ -5,7 +5,7 @@ import ControlPreview from '../../components/ControlPreview.astro';
 import { githubUrl } from '../../lib/config';
 const features = [
   {number:'01',title:'Check before installing',desc:'Read-only Doctor, preflight and module checks. Verified complete steps can be skipped, while partial or unknown modules remain available.',label:'Safe inspection'},
-  {number:'02',title:'Modular terminal installer',desc:'48 installation stages and six presets, with plan reviews, dependencies, execution history, progress and logs.',label:'Explicit execution'},
+  {number:'02',title:'Modular terminal installer',desc:'63 installation stages and seven presets, with plan reviews, dependencies, execution history, progress and logs.',label:'Explicit execution'},
   {number:'03',title:'Package audit',desc:'Inspect part of the expected package inventory without assuming a package list proves a whole system stage is configured.',label:'Partial preview'},
   {number:'04',title:'Portable profiles',desc:'Export, import and compare JSON profiles to reuse choices. Imported profiles still require review.',label:'No automatic changes'},
   {number:'05',title:'Configuration backup',desc:'SHA-256 checked archives of allowlisted HOME configuration files, preview before restore and confirmation on overwrite.',label:'Limited recovery'},
@@ -17,7 +17,7 @@ const commands=[
  {title:'System and maintenance status',code:'python3 DarfinOSInstallScript-TUI.py --status-json\npython3 darfinos_control.py maintenance --json',detail:'Read-only inventory of tools, update helpers and maintenance infrastructure.'},
  {title:'Audit module packages',code:'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming',detail:'Compare a partial expected package inventory with local packages. This does not prove that an entire stage is configured.'},
  {title:'Compare presets',code:'python3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming',detail:'Compare selections and highlight high-impact changes, without installing or removing anything.'},
- {title:'Explore the six presets',code:'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro',detail:'Start with minimal, desktop, i3, retro, gaming or full. The Retro preset offers Xfce + Chicago95; choosing a preset only changes your selection.'},
+ {title:'Explore the seven presets',code:'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro',detail:'Start with minimal, desktop, i3, retro, workstation, gaming or full. The Retro preset offers Xfce + Chicago95; choosing a preset only changes your selection.'},
 ];
 const backups=[
 {title:'Export and compare profiles',code:'python3 darfinos_control.py profile-export gaming gaming.json\npython3 darfinos_control.py profile-import gaming.json gaming-copy\npython3 darfinos_control.py profile-diff gaming gaming-copy'},
@@ -26,7 +26,7 @@ const backups=[
 {title:'Restore after explicit review',code:'python3 darfinos_control.py restore ~/darfinos-config.zip --apply --overwrite'},
 ];
 ---
-<Base title="Control Center · DarfinOS" description="DarfinOS Control Center: 48 installer stages, module detection, Arch maintenance, JSON profiles and carefully scoped configuration backup.">
+<Base title="Control Center · DarfinOS" description="DarfinOS Control Center: 63 installer stages, module detection, Arch maintenance, JSON profiles and carefully scoped configuration backup.">
   <section class="grid-bg border-b border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
     <p class="section-kicker brand-kicker mb-6"><BrandMark class="h-5 w-5" /> // DARFINOS · CONTROL CENTER</p>
     <h1 class="section-heading max-w-4xl">Install deliberately.<br/><span class="text-electric">Keep control afterward.</span></h1>

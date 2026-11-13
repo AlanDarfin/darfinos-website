@@ -47,6 +47,21 @@ const labTranslations: Record<string, [string, string]> = {
        'Installs wayback-x11 from the AUR without changing the default display server or login manager.'],
   booster: ['An alternative Linux initramfs generator.',
        'Installs the official Arch package. Its hook generates alternative initramfs images alongside your existing ones without switching your boot entry.'],
+  windowmaker: ["NeXTSTEP-inspired X11 session; keeps your login manager.", "Official Arch package. Activation is optional."],
+  notion: ["Tabbed X11 window manager with a static layout; installs notion-git.", "AUR package with PKGBUILD review."],
+  e16: ["Classic X11 window manager with its own session.", "Official Arch package. Activation is optional."],
+  xpra: ["Forwards individual X11 windows; no services or listening ports enabled.", "Official Arch package. Activation is optional."],
+  opengamepadui: ["Gamepad launcher and overlay from the AUR; keeps the current session.", "AUR package with PKGBUILD review."],
+  wmutils: ["Scriptable X11 window manipulation utilities.", "AUR package with PKGBUILD review."],
+  pkgsrc: ["Unprivileged bootstrap with a separate HOME prefix and no PATH changes.", "Unprivileged upstream bootstrap."],
+  pipeworld: ["Installs Arcan from the AUR and stages a local Pipeworld launcher; experimental runtime.", "AUR package plus pinned upstream source. Graphical session unverified."],
+  chezmoi: ["Dotfile engine for customization profiles with preview and selective application.", "Official Arch package. Activation is optional."],
+  matugen: ["Extracts wallpaper palettes for the Theme Workshop.", "Official Arch package. Activation is optional."],
+  autorandr: ["X11 monitor profiles; uses available display modes only.", "Official Arch package. Activation is optional."],
+  desktop_config: ["Targeted Xfce theme and SonicDE Qt-style changes.", "Official Arch package. Activation is optional."],
+  etckeeper: ["Local /etc history; separate initialization, with no remote uploads.", "Official Arch package. Activation is optional."],
+  rustic: ["Encrypted backups to a chosen destination; no repository is created automatically.", "Official Arch package. Activation is optional."],
+  kvantum: ["SVG Qt styles for SonicDE with optional Qt5 support.", "Official Arch package. Activation is optional."],
 };
 
 export const englishLabs = labProjects.map(project => ({

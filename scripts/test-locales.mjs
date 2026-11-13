@@ -32,13 +32,15 @@ verify(downloadEn.includes('api.github.com/repos/AlanDarfin/DarfinOS/releases'),
 const labStages = ['i3', 'lab_chicago95', 'lab_nscde', 'lab_junest', 'lab_decman',
   'lab_metapac', 'lab_conty', 'lab_nix_portable', 'lab_trinity', 'lab_yserver',
   'lab_xomposite', 'lab_wayback', 'lab_booster'];
+const newLabStages = ['windowmaker','notion','e16','xpra','opengamepadui','wmutils','pkgsrc',
+  'pipeworld','chezmoi','matugen','autorandr','desktop_config','etckeeper','rustic','kvantum'].map(id => 'lab_' + id);
 for (const [prefix, attribute] of [['', 'data-lab-card'], ['pt-br/', 'data-labs-card']]) {
   const path = join('dist', prefix, 'labs', 'index.html');
   const page = existsSync(path) ? readFileSync(path, 'utf8') : '';
   const cards = [...page.matchAll(new RegExp('<article[^>]*' + attribute + '[^>]*>([\\s\\S]*?)</article>', 'g'))];
-  verify(cards.length === 13 && cards.every(([, card]) => /href="https:\/\//.test(card)),
+  verify(cards.length === labStages.length + newLabStages.length && cards.every(([, card]) => /href="https:\/\//.test(card)),
     'All Labs cards retain an upstream link: /' + prefix + 'labs/');
-  verify(labStages.every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
+  verify([...labStages, ...newLabStages].every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
     'All Labs cards expose their installer stage: /' + prefix + 'labs/');
   verify(labStages.every(stage => {
     const id = stage.replace(/^lab_/, '');

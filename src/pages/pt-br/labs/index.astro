@@ -2,6 +2,7 @@
 import Base from '../../../layouts/Base.astro';
 import BrandMark from '../../../components/BrandMark.astro';
 import LabImage from '../../../components/LabImage.astro';
+import { hasLabImage } from '../../../lib/lab-gallery';
 import { githubUrl } from '../../../lib/config';
 import { labProjects, labGroups } from '../../../lib/labs';
 
@@ -9,7 +10,8 @@ const groups: Record<string, string> = {
   'wm-desktop':'Desktop / WM',
   'portatil':'Ambientes portáteis',
   'declarativo':'Gestão declarativa',
-  'laboratorio':'Laboratório gráfico e boot'
+  'laboratorio':'Gráficos, jogos e boot',
+  'automacao':'Automação e temas'
 };
 const tier: Record<string,string> = {
   'opcional':'Opcional',
@@ -33,7 +35,7 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
         <a class="btn btn-outline" href="/pt-br/controle/">Ver Control Center</a>
         <a class="btn btn-outline" href="/pt-br/docs/">Guia de instalação</a>
       </div>
-      <p class="mt-7 text-gray-400 text-sm">Os 13 projetos têm etapas opcionais de instalação. Escolha um pela TUI ou passe a etapa diretamente ao Bash.</p>
+      <p class="mt-7 text-gray-400 text-sm">As {labProjects.length} integrações têm etapas opcionais de instalação. Escolha um pela TUI ou passe a etapa diretamente ao Bash.</p>
     </div>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalogo">
@@ -55,7 +57,7 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
           <h3 class="font-bold text-xl mt-2">{project.name}</h3>
           <p class="text-gray-400 text-sm leading-relaxed mt-3">{project.description}</p>
         </div>
-        <LabImage id={project.id} locale="pt-BR" />
+        {hasLabImage(project.id) && <LabImage id={project.id} locale="pt-BR" />}
         <div class="pt-4 border-t border-white/10 mt-auto">
           <p class="text-sm text-gray-300 leading-relaxed">{project.integration}</p>
           <p class="mt-3 mono text-xs text-electric">Etapa opcional · <code>{project.step}</code></p>
@@ -90,6 +92,14 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
         <a href="https://github.com/grassmunk/Chicago95" target="_blank" rel="noopener noreferrer" class="text-electric text-sm underline inline-block mt-4">Chicago95 original no GitHub ↗</a>
       </div>
     </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10" id="personalizacao">
+    <p class="section-kicker mb-3">// DEPOIS DA INSTALAÇÃO</p>
+    <h2 class="text-2xl font-bold">Minha cara, até depois de instalar.</h2>
+    <p class="text-gray-400 mt-4">Na TUI, pressione W para abrir a Oficina de Temas. Veja a prévia dos perfis Terminal, i3 Compacto, Workstation 1995 e SonicDE + Kvantum, escolha quais arquivos aplicar e desfaça cada aplicação. O Matugen sugere uma cor de destaque a partir do wallpaper.</p>
+    <div class="code-panel"><pre><code>bash DarfinOSInstallScript.sh --only lab_chezmoi,lab_matugen,lab_kvantum
+python3 darfinos_control.py style sonicde-kvantum</code></pre></div>
+    <p class="text-gray-400 mt-4">O Kvantum estiliza aplicativos Qt. O painel, o KWin e o gerenciador de login ficam como estão.</p>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
     <p class="section-kicker mb-3">// TRINITY DESKTOP</p>
