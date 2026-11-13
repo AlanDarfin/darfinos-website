@@ -1,0 +1,52 @@
+---
+interface Props { locale: 'en' | 'pt-BR' }
+const { locale } = Astro.props;
+const pt = locale === 'pt-BR';
+const text = pt ? {
+  kicker: '// DENTRO DO CONTROL CENTER',
+  title: 'A interface atual, de perto.',
+  lead: 'Paleta dourada, seleção de módulos e diagnóstico no mesmo terminal. Abra as imagens para explorar os detalhes.',
+  enlarge: 'Ampliar imagem',
+  note: 'Capturas da main em modo --local --dry-run, em um ambiente de desenvolvimento Debian. Os dados do sistema correspondem ao ambiente da captura.',
+  images: [
+    { src: '/screenshots/tui.png', title: 'TUI V5 · seleção de módulos', alt: 'TUI V5 do DarfinOS com paleta dourada e lista de etapas selecionáveis' },
+    { src: '/screenshots/control-center.png', title: 'Control Center · estado do sistema', alt: 'Painel de diagnóstico real do Control Center no ambiente de desenvolvimento' },
+  ],
+} : {
+  kicker: '// INSIDE CONTROL CENTER',
+  title: 'A closer look at the current interface.',
+  lead: 'Gold accents, module selection and diagnostics in one terminal. Open the images to explore the details.',
+  enlarge: 'Enlarge image',
+  note: 'Captured from main with --local --dry-run on a Debian development host. System values describe the capture environment.',
+  images: [
+    { src: '/screenshots/tui.png', title: 'TUI V5 · module selection', alt: 'DarfinOS TUI V5 with gold accents and a list of selectable installation stages' },
+    { src: '/screenshots/control-center.png', title: 'Control Center · system status', alt: 'The actual Control Center diagnostic panel in the development environment' },
+  ],
+};
+---
+<section class="max-w-6xl mx-auto px-5 pt-14 md:pt-20 control-preview" aria-labelledby="interface-preview-title">
+  <p class="section-kicker mb-3">{text.kicker}</p>
+  <h2 class="section-heading mb-5" id="interface-preview-title">{text.title}</h2>
+  <p class="section-lead mb-8">{text.lead}</p>
+  <div class="capture-grid">
+    {text.images.map((capture, index) => <figure class="capture">
+      <div class="capture-heading"><span class="mono text-electric">0{index + 1}</span><h3>{capture.title}</h3></div>
+      <a class="capture-image" href={capture.src} target="_blank" rel="noopener noreferrer" aria-label={`${text.enlarge}: ${capture.title}`}>
+        <img src={capture.src} alt={capture.alt} width="1296" height="838" loading="lazy" decoding="async" />
+      </a>
+      <figcaption><a href={capture.src} target="_blank" rel="noopener noreferrer">{text.enlarge} →</a></figcaption>
+    </figure>)}
+  </div>
+  <p class="text-gray-400 text-xs mt-5 leading-relaxed">{text.note}</p>
+</section>
+<style>
+  .capture-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+  .capture{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  .capture-heading{display:flex;gap:.75rem;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid var(--line);font-size:.8rem}
+  .capture-heading h3{letter-spacing:0;font-weight:650}
+  .capture-image{display:flex;align-items:center;justify-content:center;background:#0b0d10;aspect-ratio:16/10}
+  .capture-image img{display:block;width:100%;height:100%;object-fit:contain}
+  figcaption{padding:.8rem 1.25rem;font-size:.75rem;color:var(--electric)}
+  figcaption a:hover{text-decoration:underline}
+  @media(max-width:760px){.capture-grid{grid-template-columns:1fr}}
+</style>

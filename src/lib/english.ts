@@ -1,5 +1,6 @@
 import { siteConfig } from './config';
 import { labProjects } from './labs';
+import { screenshots } from './screenshots';
 
 const roles = [
   ['SYSTEM FOUNDATION','An independent, rolling-release Linux distribution and DarfinOS base.','Arch Linux provides a minimal, flexible system with pacman and a rich ArchWiki. DarfinOS starts from an existing Arch installation and adds optional post-install steps.'],
@@ -17,24 +18,7 @@ export const englishProjects = siteConfig.links.map((project, i) => ({
   description: roles[i][2],
 }));
 
-const galleryText = [
-  ['DarfinOS terminal','DARFINOS CUSTOMIZATION','A DarfinOS terminal using Fastfetch, which displays system and hardware details. Bedrock, KWin and XLibre visible here are independent third-party projects.','Visit Fastfetch'],
-  ['DarfinOS Control Center','PROJECT TOOL','The text-based installer lets you inspect modules, dependencies, installation plans and module status before performing any changes.','View the TUI code'],
-  ['SonicDE desktop','INDEPENDENT PROJECT','SonicDE is an independent KDE-derived desktop environment focused on the Plasma X11 experience. The screenshot belongs to SonicDE.','Visit SonicDE'],
-  ['XLibre display server','INDEPENDENT PROJECT','XLibre continues X11 server development based on the X.Org lineage. This image does not represent a guaranteed version installed by DarfinOS.','Visit XLibre'],
-  ['CachyOS packages and performance','OPTIONAL INTEGRATION','CachyOS is an Arch-based distribution with performance-tuned packages and repositories. Using its packages is optional and hardware-dependent.','Read CachyOS docs'],
-  ['Bedrock Linux','ADVANCED EXPERIMENT','Bedrock allows components from different Linux distributions to work together. DarfinOS treats it as a high-risk optional experiment.','Visit Bedrock'],
-  ['LinuxToys inspiration','PROJECT INSPIRATION','LinuxToys collects application discovery, installation and maintenance tools for Linux. It is a separate project, not part of DarfinOS.','Visit LinuxToys'],
-] as const;
-
-export const englishGallery = siteConfig.screenshots.map((shot, i) => ({
-  ...shot,
-  alt: galleryText[i][0],
-  title: galleryText[i][0],
-  label: galleryText[i][1],
-  caption: galleryText[i][2],
-  linkText: galleryText[i][3],
-}));
+export const englishGallery = screenshots.map(({ pt, en, ...image }) => ({ ...image, ...en }));
 
 const labTranslations: Record<string, [string, string]> = {
   i3: ['An X11 tiling window manager built around keyboard-driven window layouts.',

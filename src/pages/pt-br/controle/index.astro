@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import BrandMark from '../../../components/BrandMark.astro';
+import ControlPreview from '../../../components/ControlPreview.astro';
 import { githubUrl } from '../../../lib/config';
 
 const commands = [
@@ -9,6 +10,7 @@ const commands = [
   { id: 'modules', label: 'Módulos já instalados', code: 'python3 DarfinOSInstallScript-TUI.py --check-modules', info: 'Classifica módulos como completos, parciais, ausentes ou desconhecidos. O instalador só ignora os que puder comprovar.' },
   { id: 'audit', label: 'Auditoria de módulos', code: 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming', info: 'Compara pacotes previstos com o inventário local. O manifesto é parcial e não comprova a conclusão de cada etapa.' },
   { id: 'compare', label: 'Transição entre presets', code: 'python3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming', info: 'Compara seleções, destaca mudanças de risco e não instala nem remove nada.' },
+  { id: 'presets', label: 'Explore os seis presets', code: 'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro', info: 'Comece com minimal, desktop, i3, retro, gaming ou full. O preset Retro oferece Xfce + Chicago95; escolher um preset apenas muda a seleção.' },
 ];
 
 const features = [
@@ -37,11 +39,12 @@ const backupCommands = [
         <a class="btn btn-primary" href="#comandos">Ver comandos</a>
         <a class="btn btn-outline" href="/pt-br/docs/">Guia de instalação</a>
         <a class="btn btn-outline" href="/pt-br/labs/">Explorar DarfinOS Labs</a>
-        <a class="btn btn-outline" href={githubUrl + '/pull/4'} target="_blank" rel="noopener noreferrer">Acompanhar desenvolvimento ↗</a>
+        <a class="btn btn-outline" href={githubUrl + '/commits/main'} target="_blank" rel="noopener noreferrer">Acompanhar desenvolvimento ↗</a>
       </div>
-      <p class="text-sm text-gray-400 mt-7">Em desenvolvimento. O código passou por testes automatizados; a instalação gráfica completa em máquina virtual ainda requer validação. Não existe release estável publicada.</p>
+      <p class="text-sm text-gray-400 mt-7">Em desenvolvimento. Acompanhe as verificações atuais no GitHub; a instalação gráfica completa e a recuperação em máquina virtual ainda requerem validação. Não existe release estável publicada.</p>
     </div>
   </section>
+  <ControlPreview locale="pt-BR" />
 
   <section id="funcoes" class="max-w-6xl mx-auto px-5 py-16 md:py-20">
     <p class="section-kicker mb-3">// O QUE JÁ FOI IMPLEMENTADO</p>
@@ -93,11 +96,11 @@ const backupCommands = [
       <p class="section-kicker mb-3">// QUALIDADE E LANÇAMENTO</p>
       <h2 class="section-heading mb-6">O que foi testado e o que falta.</h2>
       <div class="grid md:grid-cols-2 gap-5">
-        <div class="card"><p class="text-electric mono text-xs mb-3">VALIDAÇÃO AUTOMATIZADA</p><h3 class="text-xl font-bold">Python, Bash e contêiner Arch</h3><p class="text-gray-400 mt-3 text-sm">A suíte de testes e o smoke test foram aprovados no PR de desenvolvimento. Existe também um workflow manual para instalar apenas a etapa Base em um contêiner efêmero, sem assumir que ele já foi executado.</p></div>
+        <div class="card"><p class="text-electric mono text-xs mb-3">VALIDAÇÃO AUTOMATIZADA</p><h3 class="text-xl font-bold">Python, Bash e contêiner Arch</h3><p class="text-gray-400 mt-3 text-sm">Os workflows verificam os testes Python e Bash, o empacotamento e um smoke test em contêiner Arch. O resultado de cada commit está no GitHub; esses testes não equivalem a uma instalação gráfica completa.</p></div>
         <div class="card"><p class="text-electric mono text-xs mb-3">VALIDAÇÃO PENDENTE</p><h3 class="text-xl font-bold">SonicDE, XLibre e recuperação</h3><p class="text-gray-400 mt-3 text-sm">É necessário testar instalação, login gráfico, reinicialização, manutenção e recuperação por snapshot em uma VM descartável antes de publicar uma versão estável.</p></div>
       </div>
       <div class="flex flex-wrap gap-3 mt-8">
-        <a class="btn btn-primary" href={githubUrl + '/blob/main/docs/VALIDACAO_VM.md'} target="_blank" rel="noopener noreferrer">Checklist da VM ↗</a>
+        <a class="btn btn-primary" href={githubUrl + '/blob/main/docs/pt-BR/VALIDACAO_VM.md'} target="_blank" rel="noopener noreferrer">Checklist da VM ↗</a>
         <a class="btn btn-outline" href={githubUrl + '/actions'} target="_blank" rel="noopener noreferrer">Testes no GitHub ↗</a>
       </div>
     </div>
