@@ -15,7 +15,7 @@
 ![Arch Linux](https://img.shields.io/badge/BASE-Arch_Linux-FFCB2E?style=for-the-badge&labelColor=171717&logo=archlinux&logoColor=white)
 ![Open Source](https://img.shields.io/badge/PROJETO-Open_Source-FFCB2E?style=for-the-badge&labelColor=171717)
 
-**[🌐 Site oficial](https://darfinos.vercel.app/) · [💻 DarfinOS no GitHub](https://github.com/AlanDarfin/DarfinOS) · [📚 Documentação](https://github.com/AlanDarfin/DarfinOS/tree/main/docs) · [⬇️ Releases](https://github.com/AlanDarfin/DarfinOS/releases)**
+**[🌐 Site oficial](https://darfinos.vercel.app/) · [💻 DarfinOS no GitHub](https://github.com/AlanDarfin/DarfinOS) · [📚 Documentação](https://github.com/AlanDarfin/DarfinOS/tree/main/docs) · [⬇️ Downloads](https://darfinos.vercel.app/pt-br/downloads/)**
 
 </div>
 
@@ -64,7 +64,7 @@ Sugestões, melhorias visuais e correções são bem-vindas por meio de issues e
 
 ## 🧭 Páginas e funcionalidades
 
-- **/** — apresentação, 34 etapas, quatro presets, guia em três passos e galeria interativa.
+- **/** — versão principal em inglês; apresentação, 41 etapas, seis presets, Labs e galeria interativa.
 - **/docs/** — instalação segura, Doctor, plano de execução, logs e FAQ com comandos copiáveis.
 - **/ferramentas/** — créditos e links oficiais das tecnologias e inspirações.
 
@@ -79,8 +79,23 @@ npm run build
 npm run preview
 ```
 
-A branch principal é o código mais recente, mas **não necessariamente uma release versionada**. O site oferece links separados para ZIP do código e página de releases.
+A branch principal contém o código de desenvolvimento mais recente, **não uma release estável**. A página de [Downloads](https://darfinos.vercel.app/pt-br/downloads/) oferece o ZIP da main mesmo quando não existem releases, além dos candidatos de desenvolvimento publicados com SHA-256 depois dos testes. **Não há ISO nem versão estável validada em VM.**
 
 O build é verificado em pull requests por [GitHub Actions](.github/workflows/site.yml).
 
 **Site:** https://darfinos.vercel.app/ · **Instalador:** https://github.com/AlanDarfin/DarfinOS
+
+
+## 🌐 Idiomas
+
+O site agora tem **inglês como padrão** e páginas completas em português em `/pt-br/`. Se o navegador preferir português (`pt`), a página redireciona automaticamente para a versão brasileira. O visitante pode mudar manualmente entre **EN / PT-BR**, e a preferência fica salva localmente no navegador.
+
+Os dois READMEs do GitHub são arquivos diferentes porque o próprio GitHub não permite escolher automaticamente o idioma do README com base no navegador. Este arquivo é a versão em português; [o README principal em inglês](README.md) é o padrão.
+
+## 📦 Releases e verificações
+
+- [ZIP atual do código](https://github.com/AlanDarfin/DarfinOS/archive/refs/heads/main.zip): disponível mesmo sem releases, mas não é versão estável.
+- [Candidatos de desenvolvimento](https://github.com/AlanDarfin/DarfinOS/releases): quando os testes Python/Bash e o smoke no Arch passam no mesmo commit, o GitHub Actions publica um **prerelease** com pacote e checksum.
+- [Página bilíngue de downloads](https://darfinos.vercel.app/pt-br/downloads/): identifica claramente fonte, pré-lançamentos e pendências de validação.
+
+As páginas em inglês e português incluem início, documentação, Control Center, Labs, ferramentas e downloads.
