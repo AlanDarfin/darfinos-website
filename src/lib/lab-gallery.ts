@@ -1,4 +1,4 @@
-type MediaKind = 'upstream' | 'demo' | 'terminal' | 'docs';
+type MediaKind = 'upstream' | 'demo' | 'terminal' | 'docs' | 'page';
 
 type LabMedia = {
   src: string;
@@ -6,6 +6,7 @@ type LabMedia = {
   height: number;
   kind: MediaKind;
   source: string;
+  credit?: string;
   en: { alt: string; caption: string };
   pt: { alt: string; caption: string };
 };
@@ -13,8 +14,10 @@ type LabMedia = {
 const media = (
   id: string, width: number, height: number, kind: MediaKind, source: string,
   altEn: string, captionEn: string, altPt: string, captionPt: string,
+  extension: 'webp' | 'png' | 'jpg' | 'jpeg' = 'webp',
+  credit?: string,
 ): LabMedia => ({
-  src: `/screenshots/labs/${id}.webp`, width, height, kind, source,
+  src: `/screenshots/labs/${id}.${extension}`, width, height, kind, source, credit,
   en: { alt: altEn, caption: captionEn },
   pt: { alt: altPt, caption: captionPt },
 });
@@ -85,6 +88,96 @@ export const labGallery = {
     'Real help output from the Arch package, without creating a boot image.',
     'Ajuda do Booster no terminal com os comandos build, cat, ls e unpack',
     'Saída real da ajuda do pacote do Arch, sem criar uma imagem de boot.'),
+  windowmaker: media("windowmaker", 1366, 768, "upstream", "https://www.windowmaker.org/screenshots/",
+    "Window Maker desktop with Emacs, side docks and small monitoring applications",
+    "Window Maker with Emacs, its dock and helper applications, as published in the official project gallery.",
+    "Desktop Window Maker com Emacs, dock lateral e pequenos aplicativos de monitoramento",
+    "Window Maker com Emacs, dock e aplicativos auxiliares, conforme a galeria oficial do projeto.",
+    "png", "Window Maker"),
+  notion: media("notion", 1440, 900, "page", "https://notionwm.net/tour.html",
+    "Official Notion tour with window-layout and focus examples",
+    "The official Notion tour explains tiled layouts, tabs and focus.",
+    "Tour oficial do Notion com explicação e exemplo de janelas e foco",
+    "A tour oficial do Notion explica a organização em mosaico, abas e foco.",
+    "png", "Notion WM"),
+  e16: media("e16", 800, 525, "upstream", "https://ps.ucw.cz/e16/e16-themes-gallery/",
+    "Enlightenment E16 with the BlueSteel theme, settings panel and desktop pager",
+    "E16 with the BlueSteel theme and settings panel, from the theme gallery linked by the official Enlightenment website.",
+    "Enlightenment E16 com tema BlueSteel, painel de configurações e miniatura de área de trabalho",
+    "E16 com o tema BlueSteel e painel de preferências, na galeria de temas indicada pelo site oficial do Enlightenment.",
+    "png", "E16 themes gallery"),
+  xpra: media("xpra", 1020, 768, "upstream", "https://xpra-org.github.io/xpra/",
+    "Xpra displaying Linux xterm and glxspheres applications on a Windows 11 client",
+    "Official Xpra screenshot: xterm and glxspheres running on a Linux server and displayed seamlessly by a Windows 11 client.",
+    "Xpra exibindo os aplicativos Linux xterm e glxspheres em um cliente Windows 11",
+    "Captura oficial do Xpra: xterm e glxspheres executados em um servidor Linux e exibidos em um cliente Windows 11 no modo seamless.",
+    "png", "Xpra"),
+  opengamepadui: media("opengamepadui", 1344, 784, "upstream", "https://github.com/ShadowBlip/OpenGamepadUI",
+    "OpenGamepadUI game library with cover cards, search and gamepad button prompts",
+    "The OpenGamepadUI game library with gamepad navigation, as shown in the official project README screenshot.",
+    "OpenGamepadUI com biblioteca de jogos em cartões, pesquisa e indicadores de controle",
+    "Biblioteca de jogos do OpenGamepadUI, com navegação por controle, conforme a captura publicada no README oficial.",
+    "png", "ShadowBlip / OpenGamepadUI"),
+  wmutils: media("wmutils", 838, 800, "page", "https://github.com/wmutils/core#readme",
+    "Official wmutils README with command-line examples for moving X11 windows",
+    "The official wmutils README, showing an example of manipulating X11 windows with small commands.",
+    "README oficial do wmutils com exemplos de comandos para mover janelas X11",
+    "README oficial do wmutils, com exemplo de manipulação de janelas X11 por comandos.",
+    "png", "wmutils"),
+  pkgsrc: media("pkgsrc", 1440, 900, "page", "https://www.netbsd.org/docs/pkgsrc/pkgsrc.html",
+    "Title and contents of the official pkgsrc guide",
+    "The official pkgsrc guide introducing NetBSD’s portable package collection.",
+    "Capa e sumário do guia oficial do pkgsrc",
+    "Guia oficial do pkgsrc, com a apresentação da coleção portátil de pacotes do NetBSD.",
+    "png", "The NetBSD Foundation / pkgsrc"),
+  pipeworld: media("pipeworld", 1280, 720, "upstream", "https://arcan-fe.com/2021/04/12/introducing-pipeworld/",
+    "Official Pipeworld demonstration showing zoomable tiled windows and data cells",
+    "The official Pipeworld demonstration poster, showing its zoomable tiling window management and data cells.",
+    "Demonstração oficial do Pipeworld com janelas em mosaico, zoom e células de dados",
+    "Imagem de apresentação do vídeo oficial de Pipeworld, mostrando o gerenciamento de janelas em mosaico com zoom e suas células de dados.",
+    "jpg", "Arcan / Letoram"),
+  chezmoi: media("chezmoi", 1440, 800, "page", "https://www.chezmoi.io/",
+    "Official chezmoi documentation page for managing dotfiles",
+    "The official chezmoi website and documentation for managing dotfiles across multiple machines.",
+    "Página de documentação oficial do chezmoi para gerenciar dotfiles",
+    "Site e documentação oficiais do chezmoi, ferramenta para manter dotfiles entre várias máquinas.",
+    "png", "Tom Payne / chezmoi"),
+  matugen: media("matugen", 1346, 680, "upstream", "https://github.com/InioX/matugen-themes",
+    "Official Matugen example of COSMIC Appearance settings with a green palette",
+    "An official Matugen template example for COSMIC desktop appearance, published in the matugen-themes repository.",
+    "Exemplo oficial Matugen do painel Aparência do COSMIC com paleta verde",
+    "Exemplo oficial dos templates do Matugen para a aparência do desktop COSMIC, publicado no repositório matugen-themes.",
+    "png", "InioX / Matugen"),
+  autorandr: media("autorandr", 1440, 900, "page", "https://github.com/phillipberndt/autorandr#readme",
+    "Official autorandr README with its description and project information",
+    "The official autorandr README, describing automatic X11 profile selection based on connected displays.",
+    "README oficial do autorandr com descrição e informações do projeto",
+    "README oficial do autorandr, ferramenta para selecionar automaticamente perfis X11 conforme os monitores conectados.",
+    "png", "phillipberndt / autorandr"),
+  desktop_config: media("desktop_config", 1440, 900, "page", "https://docs.xfce.org/xfce/xfconf/xfconf-query",
+    "Official Xfconf-query page showing command-line usage options",
+    "Official Xfce documentation for reading and editing settings with xfconf-query.",
+    "Página oficial Xfconf-query com opções de uso em linha de comando",
+    "Documentação oficial do Xfce para consultar e editar configurações com xfconf-query.",
+    "png", "Xfce Documentation"),
+  etckeeper: media("etckeeper", 1440, 900, "page", "https://etckeeper.branchable.com/README/",
+    "Official etckeeper README showing the introduction and command examples",
+    "The official etckeeper README, with examples of version control for /etc configuration.",
+    "README oficial do etckeeper com introdução e exemplos de comandos",
+    "README oficial do etckeeper, com exemplos de controle de versão das configurações em /etc.",
+    "png", "Joey Hess / etckeeper"),
+  rustic: media("rustic", 1440, 900, "page", "https://rustic.cli.rs/",
+    "Official rustic website introducing the backup tool and its ecosystem",
+    "The official rustic website and its encrypted, deduplicated backup ecosystem.",
+    "Página oficial do rustic apresentando a ferramenta de backup e seu ecossistema",
+    "Página oficial do rustic e de seu ecossistema de backups criptografados e deduplicados.",
+    "png", "rustic-rs"),
+  kvantum: media("kvantum", 652, 377, "upstream", "https://github.com/tsujan/Kvantum/tree/master/Kvantum",
+    "Kvantum demonstration with Qt buttons, selectors, progress bars and table in a dark theme",
+    "A demonstration of the default Kvantum theme with Qt widgets, published in the original repository.",
+    "Demonstração do Kvantum com botões, seletores, barras e tabela Qt em tema escuro",
+    "Demonstração do tema padrão do Kvantum com controles Qt, publicada no repositório original.",
+    "png", "Tsu Jan / Kvantum"),
 } satisfies Record<string, LabMedia>;
 
 export type LabId = keyof typeof labGallery;
@@ -98,6 +191,7 @@ export const mediaLabels: Record<MediaKind, { en: string; pt: string }> = {
   demo: { en: 'Frame from upstream demo', pt: 'Quadro da demonstração original' },
   terminal: { en: 'Real terminal output', pt: 'Saída real do terminal' },
   docs: { en: 'Documentation illustration', pt: 'Ilustração da documentação' },
+  page: { en: 'Official page capture', pt: 'Captura da página oficial' },
 };
 
 export const fastfetchScreenshot = {

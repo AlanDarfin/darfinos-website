@@ -14,8 +14,9 @@ const expandLabel = lang === 'pt' ? 'Ampliar imagem' : 'Open full image';
     <img src={shot.src} width={shot.width} height={shot.height} alt={copy.alt} loading="lazy" decoding="async" />
   </a>
   <figcaption>
-    <p class="lab-image-label"><span>{caption}</span><a href={shot.source} target="_blank" rel="noopener noreferrer">{sourceLabel} ↗</a></p>
+    <p class="lab-image-label"><span>{caption}</span><a href={shot.source} target="_blank" rel="noopener noreferrer">{sourceLabel} →</a></p>
     <p>{copy.caption}</p>
+    {shot.credit && <p class="lab-image-credit">{shot.credit}</p>}
   </figcaption>
 </figure>
 <style>
@@ -26,4 +27,5 @@ const expandLabel = lang === 'pt' ? 'Ampliar imagem' : 'Open full image';
 figcaption{padding:.6rem .7rem;color:#b7c0cc;font-size:.75rem;line-height:1.55}
 .lab-image-label{display:flex;justify-content:space-between;align-items:baseline;gap:.4rem 1rem;flex-wrap:wrap;margin-bottom:.27rem;font-size:.68rem;color:#e1e4e9}
 .lab-image-label a{color:var(--electric);text-decoration:underline}
+.lab-image-credit{margin-top:.35rem;font-size:.65rem;color:#9fa9b7}
 </style>

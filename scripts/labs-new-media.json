@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "catalogCommit": "476915dae21e6ab2de1d370e0a459cae866cfc5e",
+  "description": "Original upstream screenshots and native captures of official project documentation for the 15 newly added Labs entries. Source images are unmodified.",
+  "assets": [
+    {
+      "id": "windowmaker",
+      "sourcePage": "https://www.windowmaker.org/screenshots/",
+      "sourceImage": "https://www.windowmaker.org/screenshots/lumpi-wmaker.png",
+      "kind": "upstream-screenshot",
+      "credit": "Window Maker project — official screenshots gallery",
+      "captionPt": "Window Maker com Emacs, dock e aplicativos auxiliares, conforme a galeria oficial do projeto.",
+      "captionEn": "Window Maker with Emacs, its dock and helper applications, as published in the official project gallery.",
+      "altPt": "Desktop Window Maker com Emacs, dock lateral e pequenos aplicativos de monitoramento",
+      "altEn": "Window Maker desktop with Emacs, side docks and small monitoring applications",
+      "src": "/screenshots/labs/windowmaker.png",
+      "width": 1366,
+      "height": 768,
+      "dimensions": [
+        1366,
+        768
+      ],
+      "sha256": "6ecb716de1079f62d3e1caba3e06e22a1798f8f92af5d7be2c12f46a49068155",
+      "bytes": 671118,
+      "retrievedAt": "2026-11-13T16:21:22.563379+00:00",
+      "notes": "Reference imagery from the original project or a gallery linked by its official site. Not a DarfinOS installation or latest-version guarantee.",
+      "displayAlt": {
+        "en": "Window Maker desktop with Emacs, side docks and small monitoring applications",
+        "pt": "Desktop Window Maker com Emacs, dock lateral e pequenos aplicativos de monitoramento"
+      },
+      "displayCaption": {
+        "en": "Window Maker with Emacs, its dock and helper applications, as published in the official project gallery.",
+        "pt": "Window Maker com Emacs, dock e aplicativos auxiliares, conforme a galeria oficial do projeto."
+      }
+    },
+    {
+      "id": "notion",
+      "sourcePage": "https://notionwm.net/tour.html",
+      "sourceImage": "https://notionwm.net/tour.html",
+      "kind": "official-page-capture",
+      "credit": "Notion team — official guided tour",
+      "captionPt": "A tour oficial do Notion explica a organização em mosaico, abas e foco. Captura da documentação, não de uma sessão DarfinOS.",
+      "captionEn": "The official Notion tour explains tiled layouts, tabs and focus. A documentation capture, rather than a DarfinOS session.",
+      "altPt": "Tour oficial do Notion com explicação e exemplo de janelas e foco",
+      "altEn": "Official Notion tour with window-layout and focus examples",
+      "src": "/screenshots/labs/notion.png",
+      "width": 1440,
+      "height": 900,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "23241fc262fe87c052421357945eaad4193ba54e1ff5458ed41856aaf34d7a00",
+      "bytes": 104997,
+      "retrievedAt": "2026-11-13T16:21:22.565693+00:00",
+      "notes": "Reference imagery from the original project or a gallery linked by its official site. Not a DarfinOS installation or latest-version guarantee.",
+      "displayAlt": {
+        "en": "Official Notion tour with window-layout and focus examples",
+        "pt": "Tour oficial do Notion com explicação e exemplo de janelas e foco"
+      },
+      "displayCaption": {
+        "en": "The official Notion tour explains tiled layouts, tabs and focus.",
+        "pt": "A tour oficial do Notion explica a organização em mosaico, abas e foco."
+      }
+    },
+    {
+      "id": "e16",
+      "sourcePage": "https://www.enlightenment.org/e16",
+      "sourceImage": "https://ps.ucw.cz/e16/e16-themes-gallery/BlueSteel.png",
+      "kind": "upstream-screenshot",
+      "credit": "E16 themes gallery — linked by the official Enlightenment project",
+      "captionPt": "E16 com o tema BlueSteel e painel de preferências, na galeria de temas indicada pelo site oficial do Enlightenment.",
+      "captionEn": "E16 with the BlueSteel theme and settings panel, from the theme gallery linked by the official Enlightenment website.",
+      "altPt": "Enlightenment E16 com tema BlueSteel, painel de configurações e miniatura de área de trabalho",
+      "altEn": "Enlightenment E16 with the BlueSteel theme, settings panel and desktop pager",
+      "linkedGallery": "https://ps.ucw.cz/e16/e16-themes-gallery/",
+      "src": "/screenshots/labs/e16.png",
+      "width": 800,
+      "height": 525,
+      "dimensions": [
+        800,
+        525
+      ],
+      "sha256": "63b59fe4c9cf1ee861f3ab72a6d31af63eced7191dcfafa991dd84dc2040b228",
+      "bytes": 558924,
+      "retrievedAt": "2026-11-13T16:21:22.570484+00:00",
+      "notes": "Reference imagery from the original project or a gallery linked by its official site. Not a DarfinOS installation or latest-version guarantee.",
+      "displayAlt": {
+        "en": "Enlightenment E16 with the BlueSteel theme, settings panel and desktop pager",
+        "pt": "Enlightenment E16 com tema BlueSteel, painel de configurações e miniatura de área de trabalho"
+      },
+      "displayCaption": {
+        "en": "E16 with the BlueSteel theme and settings panel, from the theme gallery linked by the official Enlightenment website.",
+        "pt": "E16 com o tema BlueSteel e painel de preferências, na galeria de temas indicada pelo site oficial do Enlightenment."
+      }
+    },
+    {
+      "id": "xpra",
+      "src": "/screenshots/labs/xpra.png",
+      "sourcePage": "https://xpra-org.github.io/xpra/",
+      "sourceImage": "https://xpra-org.github.io/xpra/images/screenshots/win11-glxspheres.png",
+      "kind": "upstream-screenshot",
+      "credit": "Xpra contributors",
+      "captionPt": "Captura oficial do Xpra: xterm e glxspheres executados em um servidor Linux e exibidos em um cliente Windows 11 no modo seamless.",
+      "captionEn": "Official Xpra screenshot: xterm and glxspheres running on a Linux server and displayed seamlessly by a Windows 11 client.",
+      "dimensions": [
+        1020,
+        768
+      ],
+      "sha256": "0e58ad94925e3c7713ad3455968d40944796a771b657c5c4970ec14437db43ab",
+      "capturedAt": "2026-11-13T16:21:35.080032+00:00",
+      "method": "Original upstream asset, unchanged",
+      "width": 1020,
+      "height": 768,
+      "bytes": 534378,
+      "displayAlt": {
+        "en": "Xpra displaying Linux xterm and glxspheres applications on a Windows 11 client",
+        "pt": "Xpra exibindo os aplicativos Linux xterm e glxspheres em um cliente Windows 11"
+      },
+      "displayCaption": {
+        "en": "Official Xpra screenshot: xterm and glxspheres running on a Linux server and displayed seamlessly by a Windows 11 client.",
+        "pt": "Captura oficial do Xpra: xterm e glxspheres executados em um servidor Linux e exibidos em um cliente Windows 11 no modo seamless."
+      }
+    },
+    {
+      "id": "opengamepadui",
+      "src": "/screenshots/labs/opengamepadui.png",
+      "width": 1344,
+      "height": 784,
+      "sourcePage": "https://github.com/ShadowBlip/OpenGamepadUI",
+      "sourceImage": "https://raw.githubusercontent.com/ShadowBlip/OpenGamepadUI/main/docs/assets/screenshot01.png",
+      "kind": "upstream-screenshot",
+      "bytes": 1247645,
+      "sha256": "cf4759968ae5928d410f345ecdf0c795bc4f588df2f1cca4d842bb3f13febbd4",
+      "credit": "ShadowBlip / OpenGamepadUI contributors — official project README",
+      "captionPt": "Biblioteca de jogos do OpenGamepadUI, com navegação por controle, conforme a captura publicada no README oficial.",
+      "captionEn": "The OpenGamepadUI game library with gamepad navigation, as shown in the official project README screenshot.",
+      "altPt": "OpenGamepadUI com biblioteca de jogos em cartões, pesquisa e indicadores de controle",
+      "altEn": "OpenGamepadUI game library with cover cards, search and gamepad button prompts",
+      "retrievedAt": "2026-11-13T16:18:35.120976+00:00",
+      "notes": "Original upstream screenshot downloaded unchanged. A reference setup, not a DarfinOS installation or latest-version guarantee.",
+      "displayAlt": {
+        "en": "OpenGamepadUI game library with cover cards, search and gamepad button prompts",
+        "pt": "OpenGamepadUI com biblioteca de jogos em cartões, pesquisa e indicadores de controle"
+      },
+      "displayCaption": {
+        "en": "The OpenGamepadUI game library with gamepad navigation, as shown in the official project README screenshot.",
+        "pt": "Biblioteca de jogos do OpenGamepadUI, com navegação por controle, conforme a captura publicada no README oficial."
+      }
+    },
+    {
+      "id": "wmutils",
+      "src": "/screenshots/labs/wmutils.png",
+      "sourcePage": "https://github.com/wmutils/core#readme",
+      "sourceImage": null,
+      "kind": "official-page-capture",
+      "credit": "wmutils contributors",
+      "captionPt": "README oficial do wmutils, com exemplo de manipulação de janelas X11 por comandos. É uma captura da documentação, não uma sessão gráfica instalada.",
+      "captionEn": "The official wmutils README, showing an example of manipulating X11 windows with small commands. This is a documentation capture, not an installed desktop session.",
+      "dimensions": [
+        838,
+        800
+      ],
+      "sha256": "02e7dd52ea7a762b759b63c063ffefe44714b3097a10d792724374a9df3e6aed",
+      "capturedAt": "2026-11-13T16:21:35.080984+00:00",
+      "method": "Chromium/Playwright native README capture, scrolling to introduction; no altered page content",
+      "width": 838,
+      "height": 800,
+      "bytes": 83566,
+      "displayAlt": {
+        "en": "Official wmutils README with command-line examples for moving X11 windows",
+        "pt": "README oficial do wmutils com exemplos de comandos para mover janelas X11"
+      },
+      "displayCaption": {
+        "en": "The official wmutils README, showing an example of manipulating X11 windows with small commands.",
+        "pt": "README oficial do wmutils, com exemplo de manipulação de janelas X11 por comandos."
+      }
+    },
+    {
+      "id": "pkgsrc",
+      "src": "/screenshots/labs/pkgsrc.png",
+      "sourcePage": "https://www.netbsd.org/docs/pkgsrc/pkgsrc.html",
+      "kind": "official-page-capture",
+      "credit": "The NetBSD Foundation / pkgsrc",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "height": 900,
+      "sha256": "ad1004d073753246cd6c5e761720975fe2a2ca4a125e63e91ab677ee5e02da82",
+      "caption": {
+        "pt": "Guia oficial do pkgsrc, com a apresentação da coleção portátil de pacotes do NetBSD.",
+        "en": "The official pkgsrc guide introducing NetBSD’s portable package collection."
+      },
+      "capturedAt": "2026-11-13T16:18:37.011419+00:00",
+      "status": 200,
+      "pageTitle": "The pkgsrc guide",
+      "alt": {
+        "pt": "Capa e sumário do guia oficial do pkgsrc",
+        "en": "Title and contents of the official pkgsrc guide"
+      },
+      "bytes": 125827,
+      "displayAlt": {
+        "en": "Title and contents of the official pkgsrc guide",
+        "pt": "Capa e sumário do guia oficial do pkgsrc"
+      },
+      "displayCaption": {
+        "en": "The official pkgsrc guide introducing NetBSD’s portable package collection.",
+        "pt": "Guia oficial do pkgsrc, com a apresentação da coleção portátil de pacotes do NetBSD."
+      }
+    },
+    {
+      "id": "pipeworld",
+      "src": "/screenshots/labs/pipeworld.jpg",
+      "sourcePage": "https://arcan-fe.com/2021/04/12/introducing-pipeworld/",
+      "sourceImage": "https://videos.files.wordpress.com/2qU9IljM/clip_1_zui_hd.original.jpg",
+      "kind": "upstream-screenshot",
+      "credit": "Arcan / Letoram",
+      "captionPt": "Imagem de apresentação do vídeo oficial de Pipeworld, mostrando o gerenciamento de janelas em mosaico com zoom e suas células de dados.",
+      "captionEn": "The official Pipeworld demonstration poster, showing its zoomable tiling window management and data cells.",
+      "notes": "Original poster for upstream VideoPress demo clip_1_zui, embedded in Introducing Pipeworld. Metadata: https://public-api.wordpress.com/rest/v1.1/videos/2qU9IljM .",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "3286ac948fd81597464a1ec36827ffbcd602be13041cf0a4bed73e170afaa97c",
+      "capturedAt": "2026-11-13T16:21:35.089325+00:00",
+      "method": "Original upstream asset, unchanged",
+      "width": 1280,
+      "height": 720,
+      "bytes": 69927,
+      "displayAlt": {
+        "en": "Official Pipeworld demonstration showing zoomable tiled windows and data cells",
+        "pt": "Demonstração oficial do Pipeworld com janelas em mosaico, zoom e células de dados"
+      },
+      "displayCaption": {
+        "en": "The official Pipeworld demonstration poster, showing its zoomable tiling window management and data cells.",
+        "pt": "Imagem de apresentação do vídeo oficial de Pipeworld, mostrando o gerenciamento de janelas em mosaico com zoom e suas células de dados."
+      }
+    },
+    {
+      "id": "chezmoi",
+      "src": "/screenshots/labs/chezmoi.png",
+      "sourcePage": "https://www.chezmoi.io/",
+      "finalPage": "https://www.chezmoi.io/",
+      "sourceImage": null,
+      "kind": "official-page-capture",
+      "credit": "Tom Payne / chezmoi contributors",
+      "dimensions": [
+        1440,
+        800
+      ],
+      "width": 1440,
+      "height": 800,
+      "sha256": "ad922a73f69c4f914d4b9e5d312516d980ef611f0ebbff07b4e15de1febc2ba8",
+      "status": 200,
+      "capturedAt": "2026-11-13T16:21:55.146797+00:00",
+      "caption": {
+        "pt": "Site e documentação oficiais do chezmoi, ferramenta para manter dotfiles entre várias máquinas.",
+        "en": "The official chezmoi website and documentation for managing dotfiles across multiple machines."
+      },
+      "notes": "Native browser capture of the top 1440×800 region of the official page; no DOM changes or compositing.",
+      "alt": {
+        "pt": "Página de documentação oficial do chezmoi para gerenciar dotfiles",
+        "en": "Official chezmoi documentation page for managing dotfiles"
+      },
+      "bytes": 134521,
+      "displayAlt": {
+        "en": "Official chezmoi documentation page for managing dotfiles",
+        "pt": "Página de documentação oficial do chezmoi para gerenciar dotfiles"
+      },
+      "displayCaption": {
+        "en": "The official chezmoi website and documentation for managing dotfiles across multiple machines.",
+        "pt": "Site e documentação oficiais do chezmoi, ferramenta para manter dotfiles entre várias máquinas."
+      }
+    },
+    {
+      "id": "matugen",
+      "src": "/screenshots/labs/matugen.png",
+      "sourcePage": "https://github.com/InioX/matugen-themes",
+      "sourceImage": "https://raw.githubusercontent.com/InioX/matugen-themes/main/assets/cosmic-screenshot.png",
+      "kind": "upstream-screenshot",
+      "credit": "InioX / Matugen contributors",
+      "dimensions": [
+        1346,
+        680
+      ],
+      "width": 1346,
+      "height": 680,
+      "sha256": "81ceca9ae120f4e2fda5edf0cf344c1d68271b6dac03e610c441867d301f14c9",
+      "status": 200,
+      "capturedAt": "2026-11-13T16:21:09.649392+00:00",
+      "caption": {
+        "pt": "Exemplo oficial dos templates do Matugen para a aparência do desktop COSMIC, publicado no repositório matugen-themes.",
+        "en": "An official Matugen template example for COSMIC desktop appearance, published in the matugen-themes repository."
+      },
+      "alt": {
+        "pt": "Exemplo oficial Matugen do painel Aparência do COSMIC com paleta verde",
+        "en": "Official Matugen example of COSMIC Appearance settings with a green palette"
+      },
+      "bytes": 86013,
+      "displayAlt": {
+        "en": "Official Matugen example of COSMIC Appearance settings with a green palette",
+        "pt": "Exemplo oficial Matugen do painel Aparência do COSMIC com paleta verde"
+      },
+      "displayCaption": {
+        "en": "An official Matugen template example for COSMIC desktop appearance, published in the matugen-themes repository.",
+        "pt": "Exemplo oficial dos templates do Matugen para a aparência do desktop COSMIC, publicado no repositório matugen-themes."
+      }
+    },
+    {
+      "id": "autorandr",
+      "src": "/screenshots/labs/autorandr.png",
+      "sourcePage": "https://github.com/phillipberndt/autorandr#readme",
+      "kind": "official-page-capture",
+      "credit": "phillipberndt / autorandr",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "height": 900,
+      "sha256": "3acf52f81261b8bd59ce2b24d665e5f76a9faefe95cd22f0f686124e91189cec",
+      "caption": {
+        "pt": "README oficial do autorandr, ferramenta para selecionar automaticamente perfis X11 conforme os monitores conectados.",
+        "en": "The official autorandr README, describing automatic X11 profile selection based on connected displays."
+      },
+      "capturedAt": "2026-11-13T16:20:51.717087+00:00",
+      "status": 200,
+      "pageTitle": "GitHub - phillipberndt/autorandr: Auto-detect the connected display hardware and load the appropriate X11 setup using xrandr · GitHub",
+      "alt": {
+        "pt": "README oficial do autorandr com descrição e informações do projeto",
+        "en": "Official autorandr README with its description and project information"
+      },
+      "bytes": 145061,
+      "displayAlt": {
+        "en": "Official autorandr README with its description and project information",
+        "pt": "README oficial do autorandr com descrição e informações do projeto"
+      },
+      "displayCaption": {
+        "en": "The official autorandr README, describing automatic X11 profile selection based on connected displays.",
+        "pt": "README oficial do autorandr, ferramenta para selecionar automaticamente perfis X11 conforme os monitores conectados."
+      }
+    },
+    {
+      "id": "desktop_config",
+      "src": "/screenshots/labs/desktop_config.png",
+      "sourcePage": "https://docs.xfce.org/xfce/xfconf/xfconf-query",
+      "kind": "official-page-capture",
+      "credit": "Xfce Documentation / xfconf-query",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "height": 900,
+      "sha256": "b442cd7799421bc3ac9aa5229592221a85de6ccea5188fab711a88ff0756b6a8",
+      "caption": {
+        "pt": "Documentação oficial do Xfce para consultar e editar configurações com xfconf-query.",
+        "en": "Official Xfce documentation for reading and editing settings with xfconf-query."
+      },
+      "capturedAt": "2026-11-13T16:18:54.916173+00:00",
+      "status": 200,
+      "pageTitle": "xfce:xfconf:xfconf-query [Xfce Docs]",
+      "alt": {
+        "pt": "Página oficial Xfconf-query com opções de uso em linha de comando",
+        "en": "Official Xfconf-query page showing command-line usage options"
+      },
+      "bytes": 86210,
+      "displayAlt": {
+        "en": "Official Xfconf-query page showing command-line usage options",
+        "pt": "Página oficial Xfconf-query com opções de uso em linha de comando"
+      },
+      "displayCaption": {
+        "en": "Official Xfce documentation for reading and editing settings with xfconf-query.",
+        "pt": "Documentação oficial do Xfce para consultar e editar configurações com xfconf-query."
+      }
+    },
+    {
+      "id": "etckeeper",
+      "src": "/screenshots/labs/etckeeper.png",
+      "sourcePage": "https://etckeeper.branchable.com/README/",
+      "kind": "official-page-capture",
+      "credit": "Joey Hess and contributors / etckeeper",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "height": 900,
+      "sha256": "bff71ce511dd1d1d496ab932b83e4abf0e78ae2a19d1c277ed5d06a7e50ba801",
+      "caption": {
+        "pt": "README oficial do etckeeper, com exemplos de controle de versão das configurações em /etc.",
+        "en": "The official etckeeper README, with examples of version control for /etc configuration."
+      },
+      "capturedAt": "2026-11-13T16:21:39.657873+00:00",
+      "status": 200,
+      "pageTitle": "README",
+      "alt": {
+        "pt": "README oficial do etckeeper com introdução e exemplos de comandos",
+        "en": "Official etckeeper README showing the introduction and command examples"
+      },
+      "bytes": 190247,
+      "displayAlt": {
+        "en": "Official etckeeper README showing the introduction and command examples",
+        "pt": "README oficial do etckeeper com introdução e exemplos de comandos"
+      },
+      "displayCaption": {
+        "en": "The official etckeeper README, with examples of version control for /etc configuration.",
+        "pt": "README oficial do etckeeper, com exemplos de controle de versão das configurações em /etc."
+      }
+    },
+    {
+      "id": "rustic",
+      "src": "/screenshots/labs/rustic.png",
+      "sourcePage": "https://rustic.cli.rs/",
+      "finalPage": "https://rustic.cli.rs/",
+      "sourceImage": null,
+      "kind": "official-page-capture",
+      "credit": "rustic-rs contributors",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "height": 900,
+      "sha256": "b917276a31c33f57d23a1bff5475a26d196d3da5c7e267e23ae76b9271043fe0",
+      "status": 200,
+      "capturedAt": "2026-11-13T16:19:14.368104+00:00",
+      "caption": {
+        "pt": "Página oficial do rustic e de seu ecossistema de backups criptografados e deduplicados.",
+        "en": "The official rustic website and its encrypted, deduplicated backup ecosystem."
+      },
+      "alt": {
+        "pt": "Página oficial do rustic apresentando a ferramenta de backup e seu ecossistema",
+        "en": "Official rustic website introducing the backup tool and its ecosystem"
+      },
+      "bytes": 140595,
+      "displayAlt": {
+        "en": "Official rustic website introducing the backup tool and its ecosystem",
+        "pt": "Página oficial do rustic apresentando a ferramenta de backup e seu ecossistema"
+      },
+      "displayCaption": {
+        "en": "The official rustic website and its encrypted, deduplicated backup ecosystem.",
+        "pt": "Página oficial do rustic e de seu ecossistema de backups criptografados e deduplicados."
+      }
+    },
+    {
+      "id": "kvantum",
+      "src": "/screenshots/labs/kvantum.png",
+      "width": 652,
+      "height": 377,
+      "sourcePage": "https://github.com/tsujan/Kvantum/tree/master/Kvantum",
+      "sourceImage": "https://raw.githubusercontent.com/tsujan/Kvantum/master/Kvantum/screenshots/Default.png",
+      "kind": "upstream-screenshot",
+      "bytes": 54249,
+      "sha256": "c0a1f75745759abfe41f1a2772a37da1805d804ee41bc7847df868cc4573eb0f",
+      "credit": "Pedram Pourang (Tsu Jan) / Kvantum contributors — official project README",
+      "captionPt": "Demonstração do tema padrão do Kvantum com controles Qt, publicada no repositório original.",
+      "captionEn": "A demonstration of the default Kvantum theme with Qt widgets, published in the original repository.",
+      "altPt": "Demonstração do Kvantum com botões, seletores, barras e tabela Qt em tema escuro",
+      "altEn": "Kvantum demonstration with Qt buttons, selectors, progress bars and table in a dark theme",
+      "retrievedAt": "2026-11-13T16:18:35.120991+00:00",
+      "notes": "Original upstream screenshot downloaded unchanged. A reference setup, not a DarfinOS installation or latest-version guarantee.",
+      "displayAlt": {
+        "en": "Kvantum demonstration with Qt buttons, selectors, progress bars and table in a dark theme",
+        "pt": "Demonstração do Kvantum com botões, seletores, barras e tabela Qt em tema escuro"
+      },
+      "displayCaption": {
+        "en": "A demonstration of the default Kvantum theme with Qt widgets, published in the original repository.",
+        "pt": "Demonstração do tema padrão do Kvantum com controles Qt, publicada no repositório original."
+      }
+    }
+  ]
+}
