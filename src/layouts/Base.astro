@@ -7,7 +7,6 @@ const isPt = pathname === '/pt-br/' || pathname.startsWith('/pt-br/');
 const lang = isPt ? 'pt-BR' : 'en';
 const prefix = isPt ? '/pt-br' : '';
 const local = (p: string) => prefix + p;
-const alternate = isPt ? (pathname.slice(6) || '/') : '/pt-br' + pathname;
 const english = isPt ? (pathname.slice(6) || '/') : pathname;
 const portuguese = isPt ? pathname : '/pt-br' + pathname;
 const defaultTitle = isPt ? 'DarfinOS · Seu Arch, minhas regras.' : 'DarfinOS · Your Arch, my rules.';
@@ -49,8 +48,8 @@ const labels = isPt ? {
       const path = window.location.pathname;
       const isPt = path === '/pt-br/' || path.startsWith('/pt-br/');
       const choice = (() => { try { return localStorage.getItem('darfinos-language'); } catch { return null; } })();
-      const browserPt = (navigator.languages?.length ? navigator.languages : [navigator.language || 'en'])
-        .some(value => value.toLowerCase().startsWith('pt'));
+      const primaryLanguage = navigator.languages?.[0] || navigator.language || 'en';
+      const browserPt = primaryLanguage.toLowerCase().startsWith('pt');
       const chosen = choice === 'en' || choice === 'pt-BR' ? choice : (browserPt ? 'pt-BR' : 'en');
       if (chosen === 'pt-BR' && !isPt) {
         location.replace('/pt-br' + path + location.search + location.hash);
