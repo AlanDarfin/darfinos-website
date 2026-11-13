@@ -1,5 +1,7 @@
+import type { LabId } from './lab-gallery';
+
 export type LabProject = {
-  id: string;
+  id: LabId;
   name: string;
   description: string;
   originalUrl: string;

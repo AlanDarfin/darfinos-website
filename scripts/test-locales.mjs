@@ -40,6 +40,18 @@ for (const [prefix, attribute] of [['', 'data-lab-card'], ['pt-br/', 'data-labs-
     'All Labs cards retain an upstream link: /' + prefix + 'labs/');
   verify(labStages.every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
     'All Labs cards expose their installer stage: /' + prefix + 'labs/');
+  verify(labStages.every(stage => {
+    const id = stage.replace(/^lab_/, '');
+    const image = `/screenshots/labs/${id}.webp`;
+    return cards.some(([, card]) => card.includes(`data-project-image="${id}"`) &&
+      card.includes(`src="${image}"`) && /<img[^>]*alt="[^"]+"/.test(card)) &&
+      existsSync(join('dist', image));
+  }), 'All 13 project images have alt text and a built asset: /' + prefix + 'labs/');
+  const home = readFileSync(join('dist', prefix, 'index.html'), 'utf8');
+  verify(home.includes('/screenshots/labs/fastfetch.webp') &&
+    home.includes('https://github.com/AlanDarfin/DarfinOS/tree/main/Fastfetch') &&
+    existsSync('dist/screenshots/labs/fastfetch.webp'),
+    'Fastfetch capture and config link on /' + prefix);
   verify(page.includes('bash DarfinOSInstallScript.sh --only lab_trinity') &&
     page.includes('https://wiki.trinitydesktop.org/Arch_Trinity_Repository_Installation_Instructions'),
     'Trinity command and upstream instructions: /' + prefix + 'labs/');

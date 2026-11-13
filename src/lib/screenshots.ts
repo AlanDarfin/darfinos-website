@@ -1,3 +1,5 @@
+import { fastfetchScreenshot } from './lab-gallery';
+
 type GalleryText = {
   url?: string;
   alt: string;
@@ -38,6 +40,7 @@ export const screenshots: Screenshot[] = [
       linkText: 'Explore the TUI',
     },
   },
+  fastfetchScreenshot,
   {
     id: 'control-center', src: '/screenshots/control-center.png', category: 'darfinos', width: 1296, height: 838,
     url: `${repository}/blob/main/darfinos_control.py`,

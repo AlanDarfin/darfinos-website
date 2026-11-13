@@ -9,6 +9,7 @@ const path = (route: string) => (pt ? '/pt-br' : '') + route;
 const t = (en: string, br: string) => pt ? br : en;
 const gallery = pt ? siteConfig.screenshots : englishGallery;
 const tuiShot = gallery.find(shot => shot.src.endsWith('/tui.png'));
+const labsRoute = path('/labs/');
 const category = (shot: typeof gallery[number]) => ('category' in shot ? shot.category : undefined) || (/terminal|tui|control-center/.test(shot.src) ? 'darfinos' : shot.src.includes('linuxtoys') ? 'inspiration' : 'projects');
 const filters = [
   { id: 'all', label: t('All images', 'Todas as imagens') },
@@ -67,6 +68,7 @@ const workflow = [
     <div class="home-section-header"><div><p class="home-eyebrow">03 / {t('THE VISUAL SIDE', 'O LADO VISUAL')}</p><h2 id="gallery-heading">{t('Less imagining.', 'Menos imaginar.')}<br/><span>{t('More seeing.', 'Mais ver de perto.')}</span></h2></div><p class="section-intro">{t('The current DarfinOS tools, alongside the independent projects that shape this setup. Open a screenshot to see the details.', 'As ferramentas atuais do DarfinOS e os projetos independentes que dão forma a essa proposta. Abra uma captura para ver os detalhes.')}</p></div>
     <div class="gallery-toolbar"><div class="gallery-filters" role="group" aria-label={t('Filter screenshots', 'Filtrar capturas')}>{filters.map(filter => <button type="button" data-gallery-filter={filter.id} aria-pressed={filter.id === 'all' ? 'true' : 'false'} class:list={['gallery-filter', { 'is-active': filter.id === 'all' }]}>{filter.label}</button>)}</div><p class="gallery-count mono" data-gallery-count role="status" aria-live="polite">{gallery.length} {t('images', 'imagens')}</p></div>
     <div class="home-gallery">{gallery.map(shot => <figure class="home-gallery-card" data-gallery-card data-category={category(shot)}><a href={shot.src} data-image-open data-image-title={shot.title} class="gallery-image-link" aria-label={`${t('Enlarge', 'Ampliar')}: ${shot.title}`}><img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" width={'width' in shot ? shot.width : 1600} height={'height' in shot ? shot.height : 1000}/><span class="enlarge-image" aria-hidden="true">→</span></a><figcaption><p class="home-eyebrow">{shot.label}</p><h3>{shot.title}</h3><p class="gallery-description">{shot.caption}</p><a class="text-link" href={shot.url} target="_blank" rel="noopener noreferrer">{shot.linkText} <span aria-hidden="true">→</span></a></figcaption></figure>)}</div>
+    <p class="gallery-credit"><a class="text-link" href={labsRoute + (pt ? '#catalogo' : '#catalog')}>{t('See images for all 13 Labs projects', 'Veja as imagens dos 13 projetos do Labs')} →</a></p>
     <p class="gallery-credit">{t('Independent projects belong to their respective creators. Project images are references, not screenshots of an installed DarfinOS system.', 'Projetos independentes pertencem aos seus criadores. As imagens desses projetos são referências, não capturas de um sistema DarfinOS instalado.')}</p>
   </section>
 
