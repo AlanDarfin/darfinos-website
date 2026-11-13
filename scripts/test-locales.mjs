@@ -29,4 +29,19 @@ verify(downloadEn.includes('/archive/refs/heads/main.zip'), 'English source down
 verify(downloadPt.includes('/archive/refs/heads/main.zip'), 'Portuguese source download works without a release');
 verify(downloadEn.includes('/releases'), 'English release index remains available');
 verify(downloadEn.includes('api.github.com/repos/AlanDarfin/DarfinOS/releases'), 'English page checks real released assets');
+const labStages = ['i3', 'lab_chicago95', 'lab_nscde', 'lab_junest', 'lab_decman',
+  'lab_metapac', 'lab_conty', 'lab_nix_portable', 'lab_trinity', 'lab_yserver',
+  'lab_xomposite', 'lab_wayback', 'lab_booster'];
+for (const [prefix, attribute] of [['', 'data-lab-card'], ['pt-br/', 'data-labs-card']]) {
+  const path = join('dist', prefix, 'labs', 'index.html');
+  const page = existsSync(path) ? readFileSync(path, 'utf8') : '';
+  const cards = [...page.matchAll(new RegExp('<article[^>]*' + attribute + '[^>]*>([\\s\\S]*?)</article>', 'g'))];
+  verify(cards.length === 13 && cards.every(([, card]) => /href="https:\/\//.test(card)),
+    'All Labs cards retain an upstream link: /' + prefix + 'labs/');
+  verify(labStages.every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
+    'All Labs cards expose their installer stage: /' + prefix + 'labs/');
+  verify(page.includes('bash DarfinOSInstallScript.sh --only lab_trinity') &&
+    page.includes('https://wiki.trinitydesktop.org/Arch_Trinity_Repository_Installation_Instructions'),
+    'Trinity command and upstream instructions: /' + prefix + 'labs/');
+}
 if (errors) process.exitCode = 1;
