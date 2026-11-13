@@ -18,6 +18,7 @@ const tier: Record<string,string> = {
 const showCommands = 'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --labs';
 const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
 const retroCommand = 'python3 DarfinOSInstallScript-TUI.py --plan --preset retro';
+const trinity = 'bash DarfinOSInstallScript.sh --only lab_trinity';
 const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
 ---
 <Base title="DarfinOS Labs · Projetos alternativos" description="Conheça i3, yserver, NsCDE, Conty, Decman, Metapac e outros projetos independentes que inspiram as integrações experimentais do DarfinOS.">
@@ -31,13 +32,13 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
         <a class="btn btn-outline" href="/pt-br/controle/">Ver Control Center</a>
         <a class="btn btn-outline" href="/pt-br/docs/">Guia de instalação</a>
       </div>
-      <p class="mt-7 text-gray-400 text-sm">A integração é gradual: alguns projetos têm etapas opcionais; outros são guias para testes manuais. Nada é executado apenas por abrir esta página.</p>
+      <p class="mt-7 text-gray-400 text-sm">Os 13 projetos têm etapas opcionais de instalação. Escolha um pela TUI ou passe a etapa diretamente ao Bash.</p>
     </div>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalogo">
     <p class="section-kicker mb-3">// {labProjects.length} PROJETOS · LINKS ORIGINAIS</p>
     <h2 class="section-heading mb-5">O laboratório não tem medo de ser diferente.</h2>
-    <p class="section-lead mb-8">Cada cartão diferencia instalação assistida de documentação. Projetos avançados continuam fora dos presets normais até serem testados.</p>
+    <p class="section-lead mb-8">Cada cartão mostra o método de instalação e o link original. Os experimentos avançados não entram automaticamente nas seleções em massa.</p>
     <div class="filter-bar mb-7" role="group" aria-label="Filtrar projetos Labs">
       {labGroups.map((group, i) => <button type="button" data-labs-filter={group.id} aria-pressed={i===0?'true':'false'} class:list={['filter-btn', {'is-active':i===0}]}>{group.name}</button>)}
     </div>
@@ -55,13 +56,13 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
         </div>
         <div class="pt-4 border-t border-white/10 mt-auto">
           <p class="text-sm text-gray-300 leading-relaxed">{project.integration}</p>
-          {project.step ? <p class="mt-3 mono text-xs text-electric">Etapa: <code>{project.step}</code></p> : <p class="mt-3 mono text-xs text-gray-400">Documentação manual · sem instalação automática</p>}
+          <p class="mt-3 mono text-xs text-electric">Etapa opcional · <code>{project.step}</code></p>
         </div>
         <a class="inline-flex items-center gap-2 text-electric font-semibold text-sm underline mt-1" href={project.originalUrl} target="_blank" rel="noopener noreferrer" aria-label={'Abrir o projeto original ' + project.name}>Projeto original ↗</a>
       </article>)}
     </div>
     <div class="security-note mt-9">
-      <strong>Compatibilidade e segurança:</strong> não são projetos oficiais do Arch Linux. Pacotes AUR exigem auditoria do PKGBUILD. Experimentos gráficos podem conflitar com a sessão existente; projetos de boot exigem snapshots reais. O DarfinOS não executa scripts remotos, não modifica o bootloader e não ativa uma sessão alternativa automaticamente.
+      <strong>Compatibilidade e segurança:</strong> Pacotes AUR exigem revisão do PKGBUILD. O Trinity pede confirmação antes de adicionar seu repositório assinado. Instalar um experimento gráfico ou de boot não troca sua sessão nem a entrada de boot automaticamente.
     </div>
   </section>
   <section class="bg-[#15171b] border-y border-white/10">
@@ -69,7 +70,7 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       <div>
         <p class="section-kicker mb-3">// INSTALADOR E TUI</p>
         <h2 class="text-3xl md:text-4xl font-bold mb-5">Labs direto no terminal.</h2>
-        <p class="text-gray-400 leading-relaxed">No Bash, <code>--labs</code> mostra o catálogo sem sudo. Na TUI, pressione <strong class="text-electric">L</strong> para navegar e usar Espaço para selecionar apenas as etapas disponíveis. Pacotes AUR Labs e a cópia do Chicago95 exigem confirmação explícita e recusam <code>-y</code>.</p>
+        <p class="text-gray-400 leading-relaxed">No Bash, <code>--labs</code> mostra o catálogo sem sudo. Na TUI, pressione <strong class="text-electric">L</strong> para navegar e usar Espaço para selecionar. As etapas Labs avançadas exigem confirmação explícita e recusam <code>-y</code>.</p>
         <div class="code-panel"><pre><code>{showCommands}</code></pre><button data-copy={showCommands} type="button">Copiar</button></div>
       </div>
       <div>
@@ -82,11 +83,18 @@ const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       <div>
         <p class="section-kicker mb-3">// NOVO · XFCE + CHICAGO95</p>
         <h2 class="text-3xl md:text-4xl font-bold mb-5">O desktop virou 1995.</h2>
-        <p class="text-gray-400 leading-relaxed">O preset <code>retro</code> adiciona Xfce pelos pacotes oficiais e copia o tema GTK e os ícones Chicago95 do repositório original para sua pasta pessoal. A escolha do tema e da sessão fica com você; o instalador não substitui o SonicDE.</p>
+        <p class="text-gray-400 leading-relaxed">O preset <code>retro</code> adiciona Xfce pelos pacotes oficiais e copia os temas GTK/XFWM, ícones, cursores e fontes do Chicago95 do repositório original para sua pasta pessoal. A escolha do tema e da sessão fica com você; o instalador não substitui o SonicDE.</p>
         <div class="code-panel"><pre><code>{retroCommand}</code></pre><button data-copy={retroCommand} type="button">Copiar</button></div>
         <a href="https://github.com/grassmunk/Chicago95" target="_blank" rel="noopener noreferrer" class="text-electric text-sm underline inline-block mt-4">Chicago95 original no GitHub ↗</a>
       </div>
     </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
+    <p class="section-kicker mb-3">// TRINITY DESKTOP</p>
+    <h2 class="text-2xl font-bold">Instale o Trinity completo.</h2>
+    <p class="text-gray-400 max-w-3xl mt-4">O DarfinOS verifica a chave do repositório e instala o desktop completo. Depois, escolha Trinity na tela de login X11 que você já usa.</p>
+    <div class="code-panel max-w-3xl"><pre><code>{trinity}</code></pre><button type="button" data-copy={trinity}>Copiar</button></div>
+    <a class="text-electric underline text-sm inline-block mt-4" href="https://wiki.trinitydesktop.org/Arch_Trinity_Repository_Installation_Instructions" target="_blank" rel="noopener noreferrer">Instruções originais do repositório Trinity ↗</a>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
     <p class="section-kicker mb-3">// PRÉ-VERIFICAÇÃO DO SISTEMA</p>

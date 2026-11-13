@@ -16,6 +16,7 @@ const filters = [
 ];
 const commands = 'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --labs';
 const retro = 'python3 DarfinOSInstallScript-TUI.py --plan --preset retro';
+const trinity = 'bash DarfinOSInstallScript.sh --only lab_trinity';
 const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
 ---
 <Base title="DarfinOS Labs · Independent Linux projects" description="Discover 13 independent Linux projects including i3, Xfce, Chicago95, yserver, Wayback and Conty, each with its official upstream link and safety notes.">
@@ -24,7 +25,7 @@ const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
     <h1 class="section-heading max-w-4xl">My Arch. My ideas.<br/><span class="text-electric">My experiments.</span></h1>
     <p class="section-lead mt-6 max-w-3xl">Thirteen projects that take Linux in less conventional directions. Every entry credits its original developers; none is maintained by DarfinOS.</p>
     <div class="flex flex-wrap gap-3 mt-8"><a class="btn btn-primary" href="#catalog">Explore projects</a><a class="btn btn-outline" href="/controle/">Control Center</a><a class="btn btn-outline" href="/downloads/">Get DarfinOS</a></div>
-    <p class="text-gray-400 text-sm mt-6">Some entries offer optional installer stages. Others are research notes, not automatic installations.</p>
+    <p class="text-gray-400 text-sm mt-6">All 13 projects have optional installer stages. Choose a project in the TUI or pass its stage to Bash.</p>
   </div></section>
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalog">
     <p class="section-kicker mb-3">// 13 INDEPENDENT PROJECTS · OFFICIAL LINKS</p>
@@ -38,19 +39,19 @@ const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       {englishLabs.map((p,i) => <article class="card lab-project flex flex-col gap-4" data-lab-card data-category={p.category}>
         <div class="flex justify-between items-start gap-3"><span class="mono text-electric text-sm">{String(i+1).padStart(2,'0')} / LABS</span><span class="feature-label">{risk[p.risk]}</span></div>
         <div><p class="section-kicker text-xs">{categories[p.category]}</p><h3 class="font-bold text-xl mt-2">{p.name}</h3><p class="text-gray-400 text-sm leading-relaxed mt-3">{p.description}</p></div>
-        <div class="pt-4 border-t border-white/10 mt-auto"><p class="text-gray-300 text-sm leading-relaxed">{p.integration}</p><p class="mono text-xs mt-3" class:list={['',p.step?'text-electric':'text-gray-400']}>{p.step ? 'Optional stage: ' + p.step : 'Documentation only · no automatic installation'}</p></div>
+        <div class="pt-4 border-t border-white/10 mt-auto"><p class="text-gray-300 text-sm leading-relaxed">{p.integration}</p><p class="mono text-xs mt-3 text-electric">Optional stage · <code>{p.step}</code></p></div>
         <a class="text-electric underline text-sm font-semibold" href={p.originalUrl} target="_blank" rel="noopener noreferrer" aria-label={'Visit original project: '+p.name}>Original project ↗</a>
       </article>)}
     </div>
-    <div class="security-note mt-9"><strong>Security boundaries:</strong> AUR build scripts are third-party code. Chicago95 assets are downloaded from upstream, reviewed and copied with confirmation, without running its Python installer. Graphics and boot experiments need separate VMs, snapshots and manual recovery plans. DarfinOS does not silently add unrelated repositories or replace the running desktop.</div>
+    <div class="security-note mt-9"><strong>Security boundaries:</strong> AUR build scripts are third-party code. Chicago95 assets are downloaded from upstream, reviewed and copied with confirmation, without running its Python installer. Trinity asks before adding its signed repository. Installing graphics or boot experiments does not activate them or replace the running desktop.</div>
   </section>
   <section class="bg-[#15171b] border-y border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-20 grid lg:grid-cols-3 gap-7">
     <div><p class="section-kicker mb-3">// LOCAL LABS CATALOG</p><h2 class="text-2xl font-bold mb-4">Browse without installing.</h2>
-      <p class="text-gray-400 text-sm">The Bash and TUI catalog commands do not request sudo. Press L in the TUI to browse and Space to select only installable stages.</p>
+      <p class="text-gray-400 text-sm">The Bash and TUI catalog commands do not request sudo. Press L in the TUI to browse and Space to select a stage. The Labs stages require interactive confirmation.</p>
       <div class="code-panel"><pre><code>{commands}</code></pre><button type="button" data-copy={commands}>Copy</button></div>
     </div>
     <div><p class="section-kicker mb-3">// RETRO PRESET</p><h2 class="text-2xl font-bold mb-4">Xfce meets Chicago95.</h2>
-      <p class="text-gray-400 text-sm">The optional Retro preset installs Xfce and copies Chicago95 GTK/icon assets to your HOME. You choose when to activate the theme.</p>
+      <p class="text-gray-400 text-sm">The optional Retro preset installs Xfce and copies Chicago95 themes, icons, cursors and fonts to your HOME. You choose when to activate the theme.</p>
       <div class="code-panel"><pre><code>{retro}</code></pre><button type="button" data-copy={retro}>Copy</button></div>
       <a class="text-electric underline text-sm inline-block mt-4" target="_blank" rel="noopener noreferrer" href="https://github.com/grassmunk/Chicago95">Chicago95 upstream ↗</a>
     </div>
@@ -59,6 +60,13 @@ const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       <div class="code-panel"><pre><code>{checks}</code></pre><button type="button" data-copy={checks}>Copy</button></div>
     </div>
   </div></section>
+  <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
+    <p class="section-kicker mb-3">// TRINITY DESKTOP</p>
+    <h2 class="text-xl font-bold mb-3">Install the full Trinity desktop.</h2>
+    <p class="text-gray-400 max-w-3xl">DarfinOS verifies the upstream signing key and installs the full desktop. Then choose Trinity at your existing X11 login screen.</p>
+    <div class="code-panel max-w-3xl"><pre><code>{trinity}</code></pre><button type="button" data-copy={trinity}>Copy</button></div>
+    <a class="text-electric underline text-sm inline-block mt-4" href="https://wiki.trinitydesktop.org/Arch_Trinity_Repository_Installation_Instructions" target="_blank" rel="noopener noreferrer">Trinity repository instructions ↗</a>
+  </section>
   <section class="max-w-6xl mx-auto px-5 py-14">
     <h2 class="text-xl font-bold mb-3">Experiments are not production guarantees.</h2>
     <p class="text-gray-400 max-w-3xl">The catalog and checks are in development. Full XLibre, alternative desktops and recovery must still be validated in disposable VMs. No stable ISO or release is provided.</p>

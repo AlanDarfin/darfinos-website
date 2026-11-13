@@ -6,7 +6,7 @@ export type LabProject = {
   category: 'wm-desktop' | 'portatil' | 'declarativo' | 'laboratorio';
   risk: 'opcional' | 'avancado' | 'critico';
   integration: string;
-  step?: string;
+  step: string;
 };
 
 export const labProjects: LabProject[] = [
@@ -20,19 +20,19 @@ export const labProjects: LabProject[] = [
     id: 'chicago95', name: 'Chicago95 + Xfce', category: 'wm-desktop', risk: 'avancado',
     originalUrl: 'https://github.com/grassmunk/Chicago95', step: 'lab_chicago95',
     description: 'Um visual inspirado no Windows 95 para Xfce, com temas GTK, ícones, decoração XFWM, cursores e extras opcionais.',
-    integration: 'Preset Retro: instala Xfce oficial e, após confirmação, copia tema e ícones Chicago95 para o HOME. Não executa o instalador upstream nem altera a sessão ativa. Consulte o guia original para escolher o tema manualmente.'
+    integration: 'Preset Retro: instala Xfce oficial e copia tema GTK/XFWM, ícones, cursores e fontes para o HOME. Não altera o painel, o tema ativo nem a sessão atual.'
   },
   {
     id: 'nscde', name: 'NsCDE', category: 'wm-desktop', risk: 'avancado',
     originalUrl: 'https://github.com/NsCDE/NsCDE', step: 'lab_nscde',
     description: 'Ambiente inspirado nas estações de trabalho UNIX, construído com ferramentas modernas e FVWM.',
-    integration: 'Etapa AUR opcional. Instalação separada, sem ativar automaticamente uma sessão gráfica.'
+    integration: 'Instala pelo AUR. Escolha NsCDE na tela de login para iniciar a configuração do projeto.'
   },
   {
     id: 'junest', name: 'JuNest', category: 'portatil', risk: 'avancado',
     originalUrl: 'https://github.com/fsquillace/junest', step: 'lab_junest',
     description: 'Ambiente Arch Linux em espaço de usuário para experimentar pacotes e ferramentas sem instalar no host.',
-    integration: 'Etapa AUR opcional. A criação do ambiente e suas permissões são configuradas pelo usuário depois.'
+    integration: 'Instala junest-git pelo AUR e roda junest setup no HOME. Não altera namespaces do sistema.'
   },
   {
     id: 'decman', name: 'Decman', category: 'declarativo', risk: 'avancado',
@@ -48,45 +48,45 @@ export const labProjects: LabProject[] = [
   },
   {
     id: 'conty', name: 'Conty', category: 'portatil', risk: 'avancado',
-    originalUrl: 'https://github.com/Kron4ek/Conty',
+    originalUrl: 'https://github.com/Kron4ek/Conty', step: 'lab_conty',
     description: 'Contêiner Linux comprimido em um executável portátil, útil para jogos, Wine e aplicativos com bibliotecas próprias.',
-    integration: 'Guia de instalação manual. Baixe a versão do projeto original e revise requisitos de FUSE e namespaces.'
+    integration: 'Instala Conty Lite para x86_64 no HOME, com FUSE e verificação SHA-256 do download oficial.'
   },
   {
     id: 'nix_portable', name: 'nix-portable', category: 'portatil', risk: 'avancado',
-    originalUrl: 'https://github.com/DavHau/nix-portable',
+    originalUrl: 'https://github.com/DavHau/nix-portable', step: 'lab_nix_portable',
     description: 'Nix portátil sem instalação tradicional, com execução em espaço de usuário.',
-    integration: 'Guia de instalação manual. Binários e ambientes vêm do upstream e exigem avaliação das permissões.'
+    integration: 'Instala o binário oficial x86_64 no HOME, com verificação SHA-256 e sem daemon.'
   },
   {
     id: 'trinity', name: 'Trinity Desktop', category: 'wm-desktop', risk: 'critico',
-    originalUrl: 'https://www.trinitydesktop.org/',
+    originalUrl: 'https://www.trinitydesktop.org/', step: 'lab_trinity',
     description: 'Continuação independente do KDE 3, com interface tradicional e ecossistema próprio.',
-    integration: 'Guia manual: exige repositório e chave de terceiros. Recomenda-se testar em VM e usar sessão separada.'
+    integration: 'Confere a chave de assinatura, configura o repositório Trinity e instala tde-meta com atualização completa do Arch. Mantém o gerenciador de login.'
   },
   {
     id: 'yserver', name: 'yserver', category: 'laboratorio', risk: 'critico',
-    originalUrl: 'https://github.com/joske/yserver',
+    originalUrl: 'https://github.com/joske/yserver', step: 'lab_yserver',
     description: 'Novo servidor X11 escrito em Rust, alternativa experimental à arquitetura histórica do X.Org.',
-    integration: 'Laboratório gráfico somente documental; não substitui XLibre automaticamente.'
+    integration: 'Instala yserver e starty pelo AUR, com opção de instalar Vulkan para Intel ou AMD. Não troca o servidor gráfico padrão.'
   },
   {
     id: 'xomposite', name: 'xomposite', category: 'laboratorio', risk: 'critico',
-    originalUrl: 'https://github.com/demostenex/xlibre-compositor-poc',
+    originalUrl: 'https://github.com/demostenex/xomposite', step: 'lab_xomposite',
     description: 'Compositor X11 experimental escrito em Rust para testes com XLibre, sombras e outros efeitos.',
-    integration: 'Laboratório gráfico separado; não ativar simultaneamente ao compositor do KWin/SonicDE.'
+    integration: 'Instala as dependências e compila uma revisão fixa do projeto. O binário fica no HOME, sem iniciar junto do i3.'
   },
   {
     id: 'wayback', name: 'Wayback', category: 'laboratorio', risk: 'critico',
-    originalUrl: 'https://gitlab.freedesktop.org/wayback/wayback',
+    originalUrl: 'https://gitlab.freedesktop.org/wayback/wayback', step: 'lab_wayback',
     description: 'Camada experimental que permite rodar ambientes X11 através de componentes Wayland.',
-    integration: 'Laboratório documental. O repositório ativo está no GitLab do freedesktop.org.'
+    integration: 'Instala wayback-x11 pelo AUR. Não troca o servidor padrão nem modifica o gerenciador de login.'
   },
   {
     id: 'booster', name: 'Booster', category: 'laboratorio', risk: 'critico',
-    originalUrl: 'https://github.com/anatol/booster',
+    originalUrl: 'https://github.com/anatol/booster', step: 'lab_booster',
     description: 'Gerador de initramfs alternativo, para quem deseja experimentar outra forma de preparar o boot do Linux.',
-    integration: 'Guia manual e teste em VM; o DarfinOS não altera bootloader ou initramfs automaticamente.'
+    integration: 'Instala Booster pelo repositório oficial. O hook gera imagens alternativas em paralelo e o DarfinOS não modifica a entrada de boot.'
   }
 ];
 
