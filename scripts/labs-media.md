@@ -4,6 +4,11 @@ The public cards link both to the project and to the source of the image.
 Upstream media is resized proportionally and stored as WebP. Image descriptions
 are in `src/lib/lab-gallery.ts`.
 
+The 15 newer catalog entries have their original image URLs, credits, capture
+dates, dimensions and SHA-256 hashes in [labs-new-media.json](labs-new-media.json).
+Their upstream PNG/JPEG images are preserved, and native captures of official
+documentation are labeled separately from application screenshots.
+
 | Asset | Origin |
 | --- | --- |
 | `i3.webp` | [i3 official gallery, third desktop screenshot](https://i3wm.org/screenshots/i3-3.png) |

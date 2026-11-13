@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const routes = ['', 'docs/', 'controle/', 'labs/', 'ferramentas/', 'downloads/'];
@@ -34,21 +34,37 @@ const labStages = ['i3', 'lab_chicago95', 'lab_nscde', 'lab_junest', 'lab_decman
   'lab_xomposite', 'lab_wayback', 'lab_booster'];
 const newLabStages = ['windowmaker','notion','e16','xpra','opengamepadui','wmutils','pkgsrc',
   'pipeworld','chezmoi','matugen','autorandr','desktop_config','etckeeper','rustic','kvantum'].map(id => 'lab_' + id);
+const allLabStages = [...labStages, ...newLabStages];
 for (const [prefix, attribute] of [['', 'data-lab-card'], ['pt-br/', 'data-labs-card']]) {
   const path = join('dist', prefix, 'labs', 'index.html');
   const page = existsSync(path) ? readFileSync(path, 'utf8') : '';
   const cards = [...page.matchAll(new RegExp('<article[^>]*' + attribute + '[^>]*>([\\s\\S]*?)</article>', 'g'))];
-  verify(cards.length === labStages.length + newLabStages.length && cards.every(([, card]) => /href="https:\/\//.test(card)),
+  verify(cards.length === allLabStages.length && cards.every(([, card]) => /href="https:\/\//.test(card)),
     'All Labs cards retain an upstream link: /' + prefix + 'labs/');
-  verify([...labStages, ...newLabStages].every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
+  verify(allLabStages.every(stage => cards.some(([, card]) => card.includes('<code>' + stage + '</code>'))),
     'All Labs cards expose their installer stage: /' + prefix + 'labs/');
-  verify(labStages.every(stage => {
+  const projectsWithoutMedia = allLabStages.filter(stage => {
     const id = stage.replace(/^lab_/, '');
-    const image = `/screenshots/labs/${id}.webp`;
-    return cards.some(([, card]) => card.includes(`data-project-image="${id}"`) &&
-      card.includes(`src="${image}"`) && /<img[^>]*alt="[^"]+"/.test(card)) &&
-      existsSync(join('dist', image));
-  }), 'All 13 project images have alt text and a built asset: /' + prefix + 'labs/');
+    const card = cards.find(([, content]) => content.includes('<code>' + stage + '</code>'))?.[1] || '';
+    const figure = card.match(new RegExp(`<figure[^>]*data-project-image="${id}"[^>]*>([\\s\\S]*?)</figure>`))?.[1] || '';
+    const image = figure.match(/<img\b[^>]*>/)?.[0] || '';
+    const attr = name => image.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || '';
+    const src = attr('src');
+    const expectedPath = new RegExp(`^/screenshots/labs/${id}\\.(png|jpe?g|webp)$`);
+    const caption = figure.match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1] || '';
+    const source = caption.match(/<a\b[^>]*href="(https:\/\/[^"]+)"/)?.[1];
+    let externalSource = false;
+    try { externalSource = new URL(source).hostname !== 'darfinos.vercel.app'; } catch {}
+    if (!expectedPath.test(src) || !attr('alt').trim() ||
+        !(Number(attr('width')) > 0 && Number(attr('height')) > 0) || !externalSource) return true;
+    const asset = join('dist', src);
+    if (!existsSync(asset)) return true;
+    const built = statSync(asset);
+    return !built.isFile() || built.size === 0;
+  }).map(stage => stage.replace(/^lab_/, ''));
+  verify(projectsWithoutMedia.length === 0,
+    `All ${allLabStages.length} project images have alt text, dimensions, a source and a built asset: /${prefix}labs/` +
+    (projectsWithoutMedia.length ? ' (missing or incomplete: ' + projectsWithoutMedia.join(', ') + ')' : ''));
   const home = readFileSync(join('dist', prefix, 'index.html'), 'utf8');
   verify(home.includes('/screenshots/labs/fastfetch.webp') &&
     home.includes('https://github.com/AlanDarfin/DarfinOS/tree/main/Fastfetch') &&
