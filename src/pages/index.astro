@@ -1,54 +1,118 @@
 ---
 import Base from '../layouts/Base.astro';
 import BrandMark from '../components/BrandMark.astro';
+import { englishGallery, englishProjects } from '../lib/english';
 import { labProjects } from '../lib/labs';
-import { siteConfig, githubUrl, releaseUrl, sourceZipUrl } from '../lib/config';
-const group = (src: string) => src.includes('terminal') || src.includes('tui') ? 'darfinos' : src.includes('linuxtoys') ? 'inspiracao' : 'integracao';
+import { githubUrl, sourceZipUrl } from '../lib/config';
+const features = [
+ {num:'01',name:'Choose what runs',desc:'41 installer stages and six curated presets. Inspect dependencies and high-risk actions instead of blindly running everything.'},
+ {num:'02',name:'Know what is installed',desc:'Conservative checks identify complete, partial, missing or unknown modules. Only verified complete modules are skipped.'},
+ {num:'03',name:'Stay in control',desc:'A terminal UI with profiles, revision screens, history, recovery and maintenance, without forced automatic updates.'},
+];
+const galleryCategories = (src: string) => src.includes('terminal') || src.includes('tui') ? 'darfinos' : src.includes('linuxtoys') ? 'inspiration' : 'projects';
 ---
-<Base><section class="grid-bg relative overflow-hidden"><div class="max-w-6xl mx-auto px-5 py-24 md:py-32 grid lg:grid-cols-2 items-center gap-12"><div><p class="mono text-electric text-xs md:text-sm mb-5 tracking-widest brand-kicker"><BrandMark class="w-4 h-4 shrink-0" /> PERSONALIZAÇÃO MODULAR PARA ARCH LINUX</p><h1 class="hero-title text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">Seu Arch,<br/><span class="text-electric">minhas regras.</span></h1><p class="text-gray-300 text-lg mt-7 max-w-xl">Um projeto de personalização e pós-instalação do Arch Linux. Escolha suas ferramentas, revise as etapas e experimente a minha seleção de ferramentas e ajustes. Não é uma ISO ou distribuição independente.</p><div class="flex flex-wrap gap-3 mt-9"><a class="btn btn-primary" href="/docs/"><BrandMark class="w-4 h-4 shrink-0" /> Começar com segurança ↗</a>{githubUrl && <a class="btn btn-outline" href={githubUrl}>Ver no GitHub ↗</a>}<a class="btn btn-outline" href="#controle">Ver Control Center ↓</a></div><div class="hero-stats"><div><strong>41</strong><span>Etapas disponíveis</span></div><div><strong>6</strong><span>Presets oficiais</span></div><div><strong>100%</strong><span>Código aberto</span></div></div></div><div><div class="terminal-label mono">01 / UM ARCH COM A MINHA CARA</div><div class="card glow !p-0 overflow-hidden shadow-2xl"><div class="bg-[#25272e] px-5 py-3 flex items-center gap-2 border-b border-white/10"><span class="w-3 h-3 rounded-full bg-red-400"></span><span class="w-3 h-3 rounded-full bg-yellow-400"></span><span class="w-3 h-3 rounded-full bg-green-400"></span><span class="mono text-xs text-gray-400 ml-3">darfin@arch ~</span></div><div class="mono text-sm md:text-base p-7 leading-loose"><p class="text-gray-300">$ python3 DarfinOSInstallScript-TUI.py --local</p><p class="text-electric mt-5 flex items-center gap-2"><BrandMark class="w-5 h-5 shrink-0" /> DarfinOS · Control Center</p><p class="text-green-400">[✓] Perfil inicial: minimal</p><p class="text-green-400">[✓] 41 etapas, incluindo Labs</p><p class="text-green-400">[✓] Revisão antes da instalação</p><p class="text-gray-400 mt-6"># Seu Arch, minhas regras.</p><p class="text-electric">❯ <span class="animate-pulse">▌</span></p></div></div><p class="terminal-note mono">PRÉVIA ILUSTRATIVA DO TERMINAL</p></div></div></section>
-<div class="signal-strip mono"><span>ARCH COMO BASE</span><span>PERSONALIDADE NO DESKTOP</span><span>LIBERDADE PARA ESCOLHER</span></div><section id="recursos" class="max-w-6xl mx-auto px-5 py-24"><p class="text-electric mono text-sm mb-3">// O PROJETO</p><h2 class="text-3xl md:text-5xl font-bold mb-4">Minha ideia de personalização. Com controle.</h2><p class="text-gray-400 max-w-2xl mb-10">O DarfinOS não substitui o Arch Linux: reúne minhas escolhas de pós-instalação e deixa cada alteração explícita.</p><div class="grid md:grid-cols-3 gap-5"><div class="card"><div class="text-electric text-3xl mb-4">⌘</div><h3 class="text-xl font-bold mb-2">Instalação modular</h3><p class="text-gray-400">Escolha as etapas e ferramentas que fazem sentido para o seu ambiente.</p></div><div class="card"><div class="text-electric text-3xl mb-4">⚡</div><h3 class="text-xl font-bold mb-2">Minha identidade</h3><p class="text-gray-400">Ajustes visuais e utilitários para marcar o desktop e o terminal com minhas escolhas.</p></div><div class="card"><div class="text-electric text-3xl mb-4">⌁</div><h3 class="text-xl font-bold mb-2">Ecossistema aberto</h3><p class="text-gray-400">Integração com ferramentas e projetos independentes do universo Linux.</p></div></div></section>
-<section id="controle" class="max-w-6xl mx-auto px-5 py-20">
-  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-9">
-    <div><p class="section-kicker mb-3">// NOVO · CONTROL CENTER</p>
-    <h2 class="section-heading mb-4">O DarfinOS não termina<br/><span class="text-electric">depois da instalação.</span></h2>
-    <p class="section-lead">A próxima fase reúne diagnóstico do sistema, auditoria de pacotes, perfis e manutenção. Recursos implementados no código em desenvolvimento, ainda sem release estável.</p></div>
-    <a href="/controle/" class="btn btn-primary self-start">Conhecer o Control Center ↗</a>
-  </div>
-  <div class="grid md:grid-cols-3 gap-5">
-    <article class="card feature-card"><span class="section-kicker">01 / ENTENDER</span><h3 class="font-bold text-xl mt-4 mb-3">Diagnóstico e auditoria</h3><p class="text-gray-400 text-sm leading-relaxed">Preflight, Doctor, status local e comparação parcial de pacotes. Identifique pendências sem executar instalações.</p></article>
-    <article class="card feature-card"><span class="section-kicker">02 / PERSONALIZAR</span><h3 class="font-bold text-xl mt-4 mb-3">Perfis e transições</h3><p class="text-gray-400 text-sm leading-relaxed">Compare Minimal, Desktop e Gaming; exporte e importe seleções para reproduzir suas preferências com mais controle.</p></article>
-    <article class="card feature-card"><span class="section-kicker">03 / PRESERVAR</span><h3 class="font-bold text-xl mt-4 mb-3">Backup e manutenção</h3><p class="text-gray-400 text-sm leading-relaxed">Proteja configurações selecionadas e confira Topgrade e Arch-Update. Não é um snapshot do sistema nem rollback de pacotes.</p></article>
-  </div>
-  <p class="text-gray-400 text-sm mt-7">Os testes automatizados passaram; a validação de desktop e recuperação numa VM permanece pendente.</p>
-</section>
-<section id="labs" class="max-w-6xl mx-auto px-5 py-20">
-  <p class="section-kicker mb-3">// NOVO · DARFINOS LABS</p>
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-    <div><h2 class="section-heading mb-4">Minha cara, minhas ideias.<br/><span class="text-electric">Meu laboratório.</span></h2>
-    <p class="section-lead">Do i3 ao yserver, do JuNest ao Bedrock: projetos independentes que fazem o Linux seguir caminhos menos óbvios. Treze projetos, com links para os criadores.</p></div>
-    <a class="btn btn-primary self-start" href="/labs/">Ver os 13 projetos ↗</a>
-  </div>
-  <div class="grid md:grid-cols-3 gap-5">
-    {labProjects.filter(p => ['i3','chicago95','yserver'].includes(p.id)).map(project =>
-      <article class="card flex flex-col gap-3">
-        <p class="section-kicker">{project.risk==='opcional'?'INSTALAÇÃO OPCIONAL':project.risk==='avancado'?'AMBIENTE PORTÁTIL':'LABORATÓRIO EXPERIMENTAL'}</p>
-        <h3 class="text-xl font-bold">{project.name}</h3>
-        <p class="text-gray-400 text-sm leading-relaxed flex-1">{project.description}</p>
-        <a class="text-electric underline text-sm" href={project.originalUrl} target="_blank" rel="noopener noreferrer">Projeto original ↗</a>
+<Base title="DarfinOS · Your Arch, my rules." description="DarfinOS: my opinionated Arch Linux post-install toolkit, with a modular installer, XLibre, SonicDE, i3, Xfce, Chicago95 and experimental Linux Labs.">
+  <section class="grid-bg relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 py-24 md:py-32 grid lg:grid-cols-2 items-center gap-12">
+      <div>
+        <p class="mono text-electric text-xs md:text-sm mb-5 tracking-widest brand-kicker"><BrandMark class="w-4 h-4 shrink-0"/> MODULAR ARCH LINUX CUSTOMIZATION</p>
+        <h1 class="hero-title text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">Your Arch,<br/><span class="text-electric">my rules.</span></h1>
+        <p class="text-gray-300 text-lg mt-7 max-w-xl">A personal Arch Linux post-install project with carefully chosen tools, desktop options, unusual Linux experiments and a healthy suspicion of one-click installers.</p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a class="btn btn-primary" href="/downloads/">Get DarfinOS ↗</a>
+          <a class="btn btn-outline" href="/docs/">Read the installation guide</a>
+          <a class="btn btn-outline" href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+        <p class="text-sm text-gray-400 mt-7">Arch Linux customization, not a separate ISO. Development candidates are not stable releases.</p>
+      </div>
+      <div class="card glow">
+        <p class="section-kicker mb-4">// DARFINOS CONTROL CENTER</p>
+        <div class="mono text-sm space-y-2">
+          <p class="text-electric">$ python3 DarfinOSInstallScript-TUI.py --doctor</p>
+          <p><span class="text-electric">✓</span> Inspect the installer before changing anything</p>
+          <p class="text-electric mt-4">$ python3 DarfinOSInstallScript-TUI.py --check-modules</p>
+          <p><span class="text-electric">✓</span> Check 41 module stages without sudo</p>
+          <p class="text-electric mt-4">$ python3 DarfinOSInstallScript-TUI.py --plan --preset retro</p>
+          <p><span class="text-electric">✓</span> Preview Xfce + Chicago95 without installing</p>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-7">
+          <a class="btn btn-primary" href="/controle/">Explore Control Center</a>
+          <a class="btn btn-outline" href="/labs/">Discover Labs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-5 py-20" id="recursos">
+    <p class="section-kicker mb-3">// PROJECT FEATURES</p>
+    <h2 class="section-heading mb-6">My choices. <span class="text-electric">Your review.</span></h2>
+    <p class="section-lead mb-9">DarfinOS makes Arch easier to shape without pretending every modification is harmless. Every installation step stays visible and optional.</p>
+    <div class="grid md:grid-cols-3 gap-5">{features.map(feature => <article class="card feature-card"><p class="section-kicker mb-3">{feature.num} / FEATURE</p><h3 class="text-xl font-bold mb-3">{feature.name}</h3><p class="text-gray-400 text-sm">{feature.desc}</p></article>)}</div>
+    <div class="grid grid-cols-3 gap-3 mt-9 text-center">
+      <div class="card"><p class="text-3xl font-bold text-electric">41</p><p class="text-xs text-gray-400 mt-1">Installer stages</p></div>
+      <div class="card"><p class="text-3xl font-bold text-electric">6</p><p class="text-xs text-gray-400 mt-1">Presets</p></div>
+      <div class="card"><p class="text-3xl font-bold text-electric">13</p><p class="text-xs text-gray-400 mt-1">Independent Labs</p></div>
+    </div>
+  </section>
+
+  <section id="controle" class="bg-[#15171b] border-y border-white/10">
+    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+      <p class="section-kicker mb-3">// NEW · CONTROL CENTER</p>
+      <h2 class="section-heading mb-5">The project doesn't end <span class="text-electric">after installation.</span></h2>
+      <p class="section-lead max-w-3xl">Inspect installed modules, audit package previews, compare reproducible presets, review maintenance tools and back up selected home configuration files.</p>
+      <div class="flex flex-wrap gap-3 mt-7"><a class="btn btn-primary" href="/controle/">Control Center features ↗</a><a class="btn btn-outline" href="/docs/">Commands and safety notes</a></div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-5 py-20" id="labs">
+    <p class="section-kicker mb-3">// DARFINOS LABS</p>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+      <div><h2 class="section-heading mb-4">My Arch. My ideas.<br/><span class="text-electric">My experiments.</span></h2><p class="section-lead">An underground-leaning collection of independent projects, from tiling window managers to experiments in the Linux display stack.</p></div>
+      <a href="/labs/" class="btn btn-primary self-start">See all 13 projects ↗</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {labProjects.filter(item => ['i3','chicago95','yserver'].includes(item.id)).map(project =>
+        <article class="card feature-card">
+          <p class="section-kicker mb-3">{project.step ? 'OPTIONAL INTEGRATION' : 'EXPERIMENTAL RESEARCH'}</p>
+          <h3 class="text-xl font-bold mb-3">{project.name}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed flex-1">{project.id === 'chicago95' ? 'A Windows 95-inspired GTK and icon theme for the Xfce desktop. The Retro preset never changes your current desktop automatically.' : project.id === 'i3' ? 'A keyboard-driven X11 tiling window manager, available as a separate Arch/XLibre session.' : 'An experimental Rust X11 server, documented for isolated testing rather than automatic replacement.'}</p>
+          <a class="text-electric underline text-sm mt-4 inline-block" href={project.originalUrl} target="_blank" rel="noopener noreferrer">Original project ↗</a>
+        </article>)}
+    </div>
+  </section>
+
+  <section id="galeria" class="max-w-6xl mx-auto px-5 py-20">
+    <p class="section-kicker mb-3">// SYSTEM & PROJECT SCREENSHOTS</p>
+    <h2 class="section-heading mb-5">A bit of my setup, and <span class="text-electric">the projects behind it.</span></h2>
+    <p class="section-lead mb-7">Screenshots show DarfinOS tools as well as the independent projects they integrate or credit.</p>
+    <div class="filter-bar mb-7" role="group" aria-label="Filter gallery">
+      <button class="filter-btn is-active" data-gallery-filter="all" type="button" aria-pressed="true">All</button>
+      <button class="filter-btn" data-gallery-filter="darfinos" type="button" aria-pressed="false">DarfinOS</button>
+      <button class="filter-btn" data-gallery-filter="projects" type="button" aria-pressed="false">Projects</button>
+      <button class="filter-btn" data-gallery-filter="inspiration" type="button" aria-pressed="false">Inspiration</button>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {englishGallery.map(item => <article class="card flex flex-col gap-3" data-gallery-card data-category={galleryCategories(item.src)}>
+        <img src={item.src} alt={item.alt} loading="lazy" class="rounded-md w-full object-cover aspect-video" />
+        <p class="section-kicker">{item.label}</p><h3 class="font-bold text-xl">{item.title}</h3>
+        <p class="text-gray-400 text-sm flex-1 leading-relaxed">{item.caption}</p>
+        <a href={item.url} class="text-electric underline text-sm" target="_blank" rel="noopener noreferrer">{item.linkText} ↗</a>
       </article>)}
-  </div>
-  <p class="text-gray-400 text-sm mt-6">O catálogo inclui também NsCDE, Trinity, Wayback, xomposite, Booster, Decman, Metapac e nix-portable. Projetos críticos ficam fora da instalação automática.</p>
-</section>
-<section id="fluxo" class="bg-[#15171b] border-y border-white/10"><div class="max-w-6xl mx-auto px-5 py-24"><p class="section-kicker mb-3">// COMO FUNCIONA</p><h2 class="section-heading mb-5">Três passos. Sem mágica.</h2><p class="section-lead mb-10">Planeje, analise e só depois execute. O DarfinOS separa a navegação da instalação e registra os resultados.</p><div class="grid md:grid-cols-3 gap-5"><article class="step-card"><span class="section-kicker">01 / DIAGNÓSTICO</span><h3>Verifique o ambiente</h3><p>Analise sintaxe e dependências sem sudo ou modificações.</p><code>--doctor</code></article><article class="step-card"><span class="section-kicker">02 / PLANO</span><h3>Escolha um preset</h3><p>Comece com minimal, desktop ou gaming e personalize as etapas.</p><code>--plan --preset minimal</code></article><article class="step-card"><span class="section-kicker">03 / REVISÃO</span><h3>Confirme as mudanças</h3><p>Use a TUI, confira o que será alterado e leia os avisos.</p><code>--local</code></article></div><div class="mt-10"><a class="btn btn-primary" href="/docs/">Abrir o guia completo ↗</a></div></div></section>
-<section id="galeria" class="bg-[#15171b] border-y border-white/5"><div class="max-w-6xl mx-auto px-5 py-24"><p class="text-electric mono text-sm mb-3">// VISUAL</p><h2 class="text-3xl md:text-5xl font-bold mb-4">Galeria</h2><p class="text-gray-400 mb-8 max-w-3xl">O DarfinOS em uso e os projetos que fazem parte da sua proposta. Cada imagem traz seu contexto e um acesso rápido à ferramenta original. Os componentes externos pertencem às respectivas equipes; não há afiliação ou endosso oficial.</p><div class="filter-bar mt-9 mb-4" role="group" aria-label="Filtrar galeria"><button class="filter-btn is-active" type="button" aria-pressed="true" data-filter="todos">Todas</button><button class="filter-btn" type="button" aria-pressed="false" data-filter="darfinos">DarfinOS</button><button class="filter-btn" type="button" aria-pressed="false" data-filter="integracao">Integrações</button><button class="filter-btn" type="button" aria-pressed="false" data-filter="inspiracao">Inspiração</button></div><p class="mono text-xs text-gray-400 mb-5" id="gallery-count" role="status" aria-live="polite">{siteConfig.screenshots.length} imagens exibidas</p><div class="grid md:grid-cols-2 gap-6" id="gallery">{siteConfig.screenshots.map((shot) => <figure class="card gallery-card !p-0 overflow-hidden" data-gallery-item data-group={group(shot.src)}><a href={shot.src} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar: ${shot.title}`}><img src={shot.src} alt={shot.alt} class="w-full gallery-image" loading="lazy" decoding="async"/></a><figcaption class="p-6"><p class="mono text-electric text-xs mb-3">{shot.label}</p><h3 class="text-xl font-bold mb-3">{shot.title}</h3><p class="text-gray-400 text-sm mb-5">{shot.caption}</p><a href={shot.url} target="_blank" rel="noopener noreferrer" class="text-electric underline">{shot.linkText} ↗</a><a href={shot.src} target="_blank" rel="noopener noreferrer" class="block text-gray-400 text-sm mt-3">Ampliar imagem ↗</a></figcaption></figure>)}</div></div></section>
-<section id="downloads" class="max-w-6xl mx-auto px-5 py-24"><p class="text-electric mono text-sm mb-3">// COMEÇAR</p><h2 class="text-3xl md:text-5xl font-bold mb-5">Comece pelo código. Entenda o que muda.</h2><p class="text-gray-400 max-w-2xl mb-7">Comece com uma instalação existente do Arch Linux. Confira as instruções, crie backups e revise o script antes de executá-lo. O preset full inclui opções avançadas como Bedrock.</p><div class="flex flex-wrap gap-3"><a href="/docs/" class="btn btn-primary">Ler guia de instalação ↗</a><a href={sourceZipUrl} class="btn btn-outline">Código em desenvolvimento (ZIP) ↗</a><a href={releaseUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer">Releases publicadas ↗</a></div><div class="security-note mt-9"><strong>Estado dos downloads:</strong> ainda não há uma versão estável publicada. O ZIP da main contém código em desenvolvimento e não substitui uma release testada.</div><div class="security-note mt-3"><strong>Importante:</strong> o DarfinOS não oferece ISO ou rollback automático. Mudanças no XLibre, repositórios externos e Bedrock podem exigir recuperação manual.</div><div class="mt-14"><h3 class="font-bold text-xl mb-3">Projetos relacionados</h3><p class="text-gray-400 max-w-3xl mb-6">Ferramentas independentes que servem de base, inspiram ou podem complementar uma instalação DarfinOS. Saiba o que faz cada uma antes de acessar seu site.</p><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{siteConfig.links.map(link => <article class="card flex flex-col justify-between gap-4"><div><p class="section-kicker">{link.role}</p><h4 class="font-bold text-lg mt-2">{link.name}</h4><p class="text-gray-400 text-sm mt-3 leading-relaxed">{link.summary}</p></div><a class="text-electric font-semibold text-sm underline" href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Conhecer ${link.name} no site oficial`}>Conhecer o projeto ↗</a></article>)}</div><a class="inline-block mt-5 text-electric underline text-sm" href="/ferramentas/">Descrições completas e créditos ↗</a></div></section><section id="contato" class="max-w-6xl mx-auto px-5 py-16"><p class="mono text-electric text-sm mb-3">// CONTATO E SUPORTE</p><h2 class="text-3xl font-bold mb-5">Vamos conversar sobre o projeto.</h2><p class="text-gray-400 mb-6">Dúvidas, sugestões e relatos de problemas são bem-vindos. Por Alan Darfin — projeto pessoal em desenvolvimento.</p><div class="flex flex-wrap gap-3"><a class="btn btn-primary" href="https://github.com/AlanDarfin/DarfinOS/issues">Issues e suporte ↗</a><a class="btn btn-outline" href="mailto:srdarfin@gmail.com">srdarfin@gmail.com</a><a class="btn btn-outline" href="https://twitter.com/srdarfin">X · @srdarfin ↗</a><a class="btn btn-outline" href="https://github.com/AlanDarfin">GitHub · AlanDarfin ↗</a></div></section><script>
-const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-const cards = document.querySelectorAll<HTMLElement>('[data-gallery-item]');
-const count = document.getElementById('gallery-count');
-buttons.forEach(button => button.addEventListener('click', () => {
-  const type = button.dataset.filter || 'todos'; let total = 0;
-  cards.forEach(card => { const visible = type === 'todos' || card.dataset.group === type; card.hidden = !visible; if (visible) total += 1; });
-  buttons.forEach(b => { const active = b === button; b.classList.toggle('is-active', active); b.setAttribute('aria-pressed', String(active)); });
-  if (count) count.textContent = total + (total === 1 ? ' imagem exibida' : ' imagens exibidas');
-}));
-</script></Base>
+    </div>
+  </section>
+
+  <section class="border-t border-white/10 bg-[#15171b]"><div class="max-w-6xl mx-auto px-5 py-16">
+    <p class="section-kicker mb-3">// DOWNLOAD & GET STARTED</p><h2 class="section-heading mb-5">The source is available. <span class="text-electric">A stable release is not.</span></h2>
+    <p class="section-lead mb-6">Download the latest source archive or check GitHub for pre-release development candidates with SHA-256 checksums. An ISO is not included.</p>
+    <div class="flex flex-wrap gap-3"><a href={sourceZipUrl} class="btn btn-primary">Download main ZIP</a><a href="/downloads/" class="btn btn-outline">Release status and downloads</a></div>
+  </div></section>
+  <script>
+    const controls = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-filter]'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-gallery-card]'));
+    controls.forEach(control => control.addEventListener('click', () => {
+      const filter = control.dataset.galleryFilter || 'all';
+      controls.forEach(btn => { btn.classList.toggle('is-active', btn === control); btn.setAttribute('aria-pressed', String(btn === control)); });
+      cards.forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+    }));
+  </script>
+</Base>

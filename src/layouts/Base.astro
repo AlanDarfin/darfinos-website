@@ -1,11 +1,33 @@
 ---
 import '../styles/global.css';
 import BrandMark from '../components/BrandMark.astro';
-import { siteConfig, githubUrl, releaseUrl } from '../lib/config';
-const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig.description } = Astro.props;
+import { siteConfig, githubUrl } from '../lib/config';
+const pathname = Astro.url.pathname;
+const isPt = pathname === '/pt-br/' || pathname.startsWith('/pt-br/');
+const lang = isPt ? 'pt-BR' : 'en';
+const prefix = isPt ? '/pt-br' : '';
+const local = (p: string) => prefix + p;
+const english = isPt ? (pathname.slice(6) || '/') : pathname;
+const portuguese = isPt ? pathname : '/pt-br' + pathname;
+const defaultTitle = isPt ? 'DarfinOS · Seu Arch, minhas regras.' : 'DarfinOS · Your Arch, my rules.';
+const defaultDesc = isPt ? siteConfig.description : 'An opinionated Arch Linux post-install toolkit. My Arch, my ideas, my rules. Explore the Control Center, Labs, safe modules and downloads.';
+const { title = defaultTitle, description = defaultDesc } = Astro.props;
+const labels = isPt ? {
+ skip:'Pular para o conteúdo', nav:'Navegação principal', home:'Página inicial',
+ features:'Recursos', gallery:'Galeria', tools:'Ferramentas', docs:'Documentação',
+ downloads:'Downloads', mobile:'Abrir o menu', code:'Código', support:'Suporte',
+ footer:'Projeto independente de personalização do Arch Linux.',
+ disclaimer:'Não afiliado oficialmente ao Arch Linux ou aos projetos citados.',
+} : {
+ skip:'Skip to content', nav:'Main navigation', home:'Home',
+ features:'Features', gallery:'Gallery', tools:'Projects', docs:'Documentation',
+ downloads:'Downloads', mobile:'Open menu', code:'Source', support:'Support',
+ footer:'An independent Arch Linux customization project.',
+ disclaimer:'Not officially affiliated with Arch Linux or the projects featured.',
+};
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,25 +37,58 @@ const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href={new URL(pathname, 'https://darfinos.vercel.app').toString()} />
+  <link rel="alternate" hreflang="en" href={new URL(english, 'https://darfinos.vercel.app').toString()} />
+  <link rel="alternate" hreflang="pt-BR" href={new URL(portuguese, 'https://darfinos.vercel.app').toString()} />
+  <link rel="alternate" hreflang="x-default" href={new URL(english, 'https://darfinos.vercel.app').toString()} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
   <title>{title}</title>
+  <script is:inline>
+    (() => {
+      const path = window.location.pathname;
+      const isPt = path === '/pt-br/' || path.startsWith('/pt-br/');
+      const choice = (() => { try { return localStorage.getItem('darfinos-language'); } catch { return null; } })();
+      const primaryLanguage = navigator.languages?.[0] || navigator.language || 'en';
+      const browserPt = primaryLanguage.toLowerCase().startsWith('pt');
+      const chosen = choice === 'en' || choice === 'pt-BR' ? choice : (browserPt ? 'pt-BR' : 'en');
+      if (chosen === 'pt-BR' && !isPt) {
+        location.replace('/pt-br' + path + location.search + location.hash);
+      } else if (chosen === 'en' && isPt && choice === 'en') {
+        location.replace((path.slice(6) || '/') + location.search + location.hash);
+      }
+      document.addEventListener('click', event => {
+        const link = event.target.closest?.('[data-lang-choice]');
+        if (link) {
+          try { localStorage.setItem('darfinos-language', link.dataset.langChoice); } catch {}
+        }
+      });
+    })();
+  </script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo">{labels.skip}</a>
 <header class="site-header">
-  <nav class="max-w-6xl mx-auto px-5 site-nav" aria-label="Navegação principal">
-    <a href="/" class="brand" aria-label="DarfinOS, página inicial"><span class="brand-symbol"><BrandMark class="brand-mark" /></span><span>Darfin<span class="text-electric">OS</span></span></a>
+  <nav class="max-w-6xl mx-auto px-5 site-nav" aria-label={labels.nav}>
+    <a href={local('/')} class="brand" aria-label={'DarfinOS, ' + labels.home}><span class="brand-symbol"><BrandMark class="brand-mark" /></span><span>Darfin<span class="text-electric">OS</span></span></a>
     <div class="desktop-links">
-      <a href="/#recursos">Recursos</a><a href="/controle/">Control Center</a><a href="/labs/">Labs</a><a href="/#galeria">Galeria</a>
-      <a href="/ferramentas/">Ferramentas</a><a href="/docs/">Documentação</a>
-      <a href={releaseUrl} target="_blank" rel="noopener noreferrer">Releases ↗</a>
+      <a href={local('/#recursos')}>{labels.features}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/#galeria')}>{labels.gallery}</a>
+      <a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/docs/')}>{labels.docs}</a>
+      <a href={local('/downloads/')}>{labels.downloads}</a>
+      <div class="language-switch" role="group" aria-label="Language / Idioma">
+        <a class:list={['language-link', {active:!isPt}]} href={english} data-lang-choice="en" lang="en" aria-current={!isPt ? 'page' : undefined}>EN</a>
+        <a class:list={['language-link', {active:isPt}]} href={portuguese} data-lang-choice="pt-BR" lang="pt-BR" aria-current={isPt ? 'page' : undefined}>PT-BR</a>
+      </div>
     </div>
     <details class="mobile-menu">
-      <summary aria-label="Abrir o menu">Menu ☰</summary>
+      <summary aria-label={labels.mobile}>Menu ☰</summary>
       <div class="mobile-links">
-        <a href="/#recursos">Recursos</a><a href="/controle/">Control Center</a><a href="/labs/">Labs</a><a href="/#galeria">Galeria</a>
-        <a href="/ferramentas/">Ferramentas</a><a href="/docs/">Documentação</a>
-        <a href={releaseUrl} target="_blank" rel="noopener noreferrer">Releases ↗</a>
+        <a href={local('/#recursos')}>{labels.features}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/#galeria')}>{labels.gallery}</a>
+        <a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/docs/')}>{labels.docs}</a>
+        <a href={local('/downloads/')}>{labels.downloads}</a>
+        <div class="language-switch" role="group" aria-label="Language / Idioma">
+          <a class:list={['language-link', {active:!isPt}]} href={english} data-lang-choice="en" lang="en">English</a>
+          <a class:list={['language-link', {active:isPt}]} href={portuguese} data-lang-choice="pt-BR" lang="pt-BR">Português</a>
+        </div>
         <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
     </details>
@@ -42,8 +97,8 @@ const { title = 'DarfinOS · Seu Arch, minhas regras.', description = siteConfig
 <main id="conteudo"><slot /></main>
 <footer class="site-footer">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-7">
-    <div><p class="font-bold text-white"><span class="inline-flex items-center gap-2"><BrandMark class="h-5 w-5 text-electric" />DarfinOS</span></p><p class="mt-2">Projeto independente de personalização do Arch Linux.</p><p class="mt-2 text-xs">Não afiliado oficialmente ao Arch Linux ou aos projetos citados.</p></div>
-    <div class="flex flex-wrap items-start gap-5"><a href="/docs/">Documentação</a><a href="/controle/">Control Center</a><a href="/labs/">Labs</a><a href="/ferramentas/">Ferramentas</a><a href="/labs/">Labs</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">Código ↗</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">Suporte ↗</a></div>
+    <div><p class="font-bold text-white"><span class="inline-flex items-center gap-2"><BrandMark class="h-5 w-5 text-electric" />DarfinOS</span></p><p class="mt-2">{labels.footer}</p><p class="mt-2 text-xs">{labels.disclaimer}</p></div>
+    <div class="flex flex-wrap items-start gap-5"><a href={local('/docs/')}>{labels.docs}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/downloads/')}>{labels.downloads}</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">{labels.code} ↗</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">{labels.support} ↗</a></div>
   </div>
 </footer>
 </body></html>

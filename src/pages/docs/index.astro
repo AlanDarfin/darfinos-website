@@ -1,64 +1,82 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { githubUrl, releaseUrl, sourceZipUrl } from '../../lib/config';
-const clone = 'git clone https://github.com/AlanDarfin/DarfinOS.git\ncd DarfinOS';
-const doctor = 'python3 DarfinOSInstallScript-TUI.py --doctor\npython3 DarfinOSInstallScript-TUI.py --plan --preset minimal';
-const preflight = 'bash DarfinOSInstallScript.sh --preflight';
-const installedModules = 'python3 DarfinOSInstallScript-TUI.py --check-modules\nbash DarfinOSInstallScript.sh --check-modules';
-const retroPlan = 'python3 DarfinOSInstallScript-TUI.py --plan --preset retro';
-const status = 'python3 darfinos_control.py status --json\npython3 darfinos_control.py maintenance --json';
-const audit = 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming';
-const backup = 'python3 darfinos_control.py backup ~/darfinos-config.zip\npython3 darfinos_control.py restore ~/darfinos-config.zip';
-const openTui = 'python3 DarfinOSInstallScript-TUI.py --local';
+import { githubUrl, sourceZipUrl } from '../../lib/config';
+const commands = [
+ {title:'Clone the project',id:'clone',command:'git clone https://github.com/AlanDarfin/DarfinOS.git\ncd DarfinOS',info:'Start from the public source and review what you plan to run.'},
+ {title:'Doctor & preflight',id:'doctor',command:'python3 DarfinOSInstallScript-TUI.py --doctor\nbash DarfinOSInstallScript.sh --preflight',info:'Validate the installer structure and basic system requirements. No sudo, installation or updates.'},
+ {title:'Check installed modules',id:'modules',command:'python3 DarfinOSInstallScript-TUI.py --check-modules\nbash DarfinOSInstallScript.sh --check-modules',info:'Shows complete, partial, missing and unknown modules. Only verified complete steps are skipped automatically.'},
+ {title:'Choose a preset without executing it',id:'presets',command:'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset minimal\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro',info:'Six presets are available: minimal, desktop, i3, retro, gaming and full. Full includes high-risk changes, but excludes optional Labs modules.'},
+ {title:'Audit packages and compare presets',id:'audit',command:'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming',info:'Read-only previews. Package inventory is partial and is not proof that a module is configured.'},
+ {title:'Explore DarfinOS Labs',id:'labs',command:'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --lab-info chicago95',info:'Discover 13 independent projects, original upstream links and safety categories.'},
+ {title:'Back up selected configuration',id:'backup',command:'python3 darfinos_control.py backup ~/darfinos-config.zip\npython3 darfinos_control.py restore ~/darfinos-config.zip',info:'Selected HOME files only. The restore command without --apply is a preview, not a system snapshot.'},
+];
 ---
-<Base title="Documentação · DarfinOS" description="Guia seguro para instalar e personalizar o Arch Linux com o DarfinOS.">
-  <div class="max-w-4xl mx-auto px-5 py-16 md:py-20">
-    <p class="section-kicker mb-4">// DOCUMENTAÇÃO · PRIMEIROS PASSOS</p>
-    <h1 class="section-heading mb-6">O controle vem <span class="text-electric">antes da instalação.</span></h1>
-    <p class="section-lead mb-10">O DarfinOS é um projeto de pós-instalação para Arch Linux. Escolha o que instalar, revise os riscos e mantenha seu sistema sob controle.</p>
-    <nav aria-label="Seções do guia" class="flex flex-wrap gap-3 mb-12 text-sm"><a class="btn btn-outline" href="#requisitos">Requisitos</a><a class="btn btn-outline" href="#obter">Código</a><a class="btn btn-outline" href="#diagnostico">Doctor</a><a class="btn btn-outline" href="#control-center">Control Center</a><a class="btn btn-outline" href="/labs/">Labs</a><a class="btn btn-outline" href="#faq">FAQ</a></nav>
-    <div class="space-y-6">
-      <section id="requisitos" class="card doc-card"><p class="section-kicker">01 / PREPARAR</p><h2>Pré-requisitos</h2><p>Arch Linux ou derivado compatível com <code>pacman</code>, conexão com a internet, Git, Python 3 com <code>curses</code> e acesso a <code>sudo</code> por um usuário comum.</p><p>Faça backup dos dados importantes. Mudanças no SonicDE ou XLibre devem ser avaliadas com um meio de recuperação preparado.</p></section>
-      <section id="obter" class="card doc-card"><p class="section-kicker">02 / OBTER</p><h2>Clone o repositório</h2><p>Baixe e inspecione os scripts antes de executá-los. Evite executar scripts remotos diretamente sem revisar o conteúdo.</p><div class="code-panel"><pre><code>{clone}</code></pre><button type="button" data-copy={clone}>Copiar</button></div><p>Alternativas: <a href={sourceZipUrl}>código em desenvolvimento na main (ZIP) ↗</a> ou <a href={releaseUrl}>página de releases (ainda sem versão estável) ↗</a>.</p></section>
-      <p class="text-gray-400 text-sm">O lançamento estável está em preparação. Não confunda o ZIP da branch main com um pacote validado em VM.</p><section id="diagnostico" class="card doc-card"><p class="section-kicker">03 / VERIFICAR</p><h2>Doctor e plano de execução</h2><p>O <code>--doctor</code> confere sintaxe Bash, funções e dependências das <strong>41 etapas</strong> sem instalar nada nem solicitar sudo. <code>--plan</code> mostra um preset sem executar. Há também <code>--doctor-json</code> para relatórios.</p><div class="code-panel"><pre><code>{doctor}</code></pre><button type="button" data-copy={doctor}>Copiar</button></div><p>O preset inicial é <code>minimal</code>. O preset <code>i3</code> combina o WM i3 com XLibre. O novo preset <code>retro</code> traz Xfce e Chicago95 sem substituir a sessão existente. O preset <code>full</code> precisa ser selecionado explicitamente e inclui opções avançadas como Bedrock.</p></section>
-      <section class="card doc-card"><p class="section-kicker">04 / PERSONALIZAR</p><h2>Abra a TUI</h2><p>Escolha etapas, pesquise por nome ou descrição, revise dependências e confirme manualmente a execução.</p><div class="code-panel"><pre><code>{openTui}</code></pre><button type="button" data-copy={openTui}>Copiar</button></div><p>Atalhos: <code>L</code> Labs, <code>/</code> busca, <code>O</code> presets, <code>C</code> diagnóstico, <code>V</code> auditoria, <code>B</code> prévia de pacotes, <code>Z</code> recuperação e <code>R</code> revisão. Para rodar o Bash sem TUI, consulte <code>--list</code> e <code>--only</code>.</p></section>
-      <section class="card doc-card"><p class="section-kicker">05 / ACOMPANHAR</p><h2>Logs e recuperação</h2><p>O Bash salva logs em <code>~/.local/state/postinstall/</code>. A TUI usa <code>~/.local/state/darfinos-tui/logs/</code> e diários em <code>~/.local/state/darfinos-tui/runs/</code>.</p><p>Use <code>--runs</code> para listar execuções e <code>--resume</code> para selecionar etapas não concluídas. Retomar não desfaz mudanças anteriores.</p></section>
-      <section id="control-center" class="card doc-card">
-        <p class="section-kicker">06 / CONTROL CENTER · EM DESENVOLVIMENTO</p>
-        <h2>Diagnóstico, perfis e recuperação</h2>
-        <p>As novas funções estão no código em desenvolvimento e ainda não representam um release estável. Para comandos e limitações detalhados, consulte a <a href="/controle/">página dedicada ao Control Center</a>.</p>
-        <h3 class="font-bold text-lg mt-6">Pré-verificação do Bash</h3><div class="code-panel"><pre><code>{preflight}</code></pre><button type="button" data-copy={preflight}>Copiar</button></div>
-        <h3 class="font-bold text-lg mt-6">Checar módulos instalados</h3><p>Antes de instalar, o DarfinOS identifica módulos completos, parciais e de estado desconhecido. Só pula os comprovadamente completos. Pressione <code>I</code> na TUI para reavaliar e <code>X</code> para forçar uma reinstalação; no Bash, use <code>--reinstall</code>.</p><div class="code-panel"><pre><code>{installedModules}</code></pre><button type="button" data-copy={installedModules}>Copiar</button></div>
-        <h3 class="font-bold text-lg mt-6">Estado do sistema e manutenção</h3><div class="code-panel"><pre><code>{status}</code></pre><button type="button" data-copy={status}>Copiar</button></div>
-        <h3 class="font-bold text-lg mt-6">Auditoria e comparação de presets</h3><div class="code-panel"><pre><code>{audit}</code></pre><button type="button" data-copy={audit}>Copiar</button></div>
-        <h3 class="font-bold text-lg mt-6">Backup e prévia sem restaurar</h3><div class="code-panel"><pre><code>{backup}</code></pre><button type="button" data-copy={backup}>Copiar</button></div>
-        <p><strong>Importante:</strong> o Bash não executa mais todas as etapas sem seleção. Use a TUI ou escolha <code>--only</code>, <code>--skip</code> ou <code>--all</code> conscientemente. O backup abrange apenas configurações permitidas do HOME, não reverte pacotes nem alterações gráficas.</p>
-      </section>
-      <section class="card doc-card"><p class="section-kicker">07 / DARFINOS LABS</p><h2>i3, ambientes alternativos e experimentos</h2><p>São 13 projetos externos documentados com seus links originais. O instalador ganhou a etapa <code>i3</code>, além de etapas opcionais AUR para NsCDE, JuNest, Decman e Metapac. Os demais são guias para testes manuais. Nenhum desses módulos AUR entra automaticamente no preset <code>full</code>. O Chicago95 é um módulo Labs separado e copia apenas os assets oficiais para <code>~/.themes</code> e <code>~/.icons</code>, após confirmação. Não executa o <code>installer.py</code> original nem altera o painel atual.</p><div class="code-panel"><pre><code>bash DarfinOSInstallScript.sh --labs
-python3 DarfinOSInstallScript-TUI.py --labs</code></pre></div><p>Na TUI, a tecla <code>L</code> abre o catálogo. Instalações AUR exigem confirmação específica e não aceitam modo <code>-y</code>. Os projetos gráficos e Booster devem ser avaliados em VM; <a href="/labs/">ver catálogo, riscos e links originais</a>.</p></section>
-      <section id="faq" class="card doc-card"><p class="section-kicker">/ PERGUNTAS FREQUENTES</p><h2>Dúvidas comuns</h2><div class="faq">
-        <details><summary>DarfinOS é uma distribuição?</summary><p>Não. É um projeto de personalização do Arch Linux, sem ISO própria.</p></details>
-        <details><summary>Sou obrigado a instalar tudo?</summary><p>Não. A seleção modular permite executar apenas etapas específicas. O preset full não é o padrão.</p></details>
-        <details><summary>Doctor modifica meu sistema?</summary><p>Não. O diagnóstico é somente leitura.</p></details>
-        <details><summary>Onde posso pedir ajuda?</summary><p>Abra uma issue no repositório. Remova senhas, tokens e dados pessoais antes de anexar logs.</p></details>
-      </div></section>
+<Base title="Documentation · DarfinOS" description="English DarfinOS documentation: installation, safe preflight, module checks, profiles, Labs, maintenance and recovery.">
+  <section class="grid-bg border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+      <p class="section-kicker mb-4">// INSTALLATION & REFERENCE</p>
+      <h1 class="section-heading">Your Arch, <span class="text-electric">my rules.</span></h1>
+      <p class="section-lead mt-5 max-w-3xl">The safe way to explore an opinionated Arch Linux post-install toolkit. Nothing here requires you to run random remote scripts as root.</p>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a class="btn btn-primary" href={sourceZipUrl}>Download current source ZIP</a>
+        <a class="btn btn-outline" href="/downloads/">Downloads & release status</a>
+        <a class="btn btn-outline" href={githubUrl} target="_blank" rel="noopener noreferrer">Source code ↗</a>
+      </div>
     </div>
-    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
-    <div class="flex flex-wrap gap-3 mt-9"><a class="btn btn-primary" href={githubUrl + '/tree/main/docs'}>Documentação completa ↗</a><a class="btn btn-outline" href={githubUrl + '/issues'}>Suporte ↗</a></div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-5 py-14">
+    <nav aria-label="Guide sections" class="flex flex-wrap gap-3 mb-11 text-sm">
+      <a class="btn btn-outline" href="#requirements">Requirements</a>
+      <a class="btn btn-outline" href="#commands">Commands</a>
+      <a class="btn btn-outline" href="#tui">TUI</a>
+      <a class="btn btn-outline" href="#safety">Safety</a>
+    </nav>
+
+    <section id="requirements" class="card doc-card">
+      <p class="section-kicker">01 / REQUIREMENTS</p>
+      <h2>Start with a working Arch installation.</h2>
+      <p>DarfinOS is not a Linux distribution, bootable installer or ISO. It is a modular post-install customization project for Arch Linux and compatible pacman-based systems.</p>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li>Arch Linux or a compatible system with <code>pacman</code>.</li>
+        <li>Normal user account with <code>sudo</code> for installation stages.</li>
+        <li>Python 3 with <code>curses</code> for the TUI. No pip installation is required.</li>
+        <li>A recovery plan and preferably a snapshot before touching XLibre, SonicDE, Bedrock or boot components.</li>
+      </ul>
+    </section>
+
+    <section id="commands" class="grid md:grid-cols-2 gap-5 mt-6">
+      {commands.map(item => <article class="card" id={item.id}>
+        <h3 class="text-xl font-bold mb-3">{item.title}</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">{item.info}</p>
+        <div class="code-panel"><pre><code>{item.command}</code></pre><button type="button" data-copy={item.command} aria-label={'Copy commands: ' + item.title}>Copy</button></div>
+      </article>)}
+    </section>
+
+    <section id="tui" class="card doc-card mt-6">
+      <p class="section-kicker">02 / THE TERMINAL UI</p>
+      <h2>Plan first, install second.</h2>
+      <p>Launch <code>python3 DarfinOSInstallScript-TUI.py --local</code>. Opening the TUI does not start installing. Use the arrow keys to navigate, Space to select, <code>/</code> to search, and <code>R</code> to review before execution.</p>
+      <p>Useful keys: <strong>I</strong> refreshes module detection, <strong>X</strong> toggles explicit re-execution, <strong>L</strong> browses Labs, <strong>O</strong> opens presets, <strong>C</strong> shows system status, and <strong>V</strong> opens a partial package audit.</p>
+      <p>To rerun a stage from Bash, use <code>--only i3 --reinstall</code>. This does not bypass pacman's <code>--needed</code>, project-specific confirmations or overwrite protection.</p>
+    </section>
+
+    <section id="safety" class="card doc-card mt-6">
+      <p class="section-kicker">03 / LIMITS</p>
+      <h2>Know what the software does not prove.</h2>
+      <p>A package being installed does not mean an entire desktop, login manager or service is configured. DarfinOS automatically skips only steps for which it can verify enough evidence. Others remain partial or unknown.</p>
+      <p>Chicago95 is downloaded from the <a href="https://github.com/grassmunk/Chicago95" target="_blank" rel="noopener noreferrer">original project</a>; the optional Retro stage copies GTK and icon assets without executing its remote Python installer or changing your current Xfce settings.</p>
+      <p>There is currently <strong>no stable release</strong>. CI validates offline behavior and a safe Arch container, not a complete graphical VM installation or restore workflow.</p>
+      <div class="flex flex-wrap gap-3 mt-6"><a class="btn btn-outline" href="/controle/">Control Center ↗</a><a class="btn btn-outline" href="/labs/">All Labs projects ↗</a><a class="btn btn-outline" href="/downloads/">Release status ↗</a></div>
+    </section>
   </div>
+  <p id="copy-status" class="sr-only" role="status" aria-live="polite"></p>
   <script>
     document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => button.addEventListener('click', async () => {
       const value = button.dataset.copy;
       if (!value) return;
-      const status = document.getElementById('copy-status');
-      try {
-        await navigator.clipboard.writeText(value);
-        button.textContent = 'Copiado!';
-        if (status) status.textContent = 'Comandos copiados.';
-      } catch {
-        button.textContent = 'Selecione o texto';
-        if (status) status.textContent = 'Cópia não disponível. Selecione o texto manualmente.';
-      }
+      try { await navigator.clipboard.writeText(value); button.textContent = 'Copied!'; }
+      catch { button.textContent = 'Select the text'; }
     }));
   </script>
 </Base>

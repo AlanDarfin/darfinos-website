@@ -2,120 +2,71 @@
 import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import { githubUrl } from '../../lib/config';
-
-const commands = [
-  { id: 'preflight', label: 'Diagnóstico inicial', code: 'bash DarfinOSInstallScript.sh --preflight\npython3 DarfinOSInstallScript-TUI.py --doctor', info: 'Confere requisitos e estrutura das etapas, sem sudo nem instalação.' },
-  { id: 'status', label: 'Painel do sistema', code: 'python3 DarfinOSInstallScript-TUI.py --status-json\npython3 darfinos_control.py maintenance --json', info: 'Mostra ferramentas encontradas, atualizadores, autostart e timers. É uma verificação local, não executa atualizações.' },
-  { id: 'modules', label: 'Módulos já instalados', code: 'python3 DarfinOSInstallScript-TUI.py --check-modules', info: 'Classifica módulos como completos, parciais, ausentes ou desconhecidos. O instalador só ignora os que puder comprovar.' },
-  { id: 'audit', label: 'Auditoria de módulos', code: 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming', info: 'Compara pacotes previstos com o inventário local. O manifesto é parcial e não comprova a conclusão de cada etapa.' },
-  { id: 'compare', label: 'Transição entre presets', code: 'python3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming', info: 'Compara seleções, destaca mudanças de risco e não instala nem remove nada.' },
-];
-
 const features = [
-  {number:'01',title:'Diagnóstico e prevenção',desc:'Doctor, preflight e estado local antes de instalar. O Bash exige seleção explícita: uma chamada sem argumentos não instala o sistema inteiro.', tag:'Somente leitura'},
-  {number:'02',title:'TUI modular',desc:'41 etapas e seis presets, com inspeção, dependências, histórico de execução, logs, retomada e barra de progresso por etapa.', tag:'Execução com revisão'},
-  {number:'03',title:'Auditoria de pacotes',desc:'A tecla V e o comando --audit ajudam a identificar o que está presente e o que não foi detectado, sem prometer uma verificação completa.', tag:'Prévia parcial'},
-  {number:'04',title:'Perfis portáteis',desc:'Exportar, importar e comparar perfis JSON. A importação desativa automaticamente o modo de confirmação reduzida (-y).', tag:'Sem instalações'},
-  {number:'05',title:'Backup de configurações',desc:'Cópias ZIP de um conjunto permitido de arquivos no HOME, verificadas com SHA-256. A restauração apresenta uma prévia e exige confirmação explícita.', tag:'Recuperação limitada'},
-  {number:'06',title:'Manutenção integrada',desc:'Inspeção de Topgrade e Arch-Update, com verificação de applet e timers. A atualização real continua dependendo de confirmação do usuário.', tag:'Não atualiza sozinho'},
+  {number:'01',title:'Check before installing',desc:'Read-only Doctor, preflight and module checks. Verified complete steps can be skipped, while partial or unknown modules remain available.',label:'Safe inspection'},
+  {number:'02',title:'Modular terminal installer',desc:'41 installation stages and six presets, with plan reviews, dependencies, execution history, progress and logs.',label:'Explicit execution'},
+  {number:'03',title:'Package audit',desc:'Inspect part of the expected package inventory without assuming a package list proves a whole system stage is configured.',label:'Partial preview'},
+  {number:'04',title:'Portable profiles',desc:'Export, import and compare JSON profiles to reuse choices. Imported profiles still require review.',label:'No automatic changes'},
+  {number:'05',title:'Configuration backup',desc:'SHA-256 checked archives of allowlisted HOME configuration files, preview before restore and confirmation on overwrite.',label:'Limited recovery'},
+  {number:'06',title:'Maintenance tools',desc:'Check Topgrade, Arch-Update, tray integrations and user timers without running updates silently.',label:'Opt-in actions'},
 ];
-
-const backupCommands = [
- {id:'export',label:'Exportar e comparar perfis',code:'python3 darfinos_control.py profile-export gaming gaming.json\npython3 darfinos_control.py profile-import gaming.json gaming-copia\npython3 darfinos_control.py profile-diff gaming gaming-copia'},
- {id:'backup',label:'Salvar configurações',code:'python3 darfinos_control.py backup ~/darfinos-config.zip'},
- {id:'preview',label:'Inspecionar sem restaurar',code:'python3 darfinos_control.py restore ~/darfinos-config.zip'},
- {id:'apply',label:'Restaurar conscientemente',code:'python3 darfinos_control.py restore ~/darfinos-config.zip --apply --overwrite'},
+const commands=[
+ {title:'Doctor and preflight',code:'python3 DarfinOSInstallScript-TUI.py --doctor\nbash DarfinOSInstallScript.sh --preflight',detail:'Verify the installer and basic requirements before executing stages.'},
+ {title:'Installed module status',code:'python3 DarfinOSInstallScript-TUI.py --check-modules\nbash DarfinOSInstallScript.sh --check-modules',detail:'Installed, partial, missing and unknown results. Only verified installed stages are skipped.'},
+ {title:'System and maintenance status',code:'python3 DarfinOSInstallScript-TUI.py --status-json\npython3 darfinos_control.py maintenance --json',detail:'Read-only inventory of tools, update helpers and maintenance infrastructure.'},
+ {title:'Audit and compare presets',code:'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming',detail:'Declarative comparison and partial package audit, without making changes.'},
+];
+const backups=[
+{title:'Export and compare profiles',code:'python3 darfinos_control.py profile-export gaming gaming.json\npython3 darfinos_control.py profile-import gaming.json gaming-copy\npython3 darfinos_control.py profile-diff gaming gaming-copy'},
+{title:'Back up configuration',code:'python3 darfinos_control.py backup ~/darfinos-config.zip'},
+{title:'Review restore without applying',code:'python3 darfinos_control.py restore ~/darfinos-config.zip'},
+{title:'Restore after explicit review',code:'python3 darfinos_control.py restore ~/darfinos-config.zip --apply --overwrite'},
 ];
 ---
-<Base title="Control Center · DarfinOS" description="Conheça o Control Center do DarfinOS: diagnóstico, TUI, auditoria de pacotes, perfis, manutenção e recuperação de configurações no Arch Linux.">
-  <section class="grid-bg border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
-      <p class="brand-kicker section-kicker mb-6"><BrandMark class="h-5 w-5" /> // DARFINOS · CONTROL CENTER</p>
-      <h1 class="section-heading max-w-4xl">Instale com critério.<br/><span class="text-electric">Administre com controle.</span></h1>
-      <p class="section-lead mt-7 max-w-3xl">Uma central de ferramentas para planejar, inspecionar e manter a personalização do Arch Linux. Sem inventar um novo sistema operacional e sem esconder as operações delicadas.</p>
-      <div class="flex flex-wrap gap-3 mt-8">
-        <a class="btn btn-primary" href="#comandos">Ver comandos</a>
-        <a class="btn btn-outline" href="/docs/">Guia de instalação</a>
-        <a class="btn btn-outline" href="/labs/">Explorar DarfinOS Labs</a>
-        <a class="btn btn-outline" href={githubUrl + '/pull/4'} target="_blank" rel="noopener noreferrer">Acompanhar desenvolvimento ↗</a>
-      </div>
-      <p class="text-sm text-gray-400 mt-7">Em desenvolvimento. O código passou por testes automatizados; a instalação gráfica completa em máquina virtual ainda requer validação. Não existe release estável publicada.</p>
-    </div>
+<Base title="Control Center · DarfinOS" description="DarfinOS Control Center: 41 installer stages, module detection, Arch maintenance, JSON profiles and carefully scoped configuration backup.">
+  <section class="grid-bg border-b border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
+    <p class="section-kicker brand-kicker mb-6"><BrandMark class="h-5 w-5" /> // DARFINOS · CONTROL CENTER</p>
+    <h1 class="section-heading max-w-4xl">Install deliberately.<br/><span class="text-electric">Keep control afterward.</span></h1>
+    <p class="section-lead max-w-3xl mt-7">Tools to plan, inspect and maintain your opinionated Arch Linux customization. No new Linux distribution, no hidden system-wide changes.</p>
+    <div class="flex flex-wrap gap-3 mt-8"><a class="btn btn-primary" href="#commands">See commands</a><a class="btn btn-outline" href="/docs/">Installation guide</a><a class="btn btn-outline" href="/labs/">Explore Labs</a></div>
+    <p class="text-gray-400 text-sm mt-7">In development: automated checks passed, but full graphical VM and recovery testing remain open. No stable release is published.</p>
+  </div></section>
+  <section class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+    <p class="section-kicker mb-3">// FEATURES IN DEVELOPMENT</p><h2 class="section-heading mb-5">A tool for every stage of the project.</h2>
+    <p class="section-lead mb-9">Features below exist in the current source. They are not a promise that every possible installation scenario has been validated.</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">{features.map(feature => <article class="card feature-card flex flex-col gap-3">
+      <div class="flex items-center justify-between gap-2"><span class="mono text-electric text-sm">{feature.number} /</span><span class="feature-label">{feature.label}</span></div>
+      <h3 class="font-bold text-xl">{feature.title}</h3><p class="text-gray-400 text-sm leading-relaxed flex-1">{feature.desc}</p>
+    </article>)}</div>
   </section>
-
-  <section id="funcoes" class="max-w-6xl mx-auto px-5 py-16 md:py-20">
-    <p class="section-kicker mb-3">// O QUE JÁ FOI IMPLEMENTADO</p>
-    <h2 class="section-heading mb-5">Seis ferramentas, uma direção.</h2>
-    <p class="section-lead mb-9">Os recursos abaixo estão implementados na versão em desenvolvimento. Consulte o estado de publicação no GitHub antes de seguir os exemplos.</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {features.map(feature => <article class="card feature-card flex flex-col gap-3">
-        <div class="flex items-center justify-between gap-2"><span class="mono text-electric text-sm">{feature.number} /</span><span class="feature-label">{feature.tag}</span></div>
-        <h3 class="text-xl font-bold">{feature.title}</h3>
-        <p class="text-gray-400 text-sm leading-relaxed flex-1">{feature.desc}</p>
-      </article>)}
-    </div>
+  <section id="commands" class="bg-[#15171b] border-y border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+    <p class="section-kicker mb-3">// READ-ONLY TERMINAL COMMANDS</p><h2 class="section-heading mb-5">Understand your Arch before changing it.</h2>
+    <p class="section-lead mb-9">Run these commands from the repository directory. None of these examples installs a package or requires sudo.</p>
+    <div class="grid md:grid-cols-2 gap-5">{commands.map(item => <article class="card">
+      <h3 class="font-bold text-lg">{item.title}</h3><p class="text-gray-400 text-sm mt-2">{item.detail}</p>
+      <div class="code-panel"><pre><code>{item.code}</code></pre><button type="button" data-copy={item.code}>Copy</button></div>
+    </article>)}</div>
+    <p class="text-gray-400 text-sm mt-6">In the TUI, press <code>I</code> to refresh checks and <code>X</code> to force stage re-execution. The command-line equivalent is <code>--reinstall</code>. Pacman still respects <code>--needed</code>.</p>
+  </div></section>
+  <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="profiles">
+    <p class="section-kicker mb-3">// REPRODUCIBLE CHOICES</p><h2 class="section-heading mb-5">Profiles and limited recovery.</h2>
+    <p class="section-lead mb-8">Save your selections, compare settings and protect selected configuration files. A HOME backup is not an operating system snapshot.</p>
+    <div class="grid md:grid-cols-2 gap-5">{backups.map(item => <article class="card"><h3 class="font-bold text-lg">{item.title}</h3><div class="code-panel"><pre><code>{item.code}</code></pre><button type="button" data-copy={item.code}>Copy</button></div></article>)}</div>
+    <div class="security-note mt-8"><strong>Limits:</strong> archives cover only allowlisted files in <code>~/.config</code>. They can contain private data. A restore does not undo pacman packages, modified services, changes under <code>/etc</code>, XLibre, SonicDE, Bedrock or boot changes. Always inspect the backup first.</div>
   </section>
-
-  <section id="comandos" class="bg-[#15171b] border-y border-white/10">
-    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
-      <p class="section-kicker mb-3">// TERMINAL · SEM PRIVILÉGIOS E SEM INSTALAR</p>
-      <h2 class="section-heading mb-5">Comandos para entender seu Arch.</h2>
-      <p class="section-lead mb-9">Execute estes comandos dentro da pasta do projeto. Os diagnósticos abaixo são somente leitura e não precisam de sudo.</p>
-      <div class="grid md:grid-cols-2 gap-5">
-        {commands.map(item => <article class="card" id={item.id}>
-          <h3 class="text-lg font-bold">{item.label}</h3>
-          <p class="text-gray-400 text-sm mt-2 leading-relaxed">{item.info}</p>
-          <div class="code-panel"><pre><code>{item.code}</code></pre><button type="button" data-copy={item.code} aria-label={'Copiar comandos: ' + item.label}>Copiar</button></div>
-        </article>)}
-      </div>
-      <p class="mt-6 text-gray-400 text-sm">Na TUI, a tecla I consulta os módulos; X ativa/desativa a reinstalação explícita. O Bash oferece --check-modules e --reinstall. Apenas módulos com confirmação suficiente são ignorados. Xfce e Chicago95 estão disponíveis no preset retro.</p>
-      <p class="mt-6 text-gray-400 text-sm">Na TUI, as teclas <code class="text-electric">C</code> e <code class="text-electric">V</code> abrem, respectivamente, o painel do sistema e a auditoria de pacotes. Uma auditoria parcial não é um instalador de diferenças automático.</p>
-    </div>
-  </section>
-
-  <section id="perfis" class="max-w-6xl mx-auto px-5 py-16 md:py-20">
-    <p class="section-kicker mb-3">// PERSONALIZAÇÃO REPRODUZÍVEL</p>
-    <h2 class="section-heading mb-5">Perfis e recuperação.</h2>
-    <p class="section-lead mb-9">Salve seleções, compare preferências e proteja alguns arquivos de configuração. Backup do HOME não equivale a um snapshot do sistema ou à reversão de pacotes e serviços.</p>
+  <section class="bg-[#15171b] border-y border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+    <p class="section-kicker mb-3">// RELEASE READINESS</p><h2 class="section-heading mb-6">What has been tested, and what's still missing?</h2>
     <div class="grid md:grid-cols-2 gap-5">
-      {backupCommands.map(item => <article class="card">
-        <h3 class="text-lg font-bold">{item.label}</h3>
-        <div class="code-panel"><pre><code>{item.code}</code></pre><button type="button" data-copy={item.code} aria-label={'Copiar: ' + item.label}>Copiar</button></div>
-      </article>)}
+      <div class="card"><h3 class="text-xl font-bold">Automated checks</h3><p class="text-gray-400 text-sm mt-3">Python/Bash tests, packaging checks and safe smoke tests inside an Arch container. These checks do not perform a full XLibre/SonicDE desktop install.</p></div>
+      <div class="card"><h3 class="text-xl font-bold">Still pending</h3><p class="text-gray-400 text-sm mt-3">Graphical session login/reboot, alternative environments, restore and boot recovery in a disposable VM. Development candidates are always marked as prereleases.</p></div>
     </div>
-    <div class="security-note mt-8">
-      <strong>Limites reais:</strong> o arquivo ZIP cobre apenas configurações autorizadas em <code>~/.config</code>. Pode conter dados privados. A restauração não reverte pacotes do pacman, chaves, serviços, mudanças em <code>/etc</code>, XLibre, SonicDE ou Bedrock. A opção <code>--overwrite</code> substitui configurações existentes e deve ser usada com cuidado.
-    </div>
-  </section>
-
-  <section id="qualidade" class="bg-[#15171b] border-y border-white/10">
-    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20">
-      <p class="section-kicker mb-3">// QUALIDADE E LANÇAMENTO</p>
-      <h2 class="section-heading mb-6">O que foi testado e o que falta.</h2>
-      <div class="grid md:grid-cols-2 gap-5">
-        <div class="card"><p class="text-electric mono text-xs mb-3">VALIDAÇÃO AUTOMATIZADA</p><h3 class="text-xl font-bold">Python, Bash e contêiner Arch</h3><p class="text-gray-400 mt-3 text-sm">A suíte de testes e o smoke test foram aprovados no PR de desenvolvimento. Existe também um workflow manual para instalar apenas a etapa Base em um contêiner efêmero, sem assumir que ele já foi executado.</p></div>
-        <div class="card"><p class="text-electric mono text-xs mb-3">VALIDAÇÃO PENDENTE</p><h3 class="text-xl font-bold">SonicDE, XLibre e recuperação</h3><p class="text-gray-400 mt-3 text-sm">É necessário testar instalação, login gráfico, reinicialização, manutenção e recuperação por snapshot em uma VM descartável antes de publicar uma versão estável.</p></div>
-      </div>
-      <div class="flex flex-wrap gap-3 mt-8">
-        <a class="btn btn-primary" href={githubUrl + '/blob/main/docs/VALIDACAO_VM.md'} target="_blank" rel="noopener noreferrer">Checklist da VM ↗</a>
-        <a class="btn btn-outline" href={githubUrl + '/actions'} target="_blank" rel="noopener noreferrer">Testes no GitHub ↗</a>
-      </div>
-    </div>
-  </section>
-  <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+    <div class="flex flex-wrap gap-3 mt-8"><a class="btn btn-primary" href="/downloads/">Downloads and candidates</a><a class="btn btn-outline" href={githubUrl + '/actions'} target="_blank" rel="noopener noreferrer">CI on GitHub ↗</a></div>
+  </div></section>
   <script>
     document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => button.addEventListener('click', async () => {
-      const value = button.dataset.copy;
-      if (!value) return;
-      const status = document.getElementById('copy-status');
-      try {
-        await navigator.clipboard.writeText(value);
-        button.textContent = 'Copiado!';
-        if (status) status.textContent = 'Comando copiado.';
-      } catch {
-        button.textContent = 'Selecione o texto';
-        if (status) status.textContent = 'Cópia indisponível. Selecione o texto manualmente.';
-      }
+      if (!button.dataset.copy) return;
+      try { await navigator.clipboard.writeText(button.dataset.copy); button.textContent = 'Copied!'; }
+      catch { button.textContent = 'Select text'; }
     }));
   </script>
 </Base>

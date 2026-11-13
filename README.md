@@ -1,73 +1,65 @@
 <div align="center">
 
-<img src="public/darfinos-mark.svg" alt="Logotipo DarfinOS: dois raios geométricos" width="104" />
+<img src="public/darfinos-mark.svg" alt="DarfinOS double lightning mark" width="104"/>
 
-# DarfinOS — Website
+# DarfinOS · Website
 
-### Uma distro Linux com opiniões que não são as suas.
+### A Linux distribution with opinions that aren't yours.
 
-**Seu Arch, minhas regras.**
+**Your Arch, my rules.**
 
-![Website](https://img.shields.io/badge/WEBSITE-DarfinOS-FFCB2E?style=for-the-badge&labelColor=171717)
+**🇺🇸 English (default) · [🇧🇷 Português (Brasil)](README.pt-BR.md)**
+
+[![Website](https://img.shields.io/badge/WEBSITE-DarfinOS-FFCB2E?style=for-the-badge&labelColor=171717)](https://darfinos.vercel.app/)
 ![Arch Linux](https://img.shields.io/badge/BASE-Arch_Linux-FFCB2E?style=for-the-badge&labelColor=171717&logo=archlinux&logoColor=white)
-![Open Source](https://img.shields.io/badge/PROJETO-Open_Source-FFCB2E?style=for-the-badge&labelColor=171717)
 
-**[🌐 Site oficial](https://darfinos.vercel.app/) · [💻 DarfinOS no GitHub](https://github.com/AlanDarfin/DarfinOS) · [📚 Documentação](https://github.com/AlanDarfin/DarfinOS/tree/main/docs) · [⬇️ Releases](https://github.com/AlanDarfin/DarfinOS/releases)**
+**[🌐 Website](https://darfinos.vercel.app/) · [⚡ Main repository](https://github.com/AlanDarfin/DarfinOS) · [📚 Documentation](https://darfinos.vercel.app/docs/) · [⬇️ Downloads](https://darfinos.vercel.app/downloads/)**
 
 </div>
 
 ---
 
-## ✦ Sobre
+## What is DarfinOS?
 
-Este repositório reúne o **site do DarfinOS**, um projeto opinativo de **personalização e pós-instalação do Arch Linux**. O site apresenta a proposta, galeria filtrável, ferramentas independentes, downloads, documentação e comandos de diagnóstico para quem usa o projeto.
+DarfinOS is an **opinionated Arch Linux post-install and customization project**, not a separate distribution or bootable ISO. This repository contains its static website, built with **Astro 5 + Tailwind CSS**.
 
-O DarfinOS **não é uma distribuição Linux independente**: é uma experiência de configuração do Arch Linux, com escolhas próprias e automação.
+The site introduces the modular installer, a terminal Control Center, independently maintained Linux tools and the experiments that give DarfinOS its identity.
 
-## ⚡ Identidade
+## Languages
 
-- **Visual:** escuro, elétrico e amarelo.
-- **Símbolo:** raio duplo geométrico, derivado do conceito 02, disponível em `public/darfinos-mark.svg` e aplicado no favicon, cabeçalho, rodapé e página inicial.
-- **Slogan:** *Seu Arch, minhas regras.*
-- **Filosofia:** *Uma distro Linux com opiniões que não são as suas.*
+**English is the default website and GitHub documentation language.** The Brazilian Portuguese version of the website is served from `/pt-br/`. The website detects browsers that prefer Portuguese and redirects automatically; visitors can always switch languages manually using the **EN / PT-BR** control in the header.
 
-## 🔗 Projetos e inspirações
+Both languages have dedicated static pages with their own `<html lang>`, descriptive metadata and `hreflang` links. The language preference is remembered locally in the browser. This does not read or expose any user account data.
 
-| Projeto | O que é e qual seu papel | Link |
+GitHub's README renderer does **not** support automatic translation based on the visitor's language. That's why this README is in English and the Brazilian Portuguese version is available as [README.pt-BR.md](README.pt-BR.md).
+
+## Pages
+
+| English | Português (Brasil) | Purpose |
 | --- | --- | --- |
-| **DarfinOS** | Ferramentas de pós-instalação, scripts e TUI que permitem escolher e revisar personalizações para um Arch Linux já instalado. | [Repositório principal](https://github.com/AlanDarfin/DarfinOS) |
-| **Arch Linux** | Distribuição Linux independente, minimalista e de atualização contínua que constitui a base do DarfinOS. | [Site oficial](https://archlinux.org/) |
-| **SonicDE** | Ambiente de desktop derivado de componentes do KDE, com foco em preservar e aprimorar a experiência Plasma sobre X11. | [Site oficial](https://sonicde.org/) |
-| **XLibre** | Servidor gráfico comunitário derivado do X.Org Server, que mantém e evolui o protocolo X11. | [Site oficial](https://xlibre.net/) |
-| **CachyOS** | Distribuição baseada no Arch conhecida por otimizações; seu ecossistema de repositórios pode ser integrado opcionalmente. | [Documentação oficial](https://wiki.cachyos.org/) |
-| **Bedrock Linux** | Metadistribuição para combinar componentes de diferentes sistemas Linux, apresentada como opção experimental avançada. | [Site oficial](https://bedrocklinux.org/) |
-| **LinuxToys** | Plataforma independente para descoberta e instalação de software, manutenção e configurações repetíveis de sistemas Linux. Uma grande inspiração para o DarfinOS. | [Site oficial](https://linux.toys) · [Código](https://github.com/psygreg/linuxtoys) |
+| [Home](https://darfinos.vercel.app/) | [Início](https://darfinos.vercel.app/pt-br/) | Features, modular steps, gallery, Labs |
+| [Documentation](https://darfinos.vercel.app/docs/) | [Documentação](https://darfinos.vercel.app/pt-br/docs/) | Installation guidance and commands |
+| [Control Center](https://darfinos.vercel.app/controle/) | [Control Center](https://darfinos.vercel.app/pt-br/controle/) | Profiles, audits, backups and module checks |
+| [Labs](https://darfinos.vercel.app/labs/) | [Labs](https://darfinos.vercel.app/pt-br/labs/) | Independent projects and original links |
+| [Projects and credits](https://darfinos.vercel.app/ferramentas/) | [Ferramentas e créditos](https://darfinos.vercel.app/pt-br/ferramentas/) | Upstream credits and source links |
+| [Downloads](https://darfinos.vercel.app/downloads/) | [Downloads](https://darfinos.vercel.app/pt-br/downloads/) | Current source ZIP and development prereleases |
 
-> [!NOTE]
-> A página [Ferramentas e créditos](https://darfinos.vercel.app/ferramentas/) reúne descrições mais completas, as atribuições e os destinos oficiais de cada projeto. Para instalar, consultar opções e entender os riscos das modificações do sistema, leia o [README principal do DarfinOS](https://github.com/AlanDarfin/DarfinOS#readme).
+## Downloads and releases
 
-## 🤝 Contribuições
+The site **never treats a GitHub releases page with no entries as a download**. The download page always provides a working URL to the [current source ZIP from the main branch](https://github.com/AlanDarfin/DarfinOS/archive/refs/heads/main.zip).
 
-Sugestões, melhorias visuais e correções são bem-vindas por meio de issues e pull requests.
+When the main repository publishes a development **prerelease**, the downloads page looks up the versioned archive and SHA-256 asset using GitHub's public releases API. It never presents a prerelease as stable.
 
----
+Release candidates are produced only after successful Python/Bash tests and an Arch container smoke test on the exact same commit. Full graphical VM and recovery testing remain prerequisites to an eventual stable release. DarfinOS is **not an ISO distribution**.
 
-<div align="center">
+## Visual identity
 
-**Feito para quem gosta de deixar o Arch com personalidade. ⚡**
+- Dark background, electric yellow details, clean layouts and compact cards.
+- Minimal double-lightning-bolt mark in `public/darfinos-mark.svg`.
+- Motto: **Your Arch, my rules.**
+- Every independent project links to its official website or repository.
 
-</div>
-
-
-## 🧭 Páginas e funcionalidades
-
-- **/** — apresentação, 34 etapas, quatro presets, guia em três passos e galeria interativa.
-- **/docs/** — instalação segura, Doctor, plano de execução, logs e FAQ com comandos copiáveis.
-- **/ferramentas/** — créditos e links oficiais das tecnologias e inspirações.
-
-A interface estática usa **Astro + Tailwind**; galeria e botões de copiar são aprimoramentos progressivos em JavaScript. Nenhum backend é necessário.
-
-## 🛠 Desenvolver localmente
+## Local development
 
 ```bash
 npm ci
@@ -76,8 +68,14 @@ npm run build
 npm run preview
 ```
 
-A branch principal é o código mais recente, mas **não necessariamente uma release versionada**. O site oferece links separados para ZIP do código e página de releases.
+The site is statically generated. The locale switch and release listing use progressive client-side JavaScript; the download ZIP, navigation and content remain available when that enhancement cannot run.
 
-O build é verificado em pull requests por [GitHub Actions](.github/workflows/site.yml).
+GitHub Actions checks website builds in pull requests. Vercel deploys the site after changes reach the main branch.
 
-**Site:** https://darfinos.vercel.app/ · **Instalador:** https://github.com/AlanDarfin/DarfinOS
+## Contributions
+
+Issues and pull requests are welcome. Maintain both language versions for user-facing changes and preserve official upstream credits and links.
+
+---
+
+**[Main DarfinOS project](https://github.com/AlanDarfin/DarfinOS) · [Site](https://darfinos.vercel.app/) · [Português](README.pt-BR.md)**
