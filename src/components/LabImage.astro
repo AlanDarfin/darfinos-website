@@ -1,0 +1,29 @@
+---
+import { labGallery, mediaLabels, type LabId } from '../lib/lab-gallery';
+interface Props { id: LabId; locale: 'en' | 'pt-BR'; }
+const { id, locale } = Astro.props;
+const lang = locale === 'pt-BR' ? 'pt' : 'en';
+const shot = labGallery[id];
+const copy = shot[lang];
+const caption = mediaLabels[shot.kind][lang];
+const sourceLabel = lang === 'pt' ? 'Ver fonte' : 'View source';
+const expandLabel = lang === 'pt' ? 'Ampliar imagem' : 'Open full image';
+---
+<figure class="lab-image" data-project-image={id}>
+  <a class="lab-image-preview" href={shot.src} target="_blank" rel="noopener" aria-label={`${expandLabel}: ${copy.alt}`}>
+    <img src={shot.src} width={shot.width} height={shot.height} alt={copy.alt} loading="lazy" decoding="async" />
+  </a>
+  <figcaption>
+    <p class="lab-image-label"><span>{caption}</span><a href={shot.source} target="_blank" rel="noopener noreferrer">{sourceLabel} ↗</a></p>
+    <p>{copy.caption}</p>
+  </figcaption>
+</figure>
+<style>
+.lab-image{margin:0;border:1px solid #353943;border-radius:7px;overflow:hidden;background:#111419}
+.lab-image-preview{display:block;aspect-ratio:16/10;background:#111419}
+.lab-image-preview img{width:100%;height:100%;object-fit:contain;display:block}
+.lab-image-preview:hover{outline:1px solid var(--electric);outline-offset:-1px}
+figcaption{padding:.6rem .7rem;color:#b7c0cc;font-size:.75rem;line-height:1.55}
+.lab-image-label{display:flex;justify-content:space-between;align-items:baseline;gap:.4rem 1rem;flex-wrap:wrap;margin-bottom:.27rem;font-size:.68rem;color:#e1e4e9}
+.lab-image-label a{color:var(--electric);text-decoration:underline}
+</style>

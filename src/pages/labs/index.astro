@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
+import LabImage from '../../components/LabImage.astro';
 import { englishLabs } from '../../lib/english';
 import { githubUrl } from '../../lib/config';
 const categories: Record<string,string> = {
@@ -39,6 +40,7 @@ const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       {englishLabs.map((p,i) => <article class="card lab-project flex flex-col gap-4" data-lab-card data-category={p.category}>
         <div class="flex justify-between items-start gap-3"><span class="mono text-electric text-sm">{String(i+1).padStart(2,'0')} / LABS</span><span class="feature-label">{risk[p.risk]}</span></div>
         <div><p class="section-kicker text-xs">{categories[p.category]}</p><h3 class="font-bold text-xl mt-2">{p.name}</h3><p class="text-gray-400 text-sm leading-relaxed mt-3">{p.description}</p></div>
+        <LabImage id={p.id} locale="en" />
         <div class="pt-4 border-t border-white/10 mt-auto"><p class="text-gray-300 text-sm leading-relaxed">{p.integration}</p><p class="mono text-xs mt-3 text-electric">Optional stage · <code>{p.step}</code></p></div>
         <a class="text-electric underline text-sm font-semibold" href={p.originalUrl} target="_blank" rel="noopener noreferrer" aria-label={'Visit original project: '+p.name}>Original project ↗</a>
       </article>)}
