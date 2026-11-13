@@ -32,11 +32,13 @@ const labels = isPt ? {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#101114" />
+  <meta name="theme-color" content="#0c0e11" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://darfinos.vercel.app/screenshots/tui.png" />
+  <meta property="og:image:alt" content={isPt ? 'Interface atual do DarfinOS Control Center' : 'Current DarfinOS Control Center interface'} />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href={new URL(pathname, 'https://darfinos.vercel.app').toString()} />
   <link rel="alternate" hreflang="en" href={new URL(english, 'https://darfinos.vercel.app').toString()} />
   <link rel="alternate" hreflang="pt-BR" href={new URL(portuguese, 'https://darfinos.vercel.app').toString()} />
@@ -71,9 +73,9 @@ const labels = isPt ? {
   <nav class="max-w-6xl mx-auto px-5 site-nav" aria-label={labels.nav}>
     <a href={local('/')} class="brand" aria-label={'DarfinOS, ' + labels.home}><span class="brand-symbol"><BrandMark class="brand-mark" /></span><span>Darfin<span class="text-electric">OS</span></span></a>
     <div class="desktop-links">
-      <a href={local('/#recursos')}>{labels.features}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/#galeria')}>{labels.gallery}</a>
-      <a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/docs/')}>{labels.docs}</a>
-      <a href={local('/downloads/')}>{labels.downloads}</a>
+      <a href={local('/controle/')} aria-current={pathname === local('/controle/') ? 'page' : undefined}>Control Center</a><a href={local('/labs/')} aria-current={pathname === local('/labs/') ? 'page' : undefined}>Labs</a><a href={local('/#galeria')}>{labels.gallery}</a>
+      <a href={local('/ferramentas/')} aria-current={pathname === local('/ferramentas/') ? 'page' : undefined}>{labels.tools}</a><a href={local('/docs/')} aria-current={pathname === local('/docs/') ? 'page' : undefined}>{labels.docs}</a>
+      <a class="nav-download" href={local('/downloads/')} aria-current={pathname === local('/downloads/') ? 'page' : undefined}>{labels.downloads} <span aria-hidden="true">→</span></a>
       <div class="language-switch" role="group" aria-label="Language / Idioma">
         <a class:list={['language-link', {active:!isPt}]} href={english} data-lang-choice="en" lang="en" aria-current={!isPt ? 'page' : undefined}>EN</a>
         <a class:list={['language-link', {active:isPt}]} href={portuguese} data-lang-choice="pt-BR" lang="pt-BR" aria-current={isPt ? 'page' : undefined}>PT-BR</a>
@@ -89,7 +91,7 @@ const labels = isPt ? {
           <a class:list={['language-link', {active:!isPt}]} href={english} data-lang-choice="en" lang="en">English</a>
           <a class:list={['language-link', {active:isPt}]} href={portuguese} data-lang-choice="pt-BR" lang="pt-BR">Português</a>
         </div>
-        <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub →</a>
       </div>
     </details>
   </nav>
@@ -98,7 +100,7 @@ const labels = isPt ? {
 <footer class="site-footer">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-7">
     <div><p class="font-bold text-white"><span class="inline-flex items-center gap-2"><BrandMark class="h-5 w-5 text-electric" />DarfinOS</span></p><p class="mt-2">{labels.footer}</p><p class="mt-2 text-xs">{labels.disclaimer}</p></div>
-    <div class="flex flex-wrap items-start gap-5"><a href={local('/docs/')}>{labels.docs}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/downloads/')}>{labels.downloads}</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">{labels.code} ↗</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">{labels.support} ↗</a></div>
+    <div class="flex flex-wrap items-start gap-5"><a href={local('/docs/')}>{labels.docs}</a><a href={local('/controle/')}>Control Center</a><a href={local('/labs/')}>Labs</a><a href={local('/ferramentas/')}>{labels.tools}</a><a href={local('/downloads/')}>{labels.downloads}</a><a href={githubUrl} target="_blank" rel="noopener noreferrer">{labels.code} →</a><a href={siteConfig.supportUrl} target="_blank" rel="noopener noreferrer">{labels.support} →</a></div>
   </div>
 </footer>
 </body></html>

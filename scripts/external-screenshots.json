@@ -1,0 +1,104 @@
+{
+  "capture_date_utc": "2026-11-13",
+  "capture_tool": "Chromium / Playwright",
+  "policy": "Real browser captures of official upstream pages. No generated imagery, fabricated installation state, or image compositing. Copyright belongs to the respective projects.",
+  "captures": [
+    {
+      "asset": "xlibre.png",
+      "source_url": "https://xlibre.net/",
+      "final_url": "https://xlibre.net/",
+      "kind": "official-page-screenshot",
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": 200,
+      "title": "XLibre",
+      "captured_at": "2026-11-13T10:08:00.323935+00:00",
+      "notes": "Fresh capture of official upstream website; not an installed DarfinOS session. xlibre.org returned HTTP 503; the linked official xlibre.net site returned HTTP 200. Its own banner contains release labels; these are upstream presentation, not a DarfinOS version guarantee.",
+      "page_errors": [],
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "0560bcb9a1153568c3944183fcda984277efef4926981138c8bcca37a3a89159"
+    },
+    {
+      "asset": "sonicde.png",
+      "source_url": "https://sonicde.org/",
+      "final_url": "https://sonicde.org/",
+      "kind": "official-page-screenshot",
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": 200,
+      "title": "SonicDE, the Sonic Desktop Environment | SonicDE aims to preserve and improve the X11-specific aspects of KDE.",
+      "captured_at": "2026-11-13T10:10:03.768429+00:00",
+      "notes": "Fresh capture of official upstream website; not an installed DarfinOS session. Cookie consent was declined using the website control, then the capture waited for the cookie banner to disappear. Cookie banner dismissed with the upstream Decline button before capture.",
+      "page_errors": [],
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "a0833d186cc9d68274a897d53ca778e29eac90757a4056610c54856f172dde86"
+    },
+    {
+      "asset": "cachyos.png",
+      "source_url": "https://wiki.cachyos.org/features/optimized_repos/",
+      "final_url": "https://wiki.cachyos.org/features/optimized_repos/",
+      "kind": "official-page-screenshot",
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": 200,
+      "title": "Optimized Repositories | CachyOS",
+      "notes": "Fresh capture of official optimized-repositories documentation. This is not a DarfinOS desktop session or a performance benchmark. HTTP retrieval alone returned 403; the official page loaded correctly in Chromium.",
+      "captured_at": "2026-11-13T10:08:00.256798+00:00",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "f122ccb2ab0ff8d54ae4bc6432ac5dab2c7b3fbf6af49ff9f1a6c80a3e9b4b10"
+    },
+    {
+      "asset": "bedrock.png",
+      "source_url": "https://bedrocklinux.org/",
+      "final_url": "https://bedrocklinux.org/",
+      "kind": "official-page-screenshot",
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": 200,
+      "title": "Bedrock Linux",
+      "notes": "Fresh capture of official homepage, showing project introduction and upstream 0.7.31 announcement. This is not a Bedrock installation performed by DarfinOS.",
+      "captured_at": "2026-11-13T10:08:09.612576+00:00",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "3b95913396f5d155e123a66080c161beb9c6ef4351975537857c181e3e80acf1"
+    },
+    {
+      "asset": "linuxtoys.png",
+      "source_url": "https://linux.toys/",
+      "final_url": "https://linux.toys/",
+      "kind": "official-page-screenshot",
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": 200,
+      "title": "LinuxToys — For everything Linux.",
+      "notes": "Fresh capture of official homepage, including the application image published there by LinuxToys. LinuxToys is an independent project and inspiration; it is not a DarfinOS component.",
+      "captured_at": "2026-11-13T10:08:37.715233+00:00",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "9601eddaf3763e457349ad02f55455199c15d075f6107551e9d611bcbccefae1"
+    }
+  ]
+}

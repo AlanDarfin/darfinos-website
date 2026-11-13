@@ -1,0 +1,48 @@
+{
+  "source": "https://github.com/AlanDarfin/DarfinOS",
+  "commit": "b5ddd9a2824f34c3e14ddf417cb716add4ae4cab",
+  "capturedAt": "2026-11-13T10:11:57.827Z",
+  "terminal": {
+    "cols": 140,
+    "rows": 38,
+    "TERM": "xterm-256color"
+  },
+  "mode": "TUI: --local --dry-run --preset desktop; CLI: --help, --list-presets, --doctor",
+  "screenshots": [
+    {
+      "file": "tui.png",
+      "cols": 140,
+      "rows": 38,
+      "width": 1296,
+      "height": 838
+    },
+    {
+      "file": "labs-tui.png",
+      "cols": 140,
+      "rows": 24,
+      "width": 1296,
+      "height": 544
+    },
+    {
+      "file": "control-center.png",
+      "cols": 140,
+      "rows": 38,
+      "width": 1296,
+      "height": 838
+    },
+    {
+      "file": "presets.png",
+      "cols": 140,
+      "rows": 24,
+      "width": 1296,
+      "height": 544
+    },
+    {
+      "file": "terminal.png",
+      "cols": 140,
+      "rows": 38,
+      "width": 1296,
+      "height": 838
+    }
+  ]
+}

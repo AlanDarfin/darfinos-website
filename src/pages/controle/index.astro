@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
+import ControlPreview from '../../components/ControlPreview.astro';
 import { githubUrl } from '../../lib/config';
 const features = [
   {number:'01',title:'Check before installing',desc:'Read-only Doctor, preflight and module checks. Verified complete steps can be skipped, while partial or unknown modules remain available.',label:'Safe inspection'},
@@ -14,7 +15,9 @@ const commands=[
  {title:'Doctor and preflight',code:'python3 DarfinOSInstallScript-TUI.py --doctor\nbash DarfinOSInstallScript.sh --preflight',detail:'Verify the installer and basic requirements before executing stages.'},
  {title:'Installed module status',code:'python3 DarfinOSInstallScript-TUI.py --check-modules\nbash DarfinOSInstallScript.sh --check-modules',detail:'Installed, partial, missing and unknown results. Only verified installed stages are skipped.'},
  {title:'System and maintenance status',code:'python3 DarfinOSInstallScript-TUI.py --status-json\npython3 darfinos_control.py maintenance --json',detail:'Read-only inventory of tools, update helpers and maintenance infrastructure.'},
- {title:'Audit and compare presets',code:'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming\npython3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming',detail:'Declarative comparison and partial package audit, without making changes.'},
+ {title:'Audit module packages',code:'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming',detail:'Compare a partial expected package inventory with local packages. This does not prove that an entire stage is configured.'},
+ {title:'Compare presets',code:'python3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming',detail:'Compare selections and highlight high-impact changes, without installing or removing anything.'},
+ {title:'Explore the six presets',code:'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro',detail:'Start with minimal, desktop, i3, retro, gaming or full. The Retro preset offers Xfce + Chicago95; choosing a preset only changes your selection.'},
 ];
 const backups=[
 {title:'Export and compare profiles',code:'python3 darfinos_control.py profile-export gaming gaming.json\npython3 darfinos_control.py profile-import gaming.json gaming-copy\npython3 darfinos_control.py profile-diff gaming gaming-copy'},
@@ -29,8 +32,9 @@ const backups=[
     <h1 class="section-heading max-w-4xl">Install deliberately.<br/><span class="text-electric">Keep control afterward.</span></h1>
     <p class="section-lead max-w-3xl mt-7">Tools to plan, inspect and maintain your opinionated Arch Linux customization. No new Linux distribution, no hidden system-wide changes.</p>
     <div class="flex flex-wrap gap-3 mt-8"><a class="btn btn-primary" href="#commands">See commands</a><a class="btn btn-outline" href="/docs/">Installation guide</a><a class="btn btn-outline" href="/labs/">Explore Labs</a></div>
-    <p class="text-gray-400 text-sm mt-7">In development: automated checks passed, but full graphical VM and recovery testing remain open. No stable release is published.</p>
+    <p class="text-gray-400 text-sm mt-7">In development. Follow the current checks on GitHub; full graphical VM and recovery testing remain open. No stable release is published.</p>
   </div></section>
+  <ControlPreview locale="en" />
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20">
     <p class="section-kicker mb-3">// FEATURES IN DEVELOPMENT</p><h2 class="section-heading mb-5">A tool for every stage of the project.</h2>
     <p class="section-lead mb-9">Features below exist in the current source. They are not a promise that every possible installation scenario has been validated.</p>
