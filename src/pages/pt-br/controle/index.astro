@@ -10,12 +10,12 @@ const commands = [
   { id: 'modules', label: 'Módulos já instalados', code: 'python3 DarfinOSInstallScript-TUI.py --check-modules', info: 'Classifica módulos como completos, parciais, ausentes ou desconhecidos. O instalador só ignora os que puder comprovar.' },
   { id: 'audit', label: 'Auditoria de módulos', code: 'python3 DarfinOSInstallScript-TUI.py --audit --preset gaming', info: 'Compara pacotes previstos com o inventário local. O manifesto é parcial e não comprova a conclusão de cada etapa.' },
   { id: 'compare', label: 'Transição entre presets', code: 'python3 DarfinOSInstallScript-TUI.py --compare-presets minimal gaming', info: 'Compara seleções, destaca mudanças de risco e não instala nem remove nada.' },
-  { id: 'presets', label: 'Explore os seis presets', code: 'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro', info: 'Comece com minimal, desktop, i3, retro, gaming ou full. O preset Retro oferece Xfce + Chicago95; escolher um preset apenas muda a seleção.' },
+  { id: 'presets', label: 'Explore os sete presets', code: 'python3 DarfinOSInstallScript-TUI.py --list-presets\npython3 DarfinOSInstallScript-TUI.py --plan --preset retro', info: 'Comece com minimal, desktop, i3, retro, workstation, gaming ou full. O preset Retro oferece Xfce + Chicago95; escolher um preset apenas muda a seleção.' },
 ];
 
 const features = [
   {number:'01',title:'Diagnóstico e prevenção',desc:'Doctor, preflight e estado local antes de instalar. O Bash exige seleção explícita: uma chamada sem argumentos não instala o sistema inteiro.', tag:'Somente leitura'},
-  {number:'02',title:'TUI modular',desc:'48 etapas e seis presets, com inspeção, dependências, histórico de execução, logs, retomada e barra de progresso por etapa.', tag:'Execução com revisão'},
+  {number:'02',title:'TUI modular',desc:'63 etapas e sete presets, com inspeção, dependências, histórico de execução, logs, retomada e barra de progresso por etapa.', tag:'Execução com revisão'},
   {number:'03',title:'Auditoria de pacotes',desc:'A tecla V e o comando --audit ajudam a identificar o que está presente e o que não foi detectado, sem prometer uma verificação completa.', tag:'Prévia parcial'},
   {number:'04',title:'Perfis portáteis',desc:'Exportar, importar e comparar perfis JSON. A importação desativa automaticamente o modo de confirmação reduzida (-y).', tag:'Sem instalações'},
   {number:'05',title:'Backup de configurações',desc:'Cópias ZIP de um conjunto permitido de arquivos no HOME, verificadas com SHA-256. A restauração apresenta uma prévia e exige confirmação explícita.', tag:'Recuperação limitada'},

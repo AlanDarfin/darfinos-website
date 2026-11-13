@@ -2,45 +2,47 @@
 import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LabImage from '../../components/LabImage.astro';
+import { hasLabImage } from '../../lib/lab-gallery';
 import { englishLabs } from '../../lib/english';
 import { githubUrl } from '../../lib/config';
 const categories: Record<string,string> = {
   'wm-desktop':'Desktops & window managers',
   'portatil':'Portable environments',
   'declarativo':'Declarative tools',
-  'laboratorio':'Graphics & boot research'
+  'laboratorio':'Graphics, gaming & boot research',
+  'automacao':'Automation & themes'
 };
 const risk: Record<string,string> = {opcional:'Optional',avancado:'Advanced',critico:'Critical experiment'};
 const filters = [
   ['all','All'],['wm-desktop','Desktops / WM'],['portatil','Portable'],
-  ['declarativo','Declarative'],['laboratorio','Lab experiments']
+  ['declarativo','Declarative'],['laboratorio','Lab experiments'],['automacao','Automation & themes']
 ];
 const commands = 'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --labs';
 const retro = 'python3 DarfinOSInstallScript-TUI.py --plan --preset retro';
 const trinity = 'bash DarfinOSInstallScript.sh --only lab_trinity';
 const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
 ---
-<Base title="DarfinOS Labs · Independent Linux projects" description="Discover 13 independent Linux projects including i3, Xfce, Chicago95, yserver, Wayback and Conty, each with its official upstream link and safety notes.">
+<Base title="DarfinOS Labs · Independent Linux projects" description="Discover independent Linux projects including i3, Xfce, Chicago95, yserver, Wayback and Conty, each with its official upstream link and safety notes.">
   <section class="grid-bg border-b border-white/10"><div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
     <p class="section-kicker brand-kicker mb-5"><BrandMark class="w-5 h-5" /> // DARFINOS LABS</p>
     <h1 class="section-heading max-w-4xl">My Arch. My ideas.<br/><span class="text-electric">My experiments.</span></h1>
-    <p class="section-lead mt-6 max-w-3xl">Thirteen projects that take Linux in less conventional directions. Every entry credits its original developers; none is maintained by DarfinOS.</p>
+    <p class="section-lead mt-6 max-w-3xl">Independent projects that take Linux in less conventional directions. Every entry credits its original developers; none is maintained by DarfinOS.</p>
     <div class="flex flex-wrap gap-3 mt-8"><a class="btn btn-primary" href="#catalog">Explore projects</a><a class="btn btn-outline" href="/controle/">Control Center</a><a class="btn btn-outline" href="/downloads/">Get DarfinOS</a></div>
-    <p class="text-gray-400 text-sm mt-6">All 13 projects have optional installer stages. Choose a project in the TUI or pass its stage to Bash.</p>
+    <p class="text-gray-400 text-sm mt-6">All {englishLabs.length} integrations have optional installer stages. Choose a project in the TUI or pass its stage to Bash.</p>
   </div></section>
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalog">
-    <p class="section-kicker mb-3">// 13 INDEPENDENT PROJECTS · OFFICIAL LINKS</p>
+    <p class="section-kicker mb-3">// {englishLabs.length} INTEGRATIONS · OFFICIAL LINKS</p>
     <h2 class="section-heading mb-5">A playground for ideas the mainstream left behind.</h2>
     <p class="section-lead mb-8">Filter by purpose and read the installation method before choosing anything. Advanced integrations are opt-in, not part of standard presets.</p>
     <div class="filter-bar mb-7" role="group" aria-label="Filter DarfinOS Labs">
       {filters.map(([id,name],i) => <button type="button" data-filter={id} aria-pressed={i===0?'true':'false'} class:list={['filter-btn',{'is-active':i===0}]}>{name}</button>)}
     </div>
-    <p id="labs-count" class="mono text-gray-400 text-xs mb-4" role="status" aria-live="polite">13 projects displayed</p>
+    <p id="labs-count" class="mono text-gray-400 text-xs mb-4" role="status" aria-live="polite">{englishLabs.length} projects displayed</p>
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
       {englishLabs.map((p,i) => <article class="card lab-project flex flex-col gap-4" data-lab-card data-category={p.category}>
         <div class="flex justify-between items-start gap-3"><span class="mono text-electric text-sm">{String(i+1).padStart(2,'0')} / LABS</span><span class="feature-label">{risk[p.risk]}</span></div>
         <div><p class="section-kicker text-xs">{categories[p.category]}</p><h3 class="font-bold text-xl mt-2">{p.name}</h3><p class="text-gray-400 text-sm leading-relaxed mt-3">{p.description}</p></div>
-        <LabImage id={p.id} locale="en" />
+        {hasLabImage(p.id) && <LabImage id={p.id} locale="en" />}
         <div class="pt-4 border-t border-white/10 mt-auto"><p class="text-gray-300 text-sm leading-relaxed">{p.integration}</p><p class="mono text-xs mt-3 text-electric">Optional stage · <code>{p.step}</code></p></div>
         <a class="text-electric underline text-sm font-semibold" href={p.originalUrl} target="_blank" rel="noopener noreferrer" aria-label={'Visit original project: '+p.name}>Original project ↗</a>
       </article>)}
@@ -62,6 +64,14 @@ const checks = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
       <div class="code-panel"><pre><code>{checks}</code></pre><button type="button" data-copy={checks}>Copy</button></div>
     </div>
   </div></section>
+  <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10" id="customization">
+    <p class="section-kicker mb-3">// AFTER INSTALLATION</p>
+    <h2 class="text-2xl font-bold">Make the setup stick.</h2>
+    <p class="text-gray-400 mt-4">Press W in the TUI for the Theme Workshop. Preview Terminal, Compact i3, Workstation 1995 and SonicDE + Kvantum profiles, choose which files to apply and undo individual runs. Matugen can suggest an accent from a wallpaper.</p>
+    <div class="code-panel"><pre><code>bash DarfinOSInstallScript.sh --only lab_chezmoi,lab_matugen,lab_kvantum
+python3 darfinos_control.py style sonicde-kvantum</code></pre></div>
+    <p class="text-gray-400 mt-4">Kvantum styles Qt apps. The panel, KWin and login manager are not changed.</p>
+  </section>
   <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
     <p class="section-kicker mb-3">// TRINITY DESKTOP</p>
     <h2 class="text-xl font-bold mb-3">Install the full Trinity desktop.</h2>

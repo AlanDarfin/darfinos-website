@@ -1,11 +1,9 @@
-import type { LabId } from './lab-gallery';
-
 export type LabProject = {
-  id: LabId;
+  id: string;
   name: string;
   description: string;
   originalUrl: string;
-  category: 'wm-desktop' | 'portatil' | 'declarativo' | 'laboratorio';
+  category: 'wm-desktop' | 'portatil' | 'declarativo' | 'laboratorio' | 'automacao';
   risk: 'opcional' | 'avancado' | 'critico';
   integration: string;
   step: string;
@@ -89,7 +87,22 @@ export const labProjects: LabProject[] = [
     originalUrl: 'https://github.com/anatol/booster', step: 'lab_booster',
     description: 'Gerador de initramfs alternativo, para quem deseja experimentar outra forma de preparar o boot do Linux.',
     integration: 'Instala Booster pelo repositório oficial. O hook gera imagens alternativas em paralelo e o DarfinOS não modifica a entrada de boot.'
-  }
+  },
+  { id: "windowmaker", name: "Window Maker", originalUrl: "https://www.windowmaker.org/", category: "wm-desktop", risk: "opcional", step: "lab_windowmaker", description: "Sessão X11 inspirada no NeXTSTEP; não troca o login.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "notion", name: "Notion WM", originalUrl: "https://notionwm.net/", category: "wm-desktop", risk: "avancado", step: "lab_notion", description: "WM X11 com mosaico estático e abas; pacote notion-git.", integration: "AUR com revisão do PKGBUILD." },
+  { id: "e16", name: "Enlightenment E16", originalUrl: "https://www.enlightenment.org/e16", category: "wm-desktop", risk: "opcional", step: "lab_e16", description: "Window manager X11 retrô; sessão alternativa.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "xpra", name: "Xpra", originalUrl: "https://xpra-org.github.io/xpra/", category: "laboratorio", risk: "opcional", step: "lab_xpra", description: "Encaminha janelas X11; não inicia serviços nem abre portas.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "opengamepadui", name: "OpenGamepadUI", originalUrl: "https://github.com/ShadowBlip/OpenGamepadUI", category: "laboratorio", risk: "avancado", step: "lab_opengamepadui", description: "Launcher e overlay para controle pelo AUR; não troca a sessão ativa.", integration: "AUR com revisão do PKGBUILD." },
+  { id: "wmutils", name: "wmutils", originalUrl: "https://github.com/wmutils/core", category: "wm-desktop", risk: "avancado", step: "lab_wmutils", description: "Utilitários para mover e organizar janelas X11 por script.", integration: "AUR com revisão do PKGBUILD." },
+  { id: "pkgsrc", name: "pkgsrc", originalUrl: "https://www.netbsd.org/docs/pkgsrc/pkgsrc.html", category: "portatil", risk: "avancado", step: "lab_pkgsrc", description: "Bootstrap sem sudo no HOME com prefixo separado e sem alterar PATH.", integration: "Bootstrap no espaço do usuário." },
+  { id: "pipeworld", name: "Arcan + Pipeworld", originalUrl: "https://github.com/letoram/pipeworld", category: "laboratorio", risk: "critico", step: "lab_pipeworld", description: "Instala Arcan pelo AUR e prepara um lançador Pipeworld no HOME; uso experimental.", integration: "Pacote AUR e código upstream fixado. Sessão não validada." },
+  { id: "chezmoi", name: "chezmoi", originalUrl: "https://www.chezmoi.io/", category: "automacao", risk: "opcional", step: "lab_chezmoi", description: "Motor dos perfis de personalização com prévia e aplicação seletiva.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "matugen", name: "Matugen", originalUrl: "https://github.com/InioX/matugen", category: "automacao", risk: "opcional", step: "lab_matugen", description: "Extrai paletas de wallpapers para a Oficina de Temas.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "autorandr", name: "autorandr", originalUrl: "https://github.com/phillipberndt/autorandr", category: "automacao", risk: "opcional", step: "lab_autorandr", description: "Perfis de monitores X11; aplica somente modos disponíveis.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "desktop_config", name: "Xfconf + KConfig", originalUrl: "https://docs.xfce.org/xfce/xfconf/xfconf-query", category: "automacao", risk: "opcional", step: "lab_desktop_config", description: "Ajustes pontuais de tema no Xfce e estilo Qt no SonicDE.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "etckeeper", name: "etckeeper", originalUrl: "https://etckeeper.branchable.com/", category: "automacao", risk: "avancado", step: "lab_etckeeper", description: "Histórico local de /etc; inicialização separada, sem envio remoto.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "rustic", name: "rustic", originalUrl: "https://rustic.cli.rs/", category: "automacao", risk: "opcional", step: "lab_rustic", description: "Backups criptografados em destino escolhido; sem repositório automático.", integration: "Pacote oficial do Arch. Ativação é opcional." },
+  { id: "kvantum", name: "Kvantum", originalUrl: "https://github.com/tsujan/Kvantum", category: "automacao", risk: "opcional", step: "lab_kvantum", description: "Temas Qt SVG para SonicDE com opção de suporte Qt5.", integration: "Pacote oficial do Arch. Ativação é opcional." }
 ];
 
 export const labGroups = [
@@ -97,5 +110,6 @@ export const labGroups = [
   { id: 'wm-desktop', name: 'Desktop / WM' },
   { id: 'portatil', name: 'Portáteis' },
   { id: 'declarativo', name: 'Declarativos' },
-  { id: 'laboratorio', name: 'Laboratório' }
+  { id: 'laboratorio', name: 'Laboratório' },
+  { id: 'automacao', name: 'Automação e temas' }
 ] as const;

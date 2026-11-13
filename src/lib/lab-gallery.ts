@@ -89,6 +89,10 @@ export const labGallery = {
 
 export type LabId = keyof typeof labGallery;
 
+export function hasLabImage(id: string): id is LabId {
+  return Object.prototype.hasOwnProperty.call(labGallery, id);
+}
+
 export const mediaLabels: Record<MediaKind, { en: string; pt: string }> = {
   upstream: { en: 'Published by the project', pt: 'Imagem do projeto' },
   demo: { en: 'Frame from upstream demo', pt: 'Quadro da demonstração original' },
