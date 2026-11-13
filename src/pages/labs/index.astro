@@ -17,6 +17,8 @@ const tier: Record<string,string> = {
 };
 const showCommands = 'bash DarfinOSInstallScript.sh --labs\npython3 DarfinOSInstallScript-TUI.py --labs';
 const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
+const retroCommand = 'python3 DarfinOSInstallScript-TUI.py --plan --preset retro';
+const checkCommand = 'python3 DarfinOSInstallScript-TUI.py --check-modules';
 ---
 <Base title="DarfinOS Labs · Projetos alternativos" description="Conheça i3, yserver, NsCDE, Conty, Decman, Metapac e outros projetos independentes que inspiram as integrações experimentais do DarfinOS.">
   <section class="grid-bg border-b border-white/10">
@@ -33,13 +35,13 @@ const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
     </div>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-16 md:py-20" id="catalogo">
-    <p class="section-kicker mb-3">// 12 PROJETOS · LINKS ORIGINAIS</p>
+    <p class="section-kicker mb-3">// {labProjects.length} PROJETOS · LINKS ORIGINAIS</p>
     <h2 class="section-heading mb-5">O laboratório não tem medo de ser diferente.</h2>
     <p class="section-lead mb-8">Cada cartão diferencia instalação assistida de documentação. Projetos avançados continuam fora dos presets normais até serem testados.</p>
     <div class="filter-bar mb-7" role="group" aria-label="Filtrar projetos Labs">
       {labGroups.map((group, i) => <button type="button" data-labs-filter={group.id} aria-pressed={i===0?'true':'false'} class:list={['filter-btn', {'is-active':i===0}]}>{group.name}</button>)}
     </div>
-    <p class="mono text-gray-400 text-xs mb-4" id="labs-count" role="status" aria-live="polite">12 projetos exibidos</p>
+    <p class="mono text-gray-400 text-xs mb-4" id="labs-count" role="status" aria-live="polite">{labProjects.length} projetos exibidos</p>
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5" id="lab-grid">
       {labProjects.map((project, i) => <article class="card lab-project flex flex-col gap-4" data-labs-card data-category={project.category}>
         <div class="flex justify-between items-start gap-3">
@@ -63,11 +65,11 @@ const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
     </div>
   </section>
   <section class="bg-[#15171b] border-y border-white/10">
-    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20 grid lg:grid-cols-2 gap-7">
+    <div class="max-w-6xl mx-auto px-5 py-16 md:py-20 grid lg:grid-cols-3 gap-7">
       <div>
         <p class="section-kicker mb-3">// INSTALADOR E TUI</p>
         <h2 class="text-3xl md:text-4xl font-bold mb-5">Labs direto no terminal.</h2>
-        <p class="text-gray-400 leading-relaxed">No Bash, <code>--labs</code> mostra o catálogo sem sudo. Na TUI, pressione <strong class="text-electric">L</strong> para navegar e usar Espaço para selecionar apenas as etapas disponíveis. O instalador pede confirmação especial para pacotes AUR Labs, mesmo quando <code>-y</code> estiver ativo.</p>
+        <p class="text-gray-400 leading-relaxed">No Bash, <code>--labs</code> mostra o catálogo sem sudo. Na TUI, pressione <strong class="text-electric">L</strong> para navegar e usar Espaço para selecionar apenas as etapas disponíveis. Pacotes AUR Labs e a cópia do Chicago95 exigem confirmação explícita e recusam <code>-y</code>.</p>
         <div class="code-panel"><pre><code>{showCommands}</code></pre><button data-copy={showCommands} type="button">Copiar</button></div>
       </div>
       <div>
@@ -77,7 +79,21 @@ const i3Command = 'python3 DarfinOSInstallScript-TUI.py --plan --preset i3';
         <div class="code-panel"><pre><code>{i3Command}</code></pre><button data-copy={i3Command} type="button">Copiar</button></div>
         <a href="https://i3wm.org/" target="_blank" rel="noopener noreferrer" class="text-electric text-sm underline inline-block mt-4">Conhecer o i3 original ↗</a>
       </div>
+      <div>
+        <p class="section-kicker mb-3">// NOVO · XFCE + CHICAGO95</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-5">O desktop virou 1995.</h2>
+        <p class="text-gray-400 leading-relaxed">O preset <code>retro</code> adiciona Xfce pelos pacotes oficiais e copia o tema GTK e os ícones Chicago95 do repositório original para sua pasta pessoal. A escolha do tema e da sessão fica com você; o instalador não substitui o SonicDE.</p>
+        <div class="code-panel"><pre><code>{retroCommand}</code></pre><button data-copy={retroCommand} type="button">Copiar</button></div>
+        <a href="https://github.com/grassmunk/Chicago95" target="_blank" rel="noopener noreferrer" class="text-electric text-sm underline inline-block mt-4">Chicago95 original no GitHub ↗</a>
+      </div>
     </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-5 py-14 border-b border-white/10">
+    <p class="section-kicker mb-3">// PRÉ-VERIFICAÇÃO DO SISTEMA</p>
+    <h2 class="text-2xl md:text-3xl font-bold">Detectar antes de reinstalar.</h2>
+    <p class="text-gray-400 max-w-3xl mt-4">O Control Center consulta pacotes e arquivos reais. Módulos comprovadamente completos são ignorados na próxima execução; configurações parciais ou incertas exigem revisão, sem falsa promessa de instalação concluída.</p>
+    <div class="code-panel max-w-3xl"><pre><code>{checkCommand}</code></pre><button data-copy={checkCommand} type="button">Copiar</button></div>
+    <p class="text-gray-400 text-sm mt-4">A tecla I reavalia os módulos. A tecla X força a reinstalação conscientemente.</p>
   </section>
   <section class="max-w-6xl mx-auto px-5 py-14">
     <h2 class="font-bold text-xl mb-3">Em desenvolvimento, com limites claros.</h2>
