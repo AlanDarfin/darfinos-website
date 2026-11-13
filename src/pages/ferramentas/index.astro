@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { siteConfig } from '../../lib/config';
+import { labProjects } from '../../lib/labs';
 const groups = [
   {
     title: 'Sistema e ambiente',
@@ -38,6 +39,22 @@ const groups = [
         </article> : null;
       })}</div>
     </section>)}
+    <section class="mt-14" id="labs">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-7">
+        <div><p class="section-kicker mb-3">// NOVO · DARFINOS LABS</p>
+          <h2 class="text-3xl font-bold mb-3">Minha cara. Meus experimentos.</h2>
+          <p class="text-gray-400 max-w-3xl">Além do ecossistema original, estes projetos alternativos têm seus próprios autores. Alguns ganharam módulos de instalação opcionais; outros permanecem laboratórios documentais.</p>
+        </div><a href="/labs/" class="btn btn-primary self-start">Conhecer os Labs ↗</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {labProjects.map(item => <article class="card !p-4 flex flex-col gap-3">
+          <p class="section-kicker text-xs">{item.step ? 'ETAPA OPCIONAL' : 'GUIA / EXPERIMENTO'}</p>
+          <h3 class="font-bold">{item.name}</h3>
+          <p class="text-gray-400 text-xs flex-1">{item.description}</p>
+          <a href={item.originalUrl} target="_blank" rel="noopener noreferrer" class="text-electric underline text-sm" aria-label={'Projeto original: '+item.name}>Fonte original ↗</a>
+        </article>)}
+      </div>
+    </section>
     <div class="security-note mt-12">As imagens, marcas e projetos pertencem aos seus respectivos autores. Nenhuma afiliação ou endosso é presumido. Consulte as respectivas documentações antes de instalar ferramentas que modificam o sistema.</div>
     <div class="flex flex-wrap gap-3 mt-10">
       <a href="/#galeria" class="btn btn-primary">Ver galeria ↗</a>
