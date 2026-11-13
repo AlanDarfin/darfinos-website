@@ -1,0 +1,96 @@
+---
+import { githubUrl, sourceZipUrl } from '../lib/config';
+const { lang = 'en' } = Astro.props;
+const pt = lang === 'pt-BR';
+const t = pt ? {
+ kicker:'DOWNLOADS E VERSÕES', title:'Baixe o código. Confira a versão.',
+ lead:'O DarfinOS é um projeto de pós-instalação do Arch Linux, não uma ISO. Downloads da branch main são código em desenvolvimento; candidatos publicados são pré-lançamentos e não versões estáveis.',
+ source:'Baixar ZIP da main', sourceDesc:'Sempre disponível, corresponde à branch principal atual. Não é um release estável e pode conter mudanças recentes.',
+ repo:'Abrir código no GitHub', release:'Pré-lançamentos no GitHub', releaseDesc:'Candidatos automatizados são publicados apenas depois dos testes Python/Bash e do smoke no Arch serem aprovados. Não validam uma sessão gráfica completa em VM.',
+ waiting:'Verificando candidatos publicados…', empty:'Ainda não há candidato publicado. Use o ZIP da main ou consulte a CI.', unavailable:'Não foi possível consultar o GitHub neste navegador. Use a lista oficial de releases ou o ZIP da main.',
+ latest:'Último candidato publicado', checksum:'Confira o SHA-256 antes de usar.', archive:'Baixar pacote', sha:'Baixar SHA256',
+ warning:'Aviso de estabilidade', warningText:'Ainda não existe release estável. XLibre, SonicDE, Chicago95 e recursos de recuperação precisam de testes de instalação e reinicialização em VM. O projeto não distribui imagens ISO.',
+ steps:'Como começar', stepsText:'Extraia o arquivo, leia a documentação e use o Doctor antes de executar módulos:',
+ docs:'Ler o guia de instalação',
+} : {
+ kicker:'DOWNLOADS & RELEASES', title:'Download the code. Know the version.',
+ lead:'DarfinOS is an Arch Linux post-install project, not an ISO. Archives from main are development source; published candidates are prereleases, not stable builds.',
+ source:'Download current main ZIP', sourceDesc:'Always available and points to the current main branch. This is not a stable release and may change frequently.',
+ repo:'Browse source on GitHub', release:'GitHub development releases', releaseDesc:'Automated candidates are published only after the Python/Bash test matrix and Arch smoke test pass for the same commit. Full graphical VM testing is still pending.',
+ waiting:'Checking for published development candidates…', empty:'No candidate is published yet. Use the main ZIP or check CI.', unavailable:'Could not reach GitHub from this browser. Use the official release list or the main ZIP.',
+ latest:'Most recent development candidate', checksum:'Verify the SHA-256 before running anything.', archive:'Download archive', sha:'Download checksum',
+ warning:'Not a stable release', warningText:'There is no stable release yet. XLibre, SonicDE, Chicago95 and recovery require hands-on VM installation and reboot tests. No ISO image is distributed.',
+ steps:'Getting started', stepsText:'Extract the archive, read the documentation and run Doctor before installing anything:',
+ docs:'Read installation guide',
+};
+const docsHref = pt ? '/pt-br/docs/' : '/docs/';
+---
+<section class="grid-bg border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
+    <p class="section-kicker mb-4">// {t.kicker}</p>
+    <h1 class="section-heading max-w-4xl">{t.title}</h1>
+    <p class="section-lead mt-6 max-w-3xl">{t.lead}</p>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-5 py-16 md:py-20">
+  <div class="grid lg:grid-cols-2 gap-6">
+    <article class="card">
+      <p class="section-kicker mb-3">// MAIN · DEVELOPMENT SOURCE</p>
+      <h2 class="text-2xl font-bold mb-4">{t.source}</h2><p class="text-gray-400 text-sm leading-relaxed mb-7">{t.sourceDesc}</p>
+      <div class="flex flex-wrap gap-3">
+        <a href={sourceZipUrl} class="btn btn-primary">{t.source} ↗</a>
+        <a href={githubUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer">{t.repo} ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <p class="section-kicker mb-3">// VERSIONED · PRERELEASE ONLY</p>
+      <h2 class="text-2xl font-bold mb-4">{t.release}</h2>
+      <p class="text-gray-400 text-sm leading-relaxed mb-5">{t.releaseDesc}</p>
+      <p id="release-status" class="text-gray-400 text-sm" aria-live="polite">{t.waiting}</p>
+      <div id="release-result" hidden>
+        <h3 id="release-title" class="font-bold mb-2"></h3>
+        <p class="text-gray-400 text-sm mb-4">{t.checksum}</p>
+        <div class="flex flex-wrap gap-2">
+          <a class="btn btn-primary" id="candidate-asset" target="_blank" rel="noopener noreferrer">{t.archive}</a>
+          <a class="btn btn-outline" id="candidate-sha" target="_blank" rel="noopener noreferrer">{t.sha}</a>
+        </div>
+      </div>
+      <a href={githubUrl + '/releases'} target="_blank" rel="noopener noreferrer" class="text-electric underline text-sm inline-block mt-6">{t.release} ↗</a>
+    </article>
+  </div>
+  <div class="security-note mt-8"><strong>{t.warning}:</strong> {t.warningText}</div>
+</section>
+<section class="bg-[#15171b] border-t border-white/10">
+  <div class="max-w-6xl mx-auto px-5 py-14">
+    <h2 class="text-2xl font-bold mb-3">{t.steps}</h2>
+    <p class="text-gray-400 mb-5">{t.stepsText}</p>
+    <div class="code-panel max-w-3xl"><pre><code>python3 DarfinOSInstallScript-TUI.py --doctor
+python3 DarfinOSInstallScript-TUI.py --check-modules
+python3 DarfinOSInstallScript-TUI.py --plan --preset minimal</code></pre></div>
+    <a class="btn btn-outline mt-6" href={docsHref}>{t.docs} ↗</a>
+  </div>
+</section>
+<script define:vars={{empty:t.empty,unavailable:t.unavailable,latest:t.latest}}>
+  (async () => {
+    const status = document.getElementById('release-status');
+    const result = document.getElementById('release-result');
+    try {
+      const response = await fetch('https://api.github.com/repos/AlanDarfin/DarfinOS/releases?per_page=15',
+        {headers:{Accept:'application/vnd.github+json'}});
+      if (!response.ok) throw new Error('GitHub API unavailable');
+      const releases = await response.json();
+      const release = Array.isArray(releases) ? releases.find(r => !r.draft && r.prerelease && Array.isArray(r.assets) &&
+        r.assets.some(a => a.name.endsWith('.tar.gz')) && r.assets.some(a => a.name.endsWith('.sha256'))) : null;
+      if (!release) { status.textContent = empty; return; }
+      const archive = release.assets.find(a => a.name.endsWith('.tar.gz'));
+      const checksum = release.assets.find(a => a.name.endsWith('.sha256'));
+      document.getElementById('release-title').textContent = latest + ': ' + release.tag_name;
+      document.getElementById('candidate-asset').href = archive.browser_download_url;
+      document.getElementById('candidate-sha').href = checksum.browser_download_url;
+      status.hidden = true;
+      result.hidden = false;
+    } catch {
+      status.textContent = unavailable;
+    }
+  })();
+</script>
